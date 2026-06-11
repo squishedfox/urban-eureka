@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/electron-vite.animate.svg'
-import './App.css'
+import { ResumeBuilder, Preview } from "@app/features";
+import { SaveIcon, ExportIcon } from "@app/components/icons";
+import { useCallback, useState } from "react";
+import type { ResumeBuilderFormValue } from "./features/resume-builder/types";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [resume, setResume] = useState<ResumeBuilderFormValue>({
+    about: "",
+    jobHistory: [],
+  });
+
+  const resumeChangedHandler = useCallback(
+    (newValue: ResumeBuilderFormValue) => {
+      setResume(newValue);
+    },
+    [],
+  );
 
   return (
-    <>
-      <div>
-        <a href="https://electron-vite.github.io" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main className="flex min-h-screen flex-col">
+      <div className="flex flex-1 px-1">
+        <div className="w-1/2 border-r-2 border-r-gray-800 bg-gray-200 p-4">
+          <ResumeBuilder onChange={resumeChangedHandler} />
+        </div>
+        <div className="w-1/2 p-4">
+          <Preview about={resume.about} jobs={resume.jobHistory} />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+      <footer className="flex grow-0 flex-row items-center justify-end gap-4 border border-gray-800 py-4 pr-4">
+        <button>
+          <ExportIcon size="lg" />
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+        <button>
+          <SaveIcon size="lg" />
+        </button>
+      </footer>
+    </main>
+  );
+};
 
-export default App
+export default App;
