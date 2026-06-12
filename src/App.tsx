@@ -17,15 +17,17 @@ const App = () => {
   );
 
   return (
-    <main className="flex min-h-screen flex-col">
-      <div className="flex flex-1 px-1">
-        <div className="w-1/2 border-r-2 border-r-gray-800 bg-gray-200 p-4">
-          <ResumeBuilder onChange={resumeChangedHandler} />
+    <div>
+      <main className="flex min-h-screen flex-col">
+        <div className="flex flex-1 px-1">
+          <div className="w-1/2 border-r-2 border-r-gray-800 bg-gray-200 p-4">
+            <ResumeBuilder onChange={resumeChangedHandler} />
+          </div>
+          <div className="w-1/2 p-4">
+            <Preview about={resume.about} jobs={resume.jobHistory} />
+          </div>
         </div>
-        <div className="w-1/2 p-4">
-          <Preview about={resume.about} jobs={resume.jobHistory} />
-        </div>
-      </div>
+      </main>
       <footer className="flex grow-0 flex-row items-center justify-end gap-4 border border-gray-800 py-4 pr-4">
         <button>
           <ExportIcon size="lg" />
@@ -34,7 +36,7 @@ const App = () => {
           <SaveIcon size="lg" />
         </button>
       </footer>
-    </main>
+    </div>
   );
 };
 
