@@ -22,11 +22,10 @@ const Preview = ({ about, jobs }: PreviewProps) => {
       </div>
       <ul>
         {jobs.map(({ companyName, endDate, startDate, experience }, ix) => {
-          const id = useId();
           return (
-            <li className="min-w-full" aria-labelledby={id}>
+            <li key={ix} className="min-w-full" aria-labelledby={`${companyName}-${ix}-header`}>
               <div className="flex content-between items-center gap-1">
-                <h2 id={id}>
+                <h2 id={`${companyName}-${ix}-header`}>
                   <strong>{companyName}</strong>
                 </h2>
                 <hr className="grow" />
