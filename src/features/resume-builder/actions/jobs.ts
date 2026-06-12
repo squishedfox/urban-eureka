@@ -1,5 +1,5 @@
 import type { DateRange } from "../types";
-import type { ResumeBuilderActionType } from "../state/reducers";
+import type { ResumeBuilderActionType } from "../actions";
 
 export type JobActionName =
   | "add-job"

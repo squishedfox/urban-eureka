@@ -1,5 +1,4 @@
-import type { ResumeBuilderActionType } from "../state";
-
+import { type ResumeBuilderActionType } from ".";
 export type DetailsActionName =
   | "about-changed"
   | "name-changed"

@@ -1,6 +1,5 @@
 import {
   createContext,
-  use,
   useContext,
   useEffect,
   useReducer,
@@ -14,7 +13,7 @@ import {
 import { initialState, type ResumeBuilderState } from "./state";
 import type { ResumeBuilderActionType } from "./actions";
 import { resumeBuilderReducer } from "./reducers";
-import { usePrevous } from "@/hooks";
+import { usePrevous } from "@app/hooks";
 
 const ResumeBuilderContext = createContext({
   about: "",
