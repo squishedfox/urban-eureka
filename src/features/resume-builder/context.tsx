@@ -1,7 +1,6 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useReducer,
   type PropsWithChildren,
 } from "react";
@@ -10,12 +9,14 @@ import {
   type DateRange,
   type ResumeBuilderFormValue,
 } from "@app/features/resume-builder/types";
-import { initialState, type ResumeBuilderState } from "./state";
-import type { ResumeBuilderActionType } from "./actions";
+import { initialState } from "./state";
 import { resumeBuilderReducer } from "./reducers";
 import { usePrevous } from "@app/hooks";
 
 const ResumeBuilderContext = createContext({
+  fullName: "",
+  email: "",
+  phone: "",
   about: "",
   setAbout: (about: string) => {
     !!about;
@@ -54,6 +55,18 @@ const ResumeBuilderContext = createContext({
     !!newValue;
     /* left intentially blank */
   },
+  fullNameChanged: (newValue: string) => {
+    !!newValue;
+    /* left intentially blank */
+  },
+  emailChanged: (newValue: string) => {
+    !!newValue;
+    /* left intentially blank */
+  },
+  phoneChanged: (newValue: string) => {
+    !!newValue;
+    /* left intentially blank */
+  },
 });
 
 export interface ResumeBuilderFormProviderProps {
@@ -64,10 +77,7 @@ export const ResumeBuilderFormProvider = ({
   onChange,
   children,
 }: PropsWithChildren<ResumeBuilderFormProviderProps>) => {
-  const [state, dispatch] = useReducer<
-    ResumeBuilderState,
-    [ResumeBuilderActionType]
-  >(resumeBuilderReducer, initialState);
+  const [state, dispatch] = useReducer(resumeBuilderReducer, initialState);
 
   const prevState = usePrevous(state);
 
@@ -133,21 +143,36 @@ export const ResumeBuilderFormProvider = ({
     });
   };
 
-  useEffect(() => {
-    onChange({
-      about: state.about,
-      jobHistory: Object.values(state.jobs).map((job) => ({
-        endDate: job.endDate,
-        experience: Object.values(job.experience),
-        startDate: job.startDate,
-        companyName: job.companyName,
-      })),
-    });
-  }, [state]);
+  const phoneChanged = (newValue: string) => {
+    dispatch({ type: "phone-changed", payload: { newPhone: newValue } });
+  };
+
+  const fullNameChanged = (newValue: string) => {
+    dispatch({ type: "name-changed", payload: { newName: newValue } });
+  };
+
+  const emailChanged = (newValue: string) => {
+    dispatch({ type: "email-changed", payload: { newEmail: newValue } });
+  };
+
+  // if (!isEqual(state, prevState)) {
+  //   onChange({
+  //     about: state.about,
+  //     jobHistory: Object.values(state.jobs).map((job) => ({
+  //       endDate: job.endDate,
+  //       experience: Object.values(job.experience),
+  //       startDate: job.startDate,
+  //       companyName: job.companyName,
+  //     })),
+  //   });
+  // }
 
   return (
     <ResumeBuilderContext.Provider
       value={{
+        fullName: state.fullName,
+        email: state.email,
+        phone: state.phone,
         about: state.about,
         jobs: state.jobs,
         setAbout: (newAbout) =>
@@ -159,6 +184,9 @@ export const ResumeBuilderFormProvider = ({
         addExperience,
         removeExperience,
         updateExperience,
+        phoneChanged,
+        emailChanged,
+        fullNameChanged,
       }}
     >
       {children}

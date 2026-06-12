@@ -5,7 +5,9 @@ const About = () => {
 
   return (
     <div>
-      <h1 id="about-section-heading">About</h1>
+      <label htmlFor="about-input" id="about-input-label">
+        About
+      </label>
       <textarea
         placeholder="1+ years of delivering data driven fatures for well tested applications using <frameworks>"
         className="w-full border border-gray-800 px-1 py-0.5"

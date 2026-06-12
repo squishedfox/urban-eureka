@@ -2,8 +2,11 @@ import {
   isAboutChangedAction,
   isAddExperienceAction,
   isAddJobAction,
+  isEmailChangedAction,
   isJobDateChangedAction,
   isJobNameChangeAction,
+  isNameChangedAction,
+  isPhoneChangedAction,
   isRemoveExperienceAction,
   isRemoveJobAction,
   isUpdateExperienceAction,
@@ -44,6 +47,18 @@ export const resumeBuilderReducer = (
   } else if (isAboutChangedAction(action)) {
     return Object.assign({}, state, {
       about: action.payload.newAbout,
+    });
+  } else if (isNameChangedAction(action)) {
+    return Object.assign({}, state, {
+      fullName: action.payload.newName,
+    });
+  } else if (isEmailChangedAction(action)) {
+    return Object.assign({}, state, {
+      email: action.payload.newEmail,
+    });
+  } else if (isPhoneChangedAction(action)) {
+    return Object.assign({}, state, {
+      phone: action.payload.newPhone,
     });
   } else {
     return state;
