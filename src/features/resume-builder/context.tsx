@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useReducer,
   type PropsWithChildren,
 } from "react";
@@ -186,6 +187,7 @@ export const ResumeBuilderFormProvider = ({
   );
 
   useEffect(() => {
+    // I do not love this logic but here we are
     onChange({
       fullName: state.fullName,
       email: state.email,
@@ -200,14 +202,21 @@ export const ResumeBuilderFormProvider = ({
     });
   }, [state, onChange]);
 
+  // try to do some performance tuning in this context so components can also take advantage
+  const fullName = useMemo(() => state.fullName, [state.fullName]);
+  const email = useMemo(() => state.email, [state.email]);
+  const phone = useMemo(() => state.phone, [state.phone]);
+  const about = useMemo(() => state.about, [state.about]);
+  const jobs = useMemo(() => state.jobs, [state.jobs]);
+
   return (
     <ResumeBuilderContext.Provider
       value={{
-        fullName: state.fullName,
-        email: state.email,
-        phone: state.phone,
-        about: state.about,
-        jobs: state.jobs,
+        fullName,
+        email,
+        phone,
+        about,
+        jobs,
         aboutChanged,
         addJob,
         removeJob,
