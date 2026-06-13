@@ -1,5 +1,6 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useReducer,
@@ -80,85 +81,109 @@ export const ResumeBuilderFormProvider = ({
 }: PropsWithChildren<ResumeBuilderFormProviderProps>) => {
   const [state, dispatch] = useReducer(resumeBuilderReducer, initialState);
 
-  const prevState = usePrevous(state);
-
-  const addJob = () => {
+  const addJob = useCallback(() => {
     dispatch({ type: "add-job" });
-  };
+  }, [dispatch]);
 
-  const removeJob = (id: string) => {
-    dispatch({ type: "remove-job", payload: { id } });
-  };
+  const removeJob = useCallback(
+    (id: string) => {
+      dispatch({ type: "remove-job", payload: { id } });
+    },
+    [dispatch],
+  );
 
-  const dateChanged = (id: string, range: DateRange) => {
-    dispatch({
-      type: "date-changed-job",
-      payload: {
-        jobId: id,
-        range,
-      },
-    });
-  };
+  const dateChanged = useCallback(
+    (id: string, range: DateRange) => {
+      dispatch({
+        type: "date-changed-job",
+        payload: {
+          jobId: id,
+          range,
+        },
+      });
+    },
+    [dispatch],
+  );
 
-  const companyNameChanged = (id: string, newName: string) => {
-    dispatch({
-      type: "name-changed-job",
-      payload: {
-        jobId: id,
-        newName,
-      },
-    });
-  };
+  const companyNameChanged = useCallback(
+    (id: string, newName: string) => {
+      dispatch({
+        type: "name-changed-job",
+        payload: {
+          jobId: id,
+          newName,
+        },
+      });
+    },
+    [dispatch],
+  );
 
-  const addExperience = (jobId: string) => {
-    dispatch({
-      type: "add-experience",
-      payload: {
-        jobId,
-      },
-    });
-  };
+  const addExperience = useCallback(
+    (jobId: string) => {
+      dispatch({
+        type: "add-experience",
+        payload: {
+          jobId,
+        },
+      });
+    },
+    [dispatch],
+  );
 
-  const updateExperience = (
-    jobId: string,
-    experienceId: string,
-    newValue: string,
-  ) => {
-    dispatch({
-      type: "update-experience",
-      payload: {
-        expId: experienceId,
-        jobId,
-        newValue,
-      },
-    });
-  };
+  const updateExperience = useCallback(
+    (jobId: string, experienceId: string, newValue: string) => {
+      dispatch({
+        type: "update-experience",
+        payload: {
+          expId: experienceId,
+          jobId,
+          newValue,
+        },
+      });
+    },
+    [dispatch],
+  );
 
-  const removeExperience = (jobId: string, experienceId: string) => {
-    dispatch({
-      type: "remove-experience",
-      payload: {
-        jobId,
-        expId: experienceId,
-      },
-    });
-  };
+  const removeExperience = useCallback(
+    (jobId: string, experienceId: string) => {
+      dispatch({
+        type: "remove-experience",
+        payload: {
+          jobId,
+          expId: experienceId,
+        },
+      });
+    },
+    [dispatch],
+  );
 
-  const phoneChanged = (newValue: string) => {
-    dispatch({ type: "phone-changed", payload: { newPhone: newValue } });
-  };
+  const phoneChanged = useCallback(
+    (newValue: string) => {
+      dispatch({ type: "phone-changed", payload: { newPhone: newValue } });
+    },
+    [dispatch],
+  );
 
-  const fullNameChanged = (newValue: string) => {
-    dispatch({ type: "name-changed", payload: { newName: newValue } });
-  };
+  const fullNameChanged = useCallback(
+    (newValue: string) => {
+      dispatch({ type: "name-changed", payload: { newName: newValue } });
+    },
+    [dispatch],
+  );
 
-  const emailChanged = (newValue: string) => {
-    dispatch({ type: "email-changed", payload: { newEmail: newValue } });
-  };
+  const emailChanged = useCallback(
+    (newValue: string) => {
+      dispatch({ type: "email-changed", payload: { newEmail: newValue } });
+    },
+    [dispatch],
+  );
 
-  const aboutChanged = (newAbout: string) => {
-    dispatch({ type: "about-changed", payload: { newAbout } });
-  };
+  const aboutChanged = useCallback(
+    (newAbout: string) => {
+      dispatch({ type: "about-changed", payload: { newAbout } });
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     onChange({
@@ -214,14 +239,31 @@ export const useJob = (id: string) => {
     companyNameChanged: jobNameChanged,
   } = useResumseBuilderForm();
 
-  const removeJob = () => removeCurrentJob(id);
-  const addExperience = () => addJobExperience(id);
-  const removeExperience = (experienceId: string) =>
-    removeJobExperience(id, experienceId);
-  const updateExperience = (experienceId: string, newText: string) =>
-    updateJobExperience(id, experienceId, newText);
-  const dateChanged = (range: DateRange) => jobDateChanged(id, range);
-  const companyNameChanged = (newName: string) => jobNameChanged(id, newName);
+  const removeJob = useCallback(
+    () => removeCurrentJob(id),
+    [removeCurrentJob, id],
+  );
+  const addExperience = useCallback(
+    () => addJobExperience(id),
+    [addJobExperience, id],
+  );
+  const removeExperience = useCallback(
+    (experienceId: string) => removeJobExperience(id, experienceId),
+    [removeJobExperience, id],
+  );
+  const updateExperience = useCallback(
+    (experienceId: string, newText: string) =>
+      updateJobExperience(id, experienceId, newText),
+    [updateJobExperience, id],
+  );
+  const dateChanged = useCallback(
+    (range: DateRange) => jobDateChanged(id, range),
+    [jobDateChanged, id],
+  );
+  const companyNameChanged = useCallback(
+    (newName: string) => jobNameChanged(id, newName),
+    [jobNameChanged, id],
+  );
 
   return {
     job: jobs[id],

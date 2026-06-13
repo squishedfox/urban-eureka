@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { useResumseBuilderForm } from "../context";
 
 export interface ContactProps {
@@ -14,12 +14,21 @@ const Contact = ({ className }: ContactProps) => {
     emailChanged,
   } = useResumseBuilderForm();
 
-  const nameChangedHandler = (event: ChangeEvent<HTMLInputElement>) =>
-    fullNameChanged(event.currentTarget.value);
-  const emailChangedHandler = (event: ChangeEvent<HTMLInputElement>) =>
-    emailChanged(event.currentTarget.value);
-  const phoneChangedHandler = (event: ChangeEvent<HTMLInputElement>) =>
-    phoneChanged(event.currentTarget.value);
+  const nameChangedHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      fullNameChanged(event.currentTarget.value),
+    [fullNameChanged],
+  );
+  const emailChangedHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      emailChanged(event.currentTarget.value),
+    [emailChanged],
+  );
+  const phoneChangedHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      phoneChanged(event.currentTarget.value),
+    [phoneChanged],
+  );
 
   return (
     <div className={className}>

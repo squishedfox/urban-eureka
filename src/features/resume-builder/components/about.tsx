@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { useResumseBuilderForm } from "../context";
 
 const About = () => {
