@@ -4,15 +4,15 @@ import { useResumseBuilderForm } from "../context";
 const About = () => {
   const [aboutState, setAboutState] = useState("");
 
-  const { about, setAbout: setAboutCallback } = useResumseBuilderForm();
+  const { about, aboutChanged } = useResumseBuilderForm();
 
   useEffect(() => {
     const handle = setTimeout(() => {
-      setAboutCallback(aboutState);
+      aboutChanged(aboutState);
     }, 500);
 
     return () => clearTimeout(handle);
-  }, [aboutState]);
+  }, [aboutState, aboutChanged]);
 
   const aboutChangedHandler = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
