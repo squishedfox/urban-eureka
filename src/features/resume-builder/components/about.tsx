@@ -1,7 +1,25 @@
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { useResumseBuilderForm } from "../context";
 
 const About = () => {
-  const { about, setAbout } = useResumseBuilderForm();
+  const [aboutState, setAboutState] = useState("");
+
+  const { about, setAbout: setAboutCallback } = useResumseBuilderForm();
+
+  useEffect(() => {
+    const handle = setTimeout(() => {
+      setAboutCallback(aboutState);
+    }, 500);
+
+    return () => clearTimeout(handle);
+  }, [aboutState]);
+
+  const aboutChangedHandler = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>) => {
+      setAboutState(event.currentTarget.value);
+    },
+    [],
+  );
 
   return (
     <div>
@@ -14,7 +32,7 @@ const About = () => {
         id="about-input"
         name="about"
         value={about}
-        onChange={(event) => setAbout(event.currentTarget.value)}
+        onChange={aboutChangedHandler}
         maxLength={500}
         minLength={0}
       />

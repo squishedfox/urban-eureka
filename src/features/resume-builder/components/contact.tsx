@@ -1,7 +1,10 @@
 import { ChangeEvent } from "react";
 import { useResumseBuilderForm } from "../context";
 
-const Contact = () => {
+export interface ContactProps {
+  className?: string;
+}
+const Contact = ({ className }: ContactProps) => {
   const {
     fullName,
     fullNameChanged,
@@ -11,20 +14,15 @@ const Contact = () => {
     emailChanged,
   } = useResumseBuilderForm();
 
-  const nameChangedHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const nameChangedHandler = (event: ChangeEvent<HTMLInputElement>) =>
     fullNameChanged(event.currentTarget.value);
-  };
-
-  const emailChangedHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const emailChangedHandler = (event: ChangeEvent<HTMLInputElement>) =>
     emailChanged(event.currentTarget.value);
-  };
-
-  const phoneChangedHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const phoneChangedHandler = (event: ChangeEvent<HTMLInputElement>) =>
     phoneChanged(event.currentTarget.value);
-  };
 
   return (
-    <div>
+    <div className={className}>
       <div>
         <label htmlFor="full-name-input" id="full-name-input-label">
           Full Name

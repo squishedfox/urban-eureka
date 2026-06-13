@@ -18,8 +18,8 @@ const ResumeBuilderContext = createContext({
   email: "",
   phone: "",
   about: "",
-  setAbout: (about: string) => {
-    !!about;
+  aboutChanged: (newAbout: string) => {
+    !!newAbout;
     /* left intentially blank */
   },
   jobs: {} as Record<string, JobHistoryListItem>,
@@ -155,6 +155,10 @@ export const ResumeBuilderFormProvider = ({
     dispatch({ type: "email-changed", payload: { newEmail: newValue } });
   };
 
+  const aboutChanged = (newAbout: string) => {
+    dispatch({ type: "about-changed", payload: { newAbout } });
+  };
+
   // if (!isEqual(state, prevState)) {
   //   onChange({
   //     about: state.about,
@@ -175,8 +179,7 @@ export const ResumeBuilderFormProvider = ({
         phone: state.phone,
         about: state.about,
         jobs: state.jobs,
-        setAbout: (newAbout) =>
-          dispatch({ type: "about-changed", payload: { newAbout } }),
+        aboutChanged,
         addJob,
         removeJob,
         dateChanged,
