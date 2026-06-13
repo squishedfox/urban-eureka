@@ -1,6 +1,7 @@
-import { useId } from "react";
-
 export interface PreviewProps {
+  fullName: string;
+  email: string;
+  phone: string;
   about: string;
   jobs: {
     startDate: string;
@@ -10,9 +11,14 @@ export interface PreviewProps {
   }[];
 }
 
-const Preview = ({ about, jobs }: PreviewProps) => {
+const Preview = ({ about, fullName, email, phone, jobs }: PreviewProps) => {
   return (
     <div className="space-y-4">
+      <section aria-label="contact information">
+        <h1>{fullName}</h1>
+        <p>{phone}</p>
+        <p>{email}</p>
+      </section>
       <section>
         <h3>
           <strong>About Me</strong>

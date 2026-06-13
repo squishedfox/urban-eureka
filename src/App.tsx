@@ -5,6 +5,9 @@ import type { ResumeBuilderFormValue } from "./features/resume-builder/types";
 
 const App = () => {
   const [resume, setResume] = useState<ResumeBuilderFormValue>({
+    fullName: "",
+    email: "",
+    phone: "",
     about: "",
     jobHistory: [],
   });
