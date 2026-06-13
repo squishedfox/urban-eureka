@@ -11,6 +11,7 @@ import {
   type ReactElement,
   type ReactNode,
 } from "react";
+import { PencilIcon, XmarkIcon } from "../icons";
 
 export interface EditableFieldProps {
   /**
@@ -69,7 +70,7 @@ const EditableField = ({
       event.preventDefault(); // stop propegation incase we are in a form
       setIsEditing(false);
       if (value !== valueProp) {
-        onChanged(value); // tell the consumer we have made an official chane not just clicking to edit and then leaving
+        onChanged(value ?? ""); // tell the consumer we have made an official chane not just clicking to edit and then leaving
       }
     }
   };
@@ -77,7 +78,7 @@ const EditableField = ({
   const handleBlur = (_: FocusEvent<HTMLInputElement>) => {
     setIsEditing(false);
     if (value !== valueProp) {
-      onChanged(value); // tell the consumer we have made an official chane not just clicking to edit and then leaving
+      onChanged(value ?? ""); // tell the consumer we have made an official chane not just clicking to edit and then leaving
     }
   };
 
@@ -85,7 +86,7 @@ const EditableField = ({
     setValue(event.currentTarget.value);
   };
 
-  const handleChildClick = () => {
+  const editIconClickHandler = () => {
     setIsEditing(true);
     setTimeout(() => {
       // add timeout to let the render turn into an input
@@ -108,36 +109,30 @@ const EditableField = ({
   }, [valueProp]);
 
   if (!isEditing) {
-    const childArray = Children.toArray(children);
-    return Children.map(childArray, (child) => {
-      if (typeof child !== "object") {
-        console.warn(
-          typeof child,
-          "is not a supported type for editable inputs",
-        );
-        return child; // just return whatever they gave us
-      }
-      if (!("props" in child)) {
-        console.warn(
-          "Child does not implement props property. Not suspected as ReactElement",
-        );
-        return child;
-      }
-      return cloneElement(child as ReactElement<HTMLProps<HTMLElement>>, {
-        onClick: handleChildClick,
-      });
-    });
+    return (
+      <div className="space-x-1 inline-flex items-center">
+        {children}
+        <span onClick={editIconClickHandler}>
+          <PencilIcon size="sm" />
+        </span>
+      </div>
+    );
   }
 
   return (
-    <input
-      ref={ref}
-      type={type}
-      value={value ?? ""}
-      onChange={handleFieldValueChanged}
-      onKeyUp={handleKeyUp}
-      onBlur={handleBlur}
-    />
+    <div className="space-x-1 grow-0 inline-flex items-center">
+      <input
+        ref={ref}
+        type={type}
+        value={value ?? ""}
+        onChange={handleFieldValueChanged}
+        onKeyUp={handleKeyUp}
+        onBlur={handleBlur}
+      />
+      <span onClick={() => setIsEditing(false)}>
+        <XmarkIcon size="sm" />
+      </span>
+    </div>
   );
 };
 
