@@ -27,7 +27,7 @@ const App = () => {
             <ResumeBuilder onChange={resumeChangedHandler} />
           </div>
           <div className="w-1/2 p-4">
-            <Preview about={resume.about} jobs={resume.jobHistory} />
+            <Preview {...resume} jobs={resume.jobHistory} />
           </div>
         </div>
       </main>

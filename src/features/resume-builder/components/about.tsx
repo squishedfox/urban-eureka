@@ -1,24 +1,14 @@
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useResumseBuilderForm } from "../context";
 
 const About = () => {
-  const [aboutState, setAboutState] = useState("");
-
   const { about, aboutChanged } = useResumseBuilderForm();
-
-  useEffect(() => {
-    const handle = setTimeout(() => {
-      aboutChanged(aboutState);
-    }, 500);
-
-    return () => clearTimeout(handle);
-  }, [aboutState, aboutChanged]);
 
   const aboutChangedHandler = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
-      setAboutState(event.currentTarget.value);
+      aboutChanged(event.currentTarget.value);
     },
-    [],
+    [aboutChanged],
   );
 
   return (

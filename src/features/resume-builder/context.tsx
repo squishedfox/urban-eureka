@@ -1,6 +1,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useReducer,
   type PropsWithChildren,
 } from "react";
@@ -159,17 +160,20 @@ export const ResumeBuilderFormProvider = ({
     dispatch({ type: "about-changed", payload: { newAbout } });
   };
 
-  // if (!isEqual(state, prevState)) {
-  //   onChange({
-  //     about: state.about,
-  //     jobHistory: Object.values(state.jobs).map((job) => ({
-  //       endDate: job.endDate,
-  //       experience: Object.values(job.experience),
-  //       startDate: job.startDate,
-  //       companyName: job.companyName,
-  //     })),
-  //   });
-  // }
+  useEffect(() => {
+    onChange({
+      fullName: state.fullName,
+      email: state.email,
+      phone: state.phone,
+      about: state.about,
+      jobHistory: Object.values(state.jobs).map((job) => ({
+        endDate: job.endDate,
+        experience: Object.values(job.experience),
+        startDate: job.startDate,
+        companyName: job.companyName,
+      })),
+    });
+  }, [state, onChange]);
 
   return (
     <ResumeBuilderContext.Provider
