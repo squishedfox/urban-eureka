@@ -1,6 +1,7 @@
-import { type ChangeEvent, type MouseEvent } from "react";
+import { useCallback, type ChangeEvent, type MouseEvent } from "react";
 import {
   ChevronIcon,
+  DateRangeField,
   EditableField,
   SquarePlusIcon,
   TrashIcon,
@@ -18,7 +19,7 @@ export interface JobHistoryItemProps {
 
 const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
   const {
-    job,
+    job: { companyName, startDate, endDate, experience },
     dateChanged,
     removeJob,
     companyNameChanged,
@@ -27,76 +28,74 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
     removeExperience,
   } = useJob(id);
 
-  const onAddExperienceClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    addExperience();
-  };
+  const onAddExperienceClick = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      addExperience();
+    },
+    [addExperience],
+  );
 
-  const deleteJobHandler = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    removeJob();
-  };
+  const deleteJobHandler = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      removeJob();
+    },
+    [removeJob],
+  );
 
-  const experienceChangedHandler = (event: ChangeEvent<HTMLInputElement>) =>
-    updateExperience(event.target.name, event.target.value);
-  const employmentDateChangedHandler = ([start, end]: [string, string]) =>
-    dateChanged([start, end]);
-  const removeExperienceHandler = (experienceId: string) =>
-    removeExperience(experienceId);
-  const companyNameChangeHandler = (newCompanyName: string) =>
-    companyNameChanged(newCompanyName);
+  const experienceChangedHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      updateExperience(event.target.name, event.target.value),
+    [updateExperience],
+  );
+  const employmentDateChangedHandler = useCallback(
+    ([start, end]: [string, string]) => dateChanged([start, end]),
+    [dateChanged],
+  );
+  const removeExperienceHandler = useCallback(
+    (experienceId: string) => removeExperience(experienceId),
+    [removeExperience],
+  );
+  const companyNameChangeHandler = useCallback(
+    (newCompanyName: string) => companyNameChanged(newCompanyName),
+    [companyNameChanged],
+  );
 
   return (
     <div className={className}>
       <div>
         <div className="flex grow place-content-between">
           <EditableField
-            value={job.companyName}
+            value={companyName}
             type="text"
             onChanged={(companyName) =>
               companyNameChangeHandler(companyName as string)
             }
           >
-            <strong>{job.companyName}</strong>
+            <strong>{companyName}</strong>
           </EditableField>
           <button
-            title={`delete "${job.companyName}" and all related details`}
+            title={`delete "${companyName}" and all related details`}
             aria-label="Delete job"
             onClick={deleteJobHandler}
           >
             <TrashIcon size="sm" />
           </button>
         </div>
-        <p className="flex gap-x-1">
-          <EditableField
-            value={job.startDate}
-            type="date"
-            onChanged={(newDate) =>
-              employmentDateChangedHandler([
-                newDate as string,
-                job.endDate as string,
-              ])
-            }
+        <p className="inline-flex gap-x-1 items-center">
+          <DateRangeField
+            value={[startDate, endDate ?? ""]}
+            onChanged={(newRange) => employmentDateChangedHandler(newRange)}
           >
-            <span>{job.startDate}</span>
-          </EditableField>
-          <span>-</span>
-          <EditableField
-            value={job.endDate}
-            type="date"
-            onChanged={(newEndDate) =>
-              employmentDateChangedHandler([
-                job.startDate,
-                newEndDate as string,
-              ])
-            }
-          >
-            <span>{job.endDate ? job.endDate : "Current"}</span>
-          </EditableField>
+            <span>{endDate ? endDate : "Current"}</span>
+            <span>-</span>
+            <span>{endDate ? endDate : "Current"}</span>
+          </DateRangeField>
         </p>
       </div>
       <ul className="space-y-2">
-        {Object.entries(job.experience).map(([id, text]) => (
+        {Object.entries(experience).map(([id, text]) => (
           <li key={id}>
             <div className="flex items-center gap-x-1">
               <div className="content-start">
