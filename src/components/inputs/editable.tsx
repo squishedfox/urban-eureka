@@ -1,5 +1,4 @@
 import {
-  memo,
   useEffect,
   useRef,
   useState,
@@ -7,8 +6,14 @@ import {
   type FocusEvent,
   type KeyboardEvent,
   type ReactNode,
+  type MouseEvent,
 } from "react";
-import { PencilIcon, XmarkIcon } from "../icons";
+import {
+  CalendarIcon,
+  CalendarXMarkIcon,
+  PencilIcon,
+  XmarkIcon,
+} from "../icons";
 
 export interface EditableFieldProps {
   /**
@@ -83,7 +88,8 @@ const EditableField = ({
     setValue(event.currentTarget.value);
   };
 
-  const editIconClickHandler = () => {
+  const editIconClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setIsEditing(true);
     setTimeout(() => {
       // add timeout to let the render turn into an input
@@ -116,9 +122,9 @@ const EditableField = ({
           onKeyUp={handleKeyUp}
           onBlur={handleBlur}
         />
-        <span onClick={() => setIsEditing(false)}>
+        <button onClick={() => setIsEditing(false)}>
           <XmarkIcon size="sm" />
-        </span>
+        </button>
       </div>
     );
   }
@@ -126,9 +132,13 @@ const EditableField = ({
   return (
     <div className="space-x-1 inline-flex items-center">
       {children}
-      <span onClick={editIconClickHandler}>
-        <PencilIcon size="sm" />
-      </span>
+      <button onClick={editIconClickHandler}>
+        {type === "date" ? (
+          <CalendarIcon size="sm" />
+        ) : (
+          <PencilIcon size="sm" />
+        )}
+      </button>
     </div>
   );
 };

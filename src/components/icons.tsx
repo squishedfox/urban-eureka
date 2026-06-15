@@ -11,6 +11,8 @@ import Plus from "@assets/plus.svg";
 import CirclePlus from "@assets/circle-plus.svg";
 import SquarePlus from "@assets/square-plus.svg";
 import Pencil from "@assets/pencil.svg";
+import Calendar from "@assets/calendar.svg";
+import CalendarXMark from "@assets/calendar-xmark.svg";
 
 import type { AriaAttributes, HTMLAttributes } from "react";
 
@@ -108,4 +110,10 @@ export const SquarePlusIcon = ({ size = "md" }: IconProps) => (
 );
 export const PencilIcon = ({ size = "md" }: IconProps) => (
   <img src={Pencil} className={iconClassSizeMap[size]} />
+);
+export const CalendarIcon = ({ size = "md" }: IconProps) => (
+  <img src={Calendar} className={iconClassSizeMap[size]} />
+);
+export const CalendarXMarkIcon = ({ size = "md" }: IconProps) => (
+  <img src={CalendarXMark} className={iconClassSizeMap[size]} />
 );
