@@ -1,7 +1,7 @@
 import { ResumeBuilder, Preview } from "@app/features";
 import { SaveIcon, ExportIcon } from "@app/components/icons";
-import { useCallback, useState } from "react";
-import type { ResumeBuilderFormValue } from "./features/resume-builder/types";
+import { useCallback, useState, type MouseEvent } from "react";
+import { type ResumeBuilderFormValue } from "./features/resume-builder/types";
 
 const App = () => {
   const [resume, setResume] = useState<ResumeBuilderFormValue>({
@@ -19,24 +19,30 @@ const App = () => {
     [],
   );
 
+  const saveHandler = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      window.ipcRenderer.send("resume-builder:save", resume);
+    },
+    [resume],
+  );
+
   return (
-    <div>
-      <main className="flex min-h-screen flex-col">
-        <div className="flex flex-1 px-1">
-          <div className="w-1/2 border-r-2 border-r-gray-800 bg-gray-200 p-4">
-            <ResumeBuilder onChange={resumeChangedHandler} />
-          </div>
-          <div className="w-1/2 p-4">
-            <Preview {...resume} jobs={resume.jobHistory} />
-          </div>
+    <div className="h-screen">
+      <main className="flex pb-16 h-full">
+        <div className="border-r border-r-gray-800 bg-gray-200 flex-1 h-full px-4 pt-4">
+          <ResumeBuilder onChange={resumeChangedHandler} />
+        </div>
+        <div className="flex-1 h-full px-4 pt-4">
+          <Preview {...resume} jobs={resume.jobHistory} />
         </div>
       </main>
-      <footer className="flex grow-0 flex-row items-center justify-end gap-4 border border-gray-800 py-4 pr-4">
+      <footer className="h-16 border border-gray-800 fixed bottom-0 left-0 z-50 w-full flex flex-row-reverse pr-2">
         <button>
           <ExportIcon size="lg" />
         </button>
         <button>
-          <SaveIcon size="lg" />
+          <SaveIcon onClick={saveHandler} size="lg" />
         </button>
       </footer>
     </div>

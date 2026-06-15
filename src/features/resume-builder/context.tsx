@@ -14,7 +14,6 @@ import {
 } from "@app/features/resume-builder/types";
 import { initialState } from "./state";
 import { resumeBuilderReducer } from "./reducers";
-import { usePrevous } from "@app/hooks";
 
 const ResumeBuilderContext = createContext({
   fullName: "",
