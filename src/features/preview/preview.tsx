@@ -15,17 +15,17 @@ const Preview = ({ about, fullName, email, phone, jobs }: PreviewProps) => {
   return (
     <div className="space-y-4">
       <section aria-label="contact information">
-        <h1>{fullName}</h1>
-        <p>{phone}</p>
-        <p>{email}</p>
+        <h1 className="text-2xl">{fullName}</h1>
+        <p className="text-lg">{email}</p>
+        <p className="text-lg">{phone}</p>
       </section>
       <section>
         <h3>
           <strong>About Me</strong>
         </h3>
         <p>{about}</p>
-        <hr />
       </section>
+      <hr />
       <section>
         <ul>
           <h3>
