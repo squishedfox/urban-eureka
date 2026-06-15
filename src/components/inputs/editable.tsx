@@ -1,4 +1,5 @@
 import {
+  memo,
   useEffect,
   useRef,
   useState,
@@ -104,29 +105,29 @@ const EditableField = ({
     }
   }, [valueProp]);
 
-  if (!isEditing) {
+  if (isEditing) {
     return (
-      <div className="space-x-1 inline-flex items-center">
-        {children}
-        <span onClick={editIconClickHandler}>
-          <PencilIcon size="sm" />
+      <div className="space-x-1 grow-0 inline-flex items-center">
+        <input
+          ref={ref}
+          type={type}
+          value={value ?? ""}
+          onChange={handleFieldValueChanged}
+          onKeyUp={handleKeyUp}
+          onBlur={handleBlur}
+        />
+        <span onClick={() => setIsEditing(false)}>
+          <XmarkIcon size="sm" />
         </span>
       </div>
     );
   }
 
   return (
-    <div className="space-x-1 grow-0 inline-flex items-center">
-      <input
-        ref={ref}
-        type={type}
-        value={value ?? ""}
-        onChange={handleFieldValueChanged}
-        onKeyUp={handleKeyUp}
-        onBlur={handleBlur}
-      />
-      <span onClick={() => setIsEditing(false)}>
-        <XmarkIcon size="sm" />
+    <div className="space-x-1 inline-flex items-center">
+      {children}
+      <span onClick={editIconClickHandler}>
+        <PencilIcon size="sm" />
       </span>
     </div>
   );
