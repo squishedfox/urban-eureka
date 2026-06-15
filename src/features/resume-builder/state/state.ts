@@ -8,9 +8,9 @@ export interface ResumeBuilderState {
   jobs: Record<string, JobHistoryListItem>;
 }
 export const initialState: ResumeBuilderState = {
-  fullName: "",
-  email: "",
-  phone: "",
+  fullName: "a full name here. click the pencil icon to change",
+  email: "first.last@adomain.com",
+  phone: "+1 555-555-5555",
   about: "",
   jobs: {},
 };

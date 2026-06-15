@@ -16,9 +16,9 @@ import { initialState } from "./state";
 import { resumeBuilderReducer } from "./reducers";
 
 const ResumeBuilderContext = createContext({
-  fullName: "",
-  email: "",
-  phone: "",
+  fullName: "A full Name User",
+  email: "first.last@domain.net",
+  phone: "+1 123-444-5656",
   about: "",
   aboutChanged: (newAbout: string) => {
     !!newAbout;
