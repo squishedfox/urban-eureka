@@ -8,12 +8,7 @@ import {
   type ReactNode,
   type MouseEvent,
 } from "react";
-import {
-  CalendarIcon,
-  CalendarXMarkIcon,
-  PencilIcon,
-  XmarkIcon,
-} from "../icons";
+import { CalendarIcon, PencilIcon, XmarkIcon } from "../icons";
 
 export interface EditableFieldProps {
   /**
@@ -29,7 +24,8 @@ export interface EditableFieldProps {
     | "url"
     | "month"
     | "datetime-local"
-    | "week";
+    | "week"
+    | "phone";
   /**
    * Override prop that can be passed to tell component it is in editing state
    */

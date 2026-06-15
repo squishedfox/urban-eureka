@@ -17,7 +17,7 @@ const ResumeBuilder = ({ onChange }: ResumeBuilderFormProps) => (
         className="min-w-full border border-gray-800 bg-white p-2"
         aria-label="About and Contact Section"
       >
-        <Contact />
+        <Contact className="flex flex-col space-y-1" />
         <About />
       </fieldset>
       <fieldset>

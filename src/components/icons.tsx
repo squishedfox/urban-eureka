@@ -13,6 +13,10 @@ import SquarePlus from "@assets/square-plus.svg";
 import Pencil from "@assets/pencil.svg";
 import Calendar from "@assets/calendar.svg";
 import CalendarXMark from "@assets/calendar-xmark.svg";
+import IDCard from "@assets/id-card.svg";
+import Envelope from "@assets/envelope.svg";
+import Phone from "@assets/phone.svg";
+import CircleUser from "@assets/circle-user.svg";
 
 import type { AriaAttributes, HTMLAttributes } from "react";
 
@@ -116,4 +120,16 @@ export const CalendarIcon = ({ size = "md" }: IconProps) => (
 );
 export const CalendarXMarkIcon = ({ size = "md" }: IconProps) => (
   <img src={CalendarXMark} className={iconClassSizeMap[size]} />
+);
+export const IDCardIcon = ({ size = "md" }: IconProps) => (
+  <img src={IDCard} className={iconClassSizeMap[size]} />
+);
+export const EnvelopeIcon = ({ size = "md" }: IconProps) => (
+  <img src={Envelope} className={iconClassSizeMap[size]} />
+);
+export const PhoneIcon = ({ size = "md" }: IconProps) => (
+  <img src={Phone} className={iconClassSizeMap[size]} />
+);
+export const CircleUserIcon = ({ size = "md" }: IconProps) => (
+  <img src={CircleUser} className={iconClassSizeMap[size]} />
 );
