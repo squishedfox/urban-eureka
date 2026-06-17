@@ -47,9 +47,9 @@ export interface EditableFieldProps {
 }
 
 const EditableField = ({
-  type,
-  isEditing: isEditingProp,
-  children,
+  type = "text",
+  isEditing: isEditingProp = false,
+  children = <></>,
   value: valueProp,
   onChanged,
 }: EditableFieldProps) => {
