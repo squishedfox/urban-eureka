@@ -1,5 +1,4 @@
 import {
-  useEffect,
   useRef,
   useState,
   type ChangeEvent,
@@ -40,6 +39,20 @@ export interface EditableFieldProps {
    * originally passed in.
    */
   onChanged: (value: string | number) => void;
+  /**
+   * Must be a unique name for the field in form
+   * @example "email-input"
+   * @example "phone-input"
+   * @example "exp-date-input"
+   */
+  name: string;
+  /**
+   * label text for accessability users
+   * @example "Phone #"
+   * @example "E-Mail"
+   * @example "Full Address"
+   */
+  label: string;
 }
 
 const EditableField = ({
@@ -47,6 +60,8 @@ const EditableField = ({
   children = <></>,
   value: valueProp,
   onChanged,
+  name,
+  label,
 }: EditableFieldProps) => {
   const ref = useRef<HTMLInputElement | null>(null);
   const [value, setValue] = useState(valueProp);
@@ -92,17 +107,16 @@ const EditableField = ({
     return (
       <div className="space-x-1 grow-0 inline-flex items-center">
         <input
+          name={name}
           ref={ref}
           type={type}
           value={value ?? ""}
           onChange={handleFieldValueChanged}
           onKeyUp={handleKeyUp}
           onBlur={handleBlur}
+          aria-label={label}
         />
-        <button
-          onClick={() => setIsEditing(false)}
-          aria-label="Click to Cancel"
-        >
+        <button onClick={() => setIsEditing(false)} title="Click to Cancel">
           <XmarkIcon size="sm" />
         </button>
       </div>
@@ -112,7 +126,7 @@ const EditableField = ({
   return (
     <div className="space-x-1 inline-flex items-center">
       {children}
-      <button onClick={editIconClickHandler}>
+      <button onClick={editIconClickHandler} title="Click to edit">
         {type === "date" ? (
           <CalendarIcon size="sm" />
         ) : (
