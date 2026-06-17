@@ -99,7 +99,10 @@ const EditableField = ({
           onKeyUp={handleKeyUp}
           onBlur={handleBlur}
         />
-        <button onClick={() => setIsEditing(false)}>
+        <button
+          onClick={() => setIsEditing(false)}
+          aria-label="Click to Cancel"
+        >
           <XmarkIcon size="sm" />
         </button>
       </div>
