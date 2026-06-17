@@ -23,6 +23,8 @@ const Contact = ({ className }: ContactProps) => {
     <div className={className}>
       <EditableField
         type="text"
+        label="Full Name"
+        name="fullname-input"
         value={fullName}
         onChanged={(value) => fullNameChanged(value as string)}
       >
@@ -30,7 +32,9 @@ const Contact = ({ className }: ContactProps) => {
         <strong>{fullName}</strong>
       </EditableField>
       <EditableField
-        type="phone"
+        type="email"
+        label="E-Mail"
+        name="email-input"
         value={email}
         onChanged={(value) => emailChanged(value as string)}
       >
@@ -39,6 +43,8 @@ const Contact = ({ className }: ContactProps) => {
       </EditableField>
       <EditableField
         type="phone"
+        label="Phone Number"
+        name="phone-input"
         value={phone}
         onChanged={(value) => phoneChanged(value as string)}
       >

@@ -1,4 +1,4 @@
-import { type ChangeEvent, type MouseEvent } from "react";
+import { useCallback, type MouseEvent } from "react";
 import {
   ChevronIcon,
   EditableField,
@@ -27,18 +27,16 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
     removeExperience,
   } = useJob(id);
 
-  const onAddExperienceClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const onAddExperienceClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     addExperience();
-  };
+  }, [addExperience])
 
-  const deleteJobHandler = (event: MouseEvent<HTMLButtonElement>) => {
+  const deleteJobHandler = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     removeJob();
-  };
+  }, [removeJob]);
 
-  const experienceChangedHandler = (event: ChangeEvent<HTMLInputElement>) =>
-    updateExperience(event.target.name, event.target.value);
   const employmentDateChangedHandler = ([start, end]: [string, string]) =>
     dateChanged([start, end]);
   const removeExperienceHandler = (experienceId: string) =>
@@ -51,11 +49,14 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
       <div>
         <div className="flex grow place-content-between">
           <EditableField
-            value={job.companyName}
             type="text"
+            label="Company name"
+            name={`company-name-input-${id}`}
+            value={job.companyName}
             onChanged={(companyName) =>
               companyNameChangeHandler(companyName as string)
             }
+            
           >
             <strong>{job.companyName}</strong>
           </EditableField>
@@ -69,21 +70,26 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
         </div>
         <p className="flex gap-x-1">
           <EditableField
-            value={job.startDate}
             type="date"
+            label="Start Date"
+            name={`start-date-input-${id}`}
+            value={job.startDate}
             onChanged={(newDate) =>
               employmentDateChangedHandler([
                 newDate as string,
                 job.endDate as string,
               ])
             }
+            
           >
             <span>{job.startDate}</span>
           </EditableField>
           <span>-</span>
           <EditableField
-            value={job.endDate}
             type="date"
+            label="Start Date"
+            name={`start-date-input-${id}`}
+            value={job.endDate}
             onChanged={(newEndDate) =>
               employmentDateChangedHandler([
                 job.startDate,
@@ -98,21 +104,19 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
       <ul className="space-y-2">
         {Object.entries(job.experience).map(([id, text]) => (
           <li key={id}>
-            <div className="flex items-center gap-x-1">
+            <EditableField
+              type="text"
+              label="Job Experience"
+              name={`${id}-experience-input`}
+              value={text}
+              onChanged={(newExperience) => updateExperience(id, newExperience as string)}>
               <div className="content-start">
                 <ChevronIcon size="sm" direction="up" />
                 <ChevronIcon size="sm" direction="down" />
               </div>
-              <input
-                placeholder="Implemented data driven features using analytical tools such as amplitude, clarity, google analtyics, etc."
-                type="text"
-                className="flex-1 border border-gray-800 px-1 py-0.5"
-                id={id}
-                name={id}
-                maxLength={250}
-                value={text}
-                onChange={experienceChangedHandler}
-              />
+              <div>
+                {text || "Managed delivery of multiple projects on time with solid expectations and quality"}
+              </div>
               <button
                 title="delete experience"
                 role="button"
@@ -120,7 +124,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               >
                 <XmarkIcon size="sm" />
               </button>
-            </div>
+            </EditableField>
           </li>
         ))}
       </ul>

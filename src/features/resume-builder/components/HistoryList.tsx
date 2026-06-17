@@ -23,11 +23,11 @@ const HistoryList = () => {
       <ul className="space-y-4">
         {Object.keys(jobs).map((id) => (
           <li key={id} className="flex items-start gap-x-1">
-            <div className="pt-1">
-              <ChevronIcon size="sm" direction="up" />
-              <ChevronIcon size="sm" direction="down" />
-            </div>
             <ErrorBoundary>
+              <div className="pt-1">
+                <ChevronIcon size="sm" direction="up" />
+                <ChevronIcon size="sm" direction="down" />
+              </div>
               <JobHistoryItem
                 className="grow space-y-2 border border-l-gray-800 bg-white px-2 py-2"
                 key={id}
