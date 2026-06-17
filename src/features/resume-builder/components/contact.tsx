@@ -1,4 +1,3 @@
-import { ChangeEvent, useCallback } from "react";
 import { useResumseBuilderForm } from "../context";
 import {
   CircleUserIcon,
