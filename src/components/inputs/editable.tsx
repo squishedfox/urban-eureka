@@ -27,10 +27,6 @@ export interface EditableFieldProps {
     | "week"
     | "phone";
   /**
-   * Override prop that can be passed to tell component it is in editing state
-   */
-  isEditing?: boolean;
-  /**
    * Override prop that can be passed to tell component what the value should be
    * or the initial value
    */
@@ -48,14 +44,13 @@ export interface EditableFieldProps {
 
 const EditableField = ({
   type = "text",
-  isEditing: isEditingProp = false,
   children = <></>,
   value: valueProp,
   onChanged,
 }: EditableFieldProps) => {
   const ref = useRef<HTMLInputElement | null>(null);
   const [value, setValue] = useState(valueProp);
-  const [isEditing, setIsEditing] = useState(isEditingProp);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     // see https://www.w3.org/TR/uievents-key/#named-key-attribute-values
@@ -92,20 +87,6 @@ const EditableField = ({
       ref.current?.focus();
     }, 100);
   };
-
-  useEffect(() => {
-    // incase consumer updates editing state to be different than us
-    if (isEditingProp !== isEditing) {
-      setIsEditing(Boolean(isEditingProp));
-    }
-  }, [isEditingProp]);
-
-  useEffect(() => {
-    // incase soncumser updates the value outside of what we are doing
-    if (valueProp !== value) {
-      setValue(valueProp);
-    }
-  }, [valueProp]);
 
   if (isEditing) {
     return (
