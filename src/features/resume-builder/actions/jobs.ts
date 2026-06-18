@@ -33,12 +33,20 @@ export interface JobNameChangedAction extends JobActionType {
     newName: string;
   };
 }
+export interface JobTitleChangedAction extends JobActionType {
+  type: "title-changed-job";
+  payload: {
+    jobId: string;
+    newTitle: string;
+  };
+}
 
 export type DispatchJobActionType =
   | AddJobAction
   | RemoveJobAction
   | JobDateChangedAction
-  | JobNameChangedAction;
+  | JobNameChangedAction
+  | JobTitleChangedAction;
 
 export const isAddJobAction = (
   action: ResumeBuilderActionType,
@@ -62,4 +70,10 @@ export const isJobNameChangeAction = (
   action: ResumeBuilderActionType,
 ): action is JobNameChangedAction => {
   return action.type === "name-changed-job";
+};
+
+export const isJobTitleChangeAction = (
+  action: ResumeBuilderActionType,
+): action is JobTitleChangedAction => {
+  return action.type === "title-changed-job";
 };

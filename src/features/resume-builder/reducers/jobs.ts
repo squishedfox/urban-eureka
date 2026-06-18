@@ -1,6 +1,7 @@
 import { type JobHistoryListItem } from "@app/types";
 import { ulid } from "ulid";
 import {
+  JobTitleChangedAction,
   type JobDateChangedAction,
   type JobNameChangedAction,
   type RemoveJobAction,
@@ -12,7 +13,7 @@ export const createEmptyJobHistoryItem = (): JobHistoryListItem => ({
   companyName: faker.company.name(),
   startDate: faker.date.past({ years: 1 }).toLocaleDateString(),
   endDate: "",
-  isCurrent: true,
+  title: faker.person.jobTitle(),
   experience: {} as Record<string, string>,
 });
 
@@ -67,6 +68,22 @@ export const jobNameChangedReducer = (
         prev.jobs[action.payload.jobId],
         {
           companyName: action.payload.newName,
+        },
+      ),
+    }),
+  });
+
+export const jobTitleChangedReducer = (
+  prev: ResumeBuilderState,
+  action: JobTitleChangedAction,
+) =>
+  Object.assign({}, prev, {
+    jobs: Object.assign({}, prev.jobs, {
+      [action.payload.jobId]: Object.assign(
+        {},
+        prev.jobs[action.payload.jobId],
+        {
+          title: action.payload.newTitle,
         },
       ),
     }),

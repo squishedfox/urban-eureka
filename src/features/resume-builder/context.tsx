@@ -42,6 +42,11 @@ const ResumeBuilderContext = createContext({
     !!newName;
     /* left intentially blank */
   },
+  jobTitleChanged: (id: string, newTitle: string) => {
+    !!id;
+    !!newTitle;
+    /* left intentially blank */
+  },
   addExperience: (jobId: string) => {
     !!jobId;
     /* left intentially blank */
@@ -99,6 +104,19 @@ export const ResumeBuilderFormProvider = ({
         payload: {
           jobId: id,
           range,
+        },
+      });
+    },
+    [dispatch],
+  );
+
+  const jobTitleChanged = useCallback(
+    (id: string, newTitle: string) => {
+      dispatch({
+        type: "title-changed-job",
+        payload: {
+          jobId: id,
+          newTitle,
         },
       });
     },
@@ -197,6 +215,7 @@ export const ResumeBuilderFormProvider = ({
         experience: Object.values(job.experience),
         startDate: job.startDate,
         companyName: job.companyName,
+        title: job.title,
       })),
     });
   }, [state, onChange]);
@@ -227,6 +246,7 @@ export const ResumeBuilderFormProvider = ({
         phoneChanged,
         emailChanged,
         fullNameChanged,
+        jobTitleChanged,
       }}
     >
       {children}

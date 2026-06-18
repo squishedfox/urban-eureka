@@ -101,6 +101,14 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               {job.endDate || "Current"}
             </EditableInputField>
           </div>
+          <EditableInputField
+            type="text"
+            title="job title"
+            aria-label="job title"
+            name={`job-title-${id}`}
+          >
+            {job.title}
+          </EditableInputField>
           <ul className="p-4 space-y-2">
             {Object.entries(job.experience).map(([id, text]) => (
               <li key={id}>

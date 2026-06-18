@@ -5,6 +5,7 @@ import {
   isEmailChangedAction,
   isJobDateChangedAction,
   isJobNameChangeAction,
+  isJobTitleChangeAction,
   isNameChangedAction,
   isPhoneChangedAction,
   isRemoveExperienceAction,
@@ -23,6 +24,7 @@ import {
   addJobReducer,
   jobDateChangedReducer,
   jobNameChangedReducer,
+  jobTitleChangedReducer,
   removeJobReducer,
 } from "./jobs";
 
@@ -52,6 +54,8 @@ export const resumeBuilderReducer = (
     return Object.assign({}, state, {
       fullName: action.payload.newName,
     });
+  } else if (isJobTitleChangeAction(action)) {
+    return jobTitleChangedReducer(state, action);
   } else if (isEmailChangedAction(action)) {
     return Object.assign({}, state, {
       email: action.payload.newEmail,
