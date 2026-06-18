@@ -9,7 +9,7 @@ const About = () => {
       name="about-input"
       onChanged={aboutChanged}
       value={about}
-      placeholder="Battle tested developer with years of experience shipping well tested products and delivering increased customer value"
+      placeholder=""
       aria-label="about"
       aria-description="details about yourself"
     >

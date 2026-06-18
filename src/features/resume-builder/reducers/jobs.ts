@@ -6,10 +6,11 @@ import {
   type RemoveJobAction,
 } from "../actions";
 import type { ResumeBuilderState } from "../state";
+import { faker } from "@faker-js/faker";
 
 export const createEmptyJobHistoryItem = (): JobHistoryListItem => ({
-  companyName: "Company Name Here",
-  startDate: new Date().toLocaleDateString(),
+  companyName: faker.company.name(),
+  startDate: faker.date.past({ years: 1 }).toLocaleDateString(),
   endDate: "",
   isCurrent: true,
   experience: {} as Record<string, string>,
