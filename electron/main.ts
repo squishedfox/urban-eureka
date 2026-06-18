@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import fs from "node:fs";
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -27,7 +28,6 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
   : RENDERER_DIST;
 
 let win: BrowserWindow | null;
-let isIntialized = false;
 
 function createWindow() {
   win = new BrowserWindow({
@@ -60,24 +60,29 @@ app.on("window-all-closed", () => {
   }
 });
 
-app.on("activate", () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-
-  if (!isIntialized) {
-    try {
-      ipcMain.addListener("resume-builder:save", (data) => {
-        console.log(data);
-      });
-    } catch (err: unknown) {
-      console.error(err);
-    } finally {
-      isIntialized = true;
+app.whenReady().then(() => {
+  ipcMain.on("resume-builder:save", (_, data) => {
+    const appDataPath = app.getPath("appData");
+    const jsonPayload = JSON.stringify(data);
+    if (!fs.existsSync(path.join(appDataPath, "./urban-eureka"))) {
+      fs.mkdirSync(path.join(appDataPath, "./urban-eureka"));
     }
-  }
-});
+    fs.writeFile(
+      path.join(appDataPath, "./urban-eureka", "resume.json"),
+      jsonPayload,
+      "utf8",
+      (err) => {
+        console.error(err);
+      },
+    );
+  });
+  createWindow();
 
-app.whenReady().then(createWindow);
+  app.on("activate", () => {
+    // On OS X it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
+  });
+});

@@ -22,6 +22,7 @@ const App = () => {
   const saveHandler = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
+      console.log("calling");
       window.ipcRenderer.send("resume-builder:save", resume);
     },
     [resume],
@@ -41,8 +42,8 @@ const App = () => {
         <button>
           <ExportIcon size="lg" />
         </button>
-        <button>
-          <SaveIcon onClick={saveHandler} size="lg" />
+        <button onClick={saveHandler}>
+          <SaveIcon size="lg" />
         </button>
       </footer>
     </div>
