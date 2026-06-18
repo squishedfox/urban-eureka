@@ -6,6 +6,7 @@ import {
 } from "../actions";
 import { type ResumeBuilderState } from "../state";
 import { ulid } from "ulid";
+import { faker } from "@faker-js/faker";
 
 export const addExperienceReducer = (
   state: ResumeBuilderState,
@@ -21,7 +22,7 @@ export const addExperienceReducer = (
             {},
             state.jobs[action.payload.jobId].experience,
             {
-              [ulid()]: "",
+              [ulid()]: faker.lorem.paragraph(),
             },
           ),
         },
