@@ -36,7 +36,6 @@ app.on("window-all-closed", () => {
 app.whenReady().then(() => {
   ipcMain.on("resume-builder:save", (_, data) => {
     const appDataPath = app.getPath("appData");
-    console.log("appdata path", appDataPath);
     const jsonPayload = JSON.stringify(data);
     if (!fs.existsSync(path.join(appDataPath, "./urban-eureka"))) {
       fs.mkdirSync(path.join(appDataPath, "./urban-eureka"));

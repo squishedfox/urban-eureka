@@ -51,8 +51,8 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
 
   return (
     <div className={className}>
-      <div>
-        <div className="flex grow place-content-between">
+      <div className="inline-flex w-full">
+        <div className="flex-1">
           <EditableInputField
             className="w-full space-x-1"
             type="text"
@@ -66,6 +66,73 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
           >
             <strong>{job.companyName}</strong>
           </EditableInputField>
+          <div className="inline-flex space-x-1">
+            <EditableInputField
+              className="inline-flex items-center space-x-1"
+              type="date"
+              title="start date"
+              aria-label="Start Date"
+              name={`start-date-input-${id}`}
+              value={job.startDate}
+              onChanged={(newDate) =>
+                employmentDateChangedHandler([
+                  newDate as string,
+                  job.endDate as string,
+                ])
+              }
+            >
+              {job.startDate}
+            </EditableInputField>
+            <span>-</span>
+            <EditableInputField
+              className="flex align-middle space-x-1"
+              type="date"
+              title="end date"
+              aria-label="end Date"
+              name={`end-date-input-${id}`}
+              value={job.endDate}
+              onChanged={(newEndDate) =>
+                employmentDateChangedHandler([
+                  job.startDate,
+                  newEndDate as string,
+                ])
+              }
+            >
+              {job.endDate || "Current"}
+            </EditableInputField>
+          </div>
+          <ul className="p-4 space-y-2">
+            {Object.entries(job.experience).map(([id, text]) => (
+              <li key={id}>
+                <EditableInputField
+                  className="inline-flex space-x-1 items-start"
+                  type="text"
+                  title="job experience"
+                  aria-label="Job Experience"
+                  name={`${id}-experience-input`}
+                  value={text}
+                  onChanged={(newExperience) =>
+                    updateExperience(id, newExperience as string)
+                  }
+                >
+                  <div>
+                    <ChevronIcon size="sm" direction="up" />
+                    <ChevronIcon size="sm" direction="down" />
+                  </div>
+                  <p className="flex-1">{text}</p>
+                  <button
+                    title="delete experience"
+                    role="button"
+                    onClick={() => removeExperienceHandler(id)}
+                  >
+                    <XmarkIcon size="sm" />
+                  </button>
+                </EditableInputField>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
           <button
             title={`delete "${job.companyName}" and all related details`}
             aria-label="Delete job"
@@ -74,72 +141,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             <TrashIcon size="sm" />
           </button>
         </div>
-        <div className="inline-flex space-x-1">
-          <EditableInputField
-            className="inline-flex items-center space-x-1"
-            type="date"
-            title="start date"
-            aria-label="Start Date"
-            name={`start-date-input-${id}`}
-            value={job.startDate}
-            onChanged={(newDate) =>
-              employmentDateChangedHandler([
-                newDate as string,
-                job.endDate as string,
-              ])
-            }
-          >
-            {job.startDate}
-          </EditableInputField>
-          <span>-</span>
-          <EditableInputField
-            className="flex align-middle space-x-1"
-            type="date"
-            title="end date"
-            aria-label="end Date"
-            name={`end-date-input-${id}`}
-            value={job.endDate}
-            onChanged={(newEndDate) =>
-              employmentDateChangedHandler([
-                job.startDate,
-                newEndDate as string,
-              ])
-            }
-          >
-            {job.endDate || "Current"}
-          </EditableInputField>
-        </div>
       </div>
-      <ul className="p-4 space-y-2">
-        {Object.entries(job.experience).map(([id, text]) => (
-          <li key={id}>
-            <EditableInputField
-              className="inline-flex space-x-1"
-              type="text"
-              title="job experience"
-              aria-label="Job Experience"
-              name={`${id}-experience-input`}
-              value={text}
-              onChanged={(newExperience) =>
-                updateExperience(id, newExperience as string)
-              }
-            >
-              <div>
-                <ChevronIcon size="sm" direction="up" />
-                <ChevronIcon size="sm" direction="down" />
-              </div>
-              <p className="flex-1">{text}</p>
-              <button
-                title="delete experience"
-                role="button"
-                onClick={() => removeExperienceHandler(id)}
-              >
-                <XmarkIcon size="sm" />
-              </button>
-            </EditableInputField>
-          </li>
-        ))}
-      </ul>
       <div className="flex grow items-center">
         <hr className="flex-1" />
         <button
