@@ -1,7 +1,7 @@
 import { useResumseBuilderForm } from "../context";
 import {
   CircleUserIcon,
-  EditableField,
+  EditableInputField,
   EnvelopeIcon,
   PhoneIcon,
 } from "@app/components";
@@ -21,36 +21,45 @@ const Contact = ({ className }: ContactProps) => {
 
   return (
     <div className={className}>
-      <EditableField
-        type="text"
-        label="Full Name"
-        name="fullname-input"
-        value={fullName}
-        onChanged={(value) => fullNameChanged(value as string)}
-      >
+      <div className="inline-flex w-1/2 space-x-1 items-center">
         <CircleUserIcon size="sm" />
-        <strong>{fullName}</strong>
-      </EditableField>
-      <EditableField
-        type="email"
-        label="E-Mail"
-        name="email-input"
-        value={email}
-        onChanged={(value) => emailChanged(value as string)}
-      >
+        <EditableInputField
+          className="inline-flex w-full space-x-1 items-center"
+          type="text"
+          aria-label="Full Name"
+          name="fullname-input"
+          value={fullName}
+          onChanged={(value) => fullNameChanged(value as string)}
+        >
+          <strong>{fullName}</strong>
+        </EditableInputField>
+      </div>
+      <div className="inline-flex w-1/2 space-x-1 items-center">
         <EnvelopeIcon size="sm" />
-        <strong>{email}</strong>
-      </EditableField>
-      <EditableField
-        type="phone"
-        label="Phone Number"
-        name="phone-input"
-        value={phone}
-        onChanged={(value) => phoneChanged(value as string)}
-      >
+        <EditableInputField
+          className="inline-flex w-full space-x-1 items-center"
+          type="email"
+          aria-label="E-Mail"
+          name="email-input"
+          value={email}
+          onChanged={(value) => emailChanged(value as string)}
+        >
+          <strong>{email}</strong>
+        </EditableInputField>
+      </div>
+      <div className="inline-flex w-1/2 space-x-1 items-center">
         <PhoneIcon size="sm" />
-        <strong>{phone}</strong>
-      </EditableField>
+        <EditableInputField
+          className="inline-flex w-full space-x-1 items-center"
+          type="phone"
+          aria-label="Phone Number"
+          name="phone-input"
+          value={phone}
+          onChanged={(value) => phoneChanged(value as string)}
+        >
+          <strong>{phone}</strong>
+        </EditableInputField>
+      </div>
     </div>
   );
 };

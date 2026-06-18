@@ -25,7 +25,7 @@ const ResumeBuilder = ({ onChange }: ResumeBuilderFormProps) => (
         <About />
       </fieldset>
       <fieldset>
-        <HistoryList />
+        <HistoryList className="space-y-2" />
       </fieldset>
     </form>
   </ResumeBuilderFormProvider>

@@ -1,2 +1,4 @@
-export { default as EditableField } from "./editable";
-export type { EditableFieldProps } from "./editable";
+export { default as EditableInputField } from "./input";
+export type { EditableInputFieldProps } from "./input";
+export { default as EditableTextAreaField } from "./textarea";
+export type { EditableTextAreaProps } from "./textarea";

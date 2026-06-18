@@ -1,19 +1,26 @@
-import { type MouseEvent } from "react";
-import JobHistoryItem from "./HistoryListItem";
+import { useCallback, type MouseEvent } from "react";
+import JobHistoryItem from "./historyListItem";
 import { ChevronIcon, PlusIcon } from "@app/components/icons";
 import { ErrorBoundary } from "@app/components";
 import { useResumseBuilderForm } from "../context";
 
-const HistoryList = () => {
+export interface HistoryListProps {
+  className?: string;
+}
+
+const HistoryList = ({ className }: HistoryListProps) => {
   const { jobs, addJob } = useResumseBuilderForm();
 
-  const addJobHandler = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    addJob();
-  };
+  const addJobHandler = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      addJob();
+    },
+    [addJob],
+  );
 
   return (
-    <div className="space-y-2">
+    <div className={className}>
       <div className="flex grow items-center">
         <hr className="flex-1" />
         <button onClick={addJobHandler} className="grow-0">

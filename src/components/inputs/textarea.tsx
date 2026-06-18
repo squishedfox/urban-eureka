@@ -1,73 +1,42 @@
 import {
+  AriaAttributes,
+  PropsWithChildren,
+  TextareaHTMLAttributes,
   useRef,
   useState,
-  type ChangeEvent,
-  type FocusEvent,
   type KeyboardEvent,
-  type ReactNode,
+  type FocusEvent,
+  type ChangeEvent,
   type MouseEvent,
+  useCallback,
 } from "react";
-import { CalendarIcon, PencilIcon, XmarkIcon } from "../icons";
+import { PencilIcon, XmarkIcon } from "@app/components/icons";
+import { clsx } from "clsx";
 
-export interface EditableFieldProps {
-  /**
-   * reliably supported types for inputs
-   */
-  type:
-    | "number"
-    | "text"
-    | "tel"
-    | "email"
-    | "date"
-    | "time"
-    | "url"
-    | "month"
-    | "datetime-local"
-    | "week"
-    | "phone";
-  /**
-   * Override prop that can be passed to tell component what the value should be
-   * or the initial value
-   */
-  value: string | number | undefined; // valid types for inputs
-  /**
-   * Node that is used when not being editied
-   */
-  children: ReactNode;
-  /**
-   * Callback for when user has changed the value from what was
-   * originally passed in.
-   */
-  onChanged: (value: string | number) => void;
-  /**
-   * Must be a unique name for the field in form
-   * @example "email-input"
-   * @example "phone-input"
-   * @example "exp-date-input"
-   */
-  name: string;
-  /**
-   * label text for accessability users
-   * @example "Phone #"
-   * @example "E-Mail"
-   * @example "Full Address"
-   */
-  label: string;
+export interface EditableTextAreaProps
+  extends
+    AriaAttributes,
+    Pick<
+      TextareaHTMLAttributes<HTMLTextAreaElement>,
+      "className" | "name" | "placeholder"
+    > {
+  onChanged: (value: string) => void;
+  value?: string;
 }
 
-const EditableField = ({
-  type = "text",
-  children = <></>,
+const EditableTextArea = ({
   value: valueProp,
+  children,
   onChanged,
   name,
-  label,
-}: EditableFieldProps) => {
-  const ref = useRef<HTMLInputElement | null>(null);
+  className,
+  ...ariaAttrs
+}: PropsWithChildren<EditableTextAreaProps>) => {
+  const ref = useRef<HTMLTextAreaElement | null>(null);
   const [value, setValue] = useState(valueProp);
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyUp = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     // see https://www.w3.org/TR/uievents-key/#named-key-attribute-values
     if (event.key === "Escape" || event.key === "Cancel") {
       event.preventDefault(); // stop propegation incase we are in a form
@@ -83,16 +52,19 @@ const EditableField = ({
     }
   };
 
-  const handleBlur = (_: FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (_: FocusEvent<HTMLTextAreaElement>) => {
     setIsEditing(false);
     if (value !== valueProp) {
       onChanged(value ?? ""); // tell the consumer we have made an official chane not just clicking to edit and then leaving
     }
   };
 
-  const handleFieldValueChanged = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.currentTarget.value);
-  };
+  const handleFieldValueChanged = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>) => {
+      setValue(event.currentTarget.value);
+    },
+    [],
+  );
 
   const editIconClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -105,16 +77,16 @@ const EditableField = ({
 
   if (isEditing) {
     return (
-      <div className="space-x-1 grow-0 inline-flex items-center">
-        <input
+      <div className={clsx(className, "w-full")}>
+        <textarea
+          className="w-full p-1"
           name={name}
           ref={ref}
-          type={type}
           value={value ?? ""}
           onChange={handleFieldValueChanged}
           onKeyUp={handleKeyUp}
           onBlur={handleBlur}
-          aria-label={label}
+          {...ariaAttrs}
         />
         <button onClick={() => setIsEditing(false)} title="Click to Cancel">
           <XmarkIcon size="sm" />
@@ -124,17 +96,13 @@ const EditableField = ({
   }
 
   return (
-    <div className="space-x-1 inline-flex items-center">
+    <div className={className}>
       {children}
       <button onClick={editIconClickHandler} title="Click to edit">
-        {type === "date" ? (
-          <CalendarIcon size="sm" />
-        ) : (
-          <PencilIcon size="sm" />
-        )}
+        <PencilIcon size="sm" />
       </button>
     </div>
   );
 };
 
-export default EditableField;
+export default EditableTextArea;
