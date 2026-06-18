@@ -54,7 +54,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
       <div>
         <div className="flex grow place-content-between">
           <EditableInputField
-            className="w-full"
+            className="w-full space-x-1"
             type="text"
             title="company name"
             aria-label="Company name"
@@ -74,9 +74,9 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             <TrashIcon size="sm" />
           </button>
         </div>
-        <div className="inline-flex gap-x-1">
+        <div className="inline-flex space-x-1">
           <EditableInputField
-            className="flex align-middle space-x-1"
+            className="inline-flex items-center space-x-1"
             type="date"
             title="start date"
             aria-label="Start Date"
@@ -114,7 +114,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
         {Object.entries(job.experience).map(([id, text]) => (
           <li key={id}>
             <EditableInputField
-              className="flex flex-1 items-center space-x-1"
+              className="inline-flex space-x-1"
               type="text"
               title="job experience"
               aria-label="Job Experience"
@@ -128,10 +128,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
                 <ChevronIcon size="sm" direction="up" />
                 <ChevronIcon size="sm" direction="down" />
               </div>
-              <div>
-                {text ||
-                  "Managed delivery of multiple projects on time with solid expectations and quality"}
-              </div>
+              <div className="flex-1">{text}</div>
               <button
                 title="delete experience"
                 role="button"
