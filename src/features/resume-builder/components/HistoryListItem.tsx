@@ -110,7 +110,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
           </EditableInputField>
         </div>
       </div>
-      <ul className="pl-4 space-y-2">
+      <ul className="p-4 space-y-2">
         {Object.entries(job.experience).map(([id, text]) => (
           <li key={id}>
             <EditableInputField
@@ -128,7 +128,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
                 <ChevronIcon size="sm" direction="up" />
                 <ChevronIcon size="sm" direction="down" />
               </div>
-              <div className="flex-1">{text}</div>
+              <p className="flex-1">{text}</p>
               <button
                 title="delete experience"
                 role="button"

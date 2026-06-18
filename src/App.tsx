@@ -30,10 +30,10 @@ const App = () => {
   return (
     <div className="h-screen">
       <main className="flex pb-16 h-full">
-        <div className="border-r border-r-gray-800 bg-gray-200 flex-1 h-full px-4 pt-4">
+        <div className="border-r border-r-gray-800 bg-gray-200 flex-1 h-full px-4 pt-4 overflow-y-scroll">
           <ResumeBuilder onChange={resumeChangedHandler} />
         </div>
-        <div className="flex-1 h-full px-4 pt-4">
+        <div className="flex-1 h-full px-4 pt-4 overflow-y-scroll">
           <Preview {...resume} jobs={resume.jobHistory} />
         </div>
       </main>
