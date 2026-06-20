@@ -1,5 +1,6 @@
 import { type JobHistoryListItem } from "@app/types";
 import {
+  ReOrderExperienceAction,
   type AddExperienceAction,
   type RemoveExperienceAction,
   type UpdateExperienceAction,
@@ -7,6 +8,7 @@ import {
 import { type ResumeBuilderState } from "../state";
 import { ulid } from "ulid";
 import { faker } from "@faker-js/faker";
+import { sort } from "@app/objects";
 
 export const addExperienceReducer = (
   state: ResumeBuilderState,
@@ -72,6 +74,26 @@ export const updateExperienceReducer = (
             {
               [action.payload.expId]: action.payload.newValue,
             },
+          ),
+        },
+      ),
+    }),
+  });
+
+export const reOrderExperienceReducer = (
+  state: ResumeBuilderState,
+  action: ReOrderExperienceAction,
+) =>
+  Object.assign({} as ResumeBuilderState, state, {
+    jobs: Object.assign({}, state.jobs, {
+      [action.payload.jobId]: Object.assign(
+        {},
+        state.jobs[action.payload.jobId],
+        {
+          experience: sort(
+            action.payload.expId,
+            action.payload.newValue,
+            state.jobs[action.payload.jobId].experience,
           ),
         },
       ),

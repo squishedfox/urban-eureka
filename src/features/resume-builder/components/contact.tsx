@@ -1,4 +1,4 @@
-import { useResumseBuilderForm } from "../context";
+import { useResumeBuilderForm } from "../context";
 import {
   CircleUserIcon,
   EditableInputField,
@@ -17,7 +17,7 @@ const Contact = ({ className }: ContactProps) => {
     phoneChanged,
     email,
     emailChanged,
-  } = useResumseBuilderForm();
+  } = useResumeBuilderForm();
 
   return (
     <div className={className}>

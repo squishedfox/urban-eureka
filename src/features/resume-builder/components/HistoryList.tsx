@@ -2,14 +2,14 @@ import { useCallback, type MouseEvent } from "react";
 import JobHistoryItem from "./historyListItem";
 import { ChevronIcon, PlusIcon } from "@app/components/icons";
 import { ErrorBoundary } from "@app/components";
-import { useResumseBuilderForm } from "../context";
+import { useResumeBuilderForm } from "../context";
 
 export interface HistoryListProps {
   className?: string;
 }
 
 const HistoryList = ({ className }: HistoryListProps) => {
-  const { jobs, addJob } = useResumseBuilderForm();
+  const { jobs, addJob } = useResumeBuilderForm();
 
   const addJobHandler = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {

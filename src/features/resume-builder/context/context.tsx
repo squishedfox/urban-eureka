@@ -1,7 +1,6 @@
 import {
   createContext,
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useReducer,
@@ -12,67 +11,78 @@ import {
   type DateRange,
   type ResumeBuilderFormValue,
 } from "@app/features/resume-builder/types";
-import { initialState } from "./state";
-import { resumeBuilderReducer } from "./reducers";
+import { initialState } from "../state";
+import { resumeBuilderReducer } from "../reducers";
 
-const ResumeBuilderContext = createContext({
+// eslint-disable-next-line react-refresh/only-export-components
+export const ResumeBuilderContext = createContext({
   fullName: "A full Name User",
   email: "first.last@domain.net",
   phone: "+1 123-444-5656",
   about: "",
   aboutChanged: (newAbout: string) => {
     !!newAbout;
-    /* left intentially blank */
+    /* left intentionally blank */
   },
   jobs: {} as Record<string, JobHistoryListItem>,
   addJob: () => {
-    /* left intentially blank */
+    /* left intentionally blank */
   },
   removeJob: (id: string) => {
     !!id;
-    /* left intentially blank */
+    /* left intentionally blank */
   },
   dateChanged: (id: string, range: DateRange) => {
     !!id;
     !!range;
-    /* left intentially blank */
+    /* left intentionally blank */
   },
   companyNameChanged: (id: string, newName: string) => {
     !!id;
     !!newName;
-    /* left intentially blank */
+    /* left intentionally blank */
   },
   jobTitleChanged: (id: string, newTitle: string) => {
     !!id;
     !!newTitle;
-    /* left intentially blank */
+    /* left intentionally blank */
   },
   addExperience: (jobId: string) => {
     !!jobId;
-    /* left intentially blank */
+    /* left intentionally blank */
   },
   removeExperience: (jobId: string, experienceId: string) => {
     !!jobId;
     !!experienceId;
-    /* left intentially blank */
+    /* left intentionally blank */
   },
   updateExperience: (jobId: string, experienceId: string, newValue: string) => {
     !!jobId;
     !!experienceId;
     !!newValue;
-    /* left intentially blank */
+    /* left intentionally blank */
+  },
+  experienceOrderChanged: (
+    jobId: string,
+    experienceId: string,
+    newOrdinal: number,
+  ) => {
+    !!jobId;
+    !!experienceId;
+    !!newOrdinal;
+    /* left intentionally blank */
   },
   fullNameChanged: (newValue: string) => {
     !!newValue;
-    /* left intentially blank */
+    /* left intentionally blank */
   },
   emailChanged: (newValue: string) => {
     !!newValue;
-    /* left intentially blank */
+    /* left intentionally blank */
   },
   phoneChanged: (newValue: string) => {
     !!newValue;
-    /* left intentially blank */
+    /* left intentionally blank */
   },
 });
 
@@ -203,6 +213,15 @@ export const ResumeBuilderFormProvider = ({
     [dispatch],
   );
 
+  const experienceOrderChanged = useCallback(
+    (jobId: string, expId: string, newOrdinal: number) =>
+      dispatch({
+        type: "reorder-experience",
+        payload: { jobId, expId, newValue: newOrdinal },
+      }),
+    [dispatch],
+  );
+
   useEffect(() => {
     // I do not love this logic but here we are
     onChange({
@@ -247,59 +266,10 @@ export const ResumeBuilderFormProvider = ({
         emailChanged,
         fullNameChanged,
         jobTitleChanged,
+        experienceOrderChanged,
       }}
     >
       {children}
     </ResumeBuilderContext.Provider>
   );
-};
-
-export const useResumseBuilderForm = () => useContext(ResumeBuilderContext);
-
-export const useJob = (id: string) => {
-  const {
-    jobs,
-    removeJob: removeCurrentJob,
-    addExperience: addJobExperience,
-    removeExperience: removeJobExperience,
-    updateExperience: updateJobExperience,
-    dateChanged: jobDateChanged,
-    companyNameChanged: jobNameChanged,
-  } = useResumseBuilderForm();
-
-  const removeJob = useCallback(
-    () => removeCurrentJob(id),
-    [removeCurrentJob, id],
-  );
-  const addExperience = useCallback(
-    () => addJobExperience(id),
-    [addJobExperience, id],
-  );
-  const removeExperience = useCallback(
-    (experienceId: string) => removeJobExperience(id, experienceId),
-    [removeJobExperience, id],
-  );
-  const updateExperience = useCallback(
-    (experienceId: string, newText: string) =>
-      updateJobExperience(id, experienceId, newText),
-    [updateJobExperience, id],
-  );
-  const dateChanged = useCallback(
-    (range: DateRange) => jobDateChanged(id, range),
-    [jobDateChanged, id],
-  );
-  const companyNameChanged = useCallback(
-    (newName: string) => jobNameChanged(id, newName),
-    [jobNameChanged, id],
-  );
-
-  return {
-    job: jobs[id],
-    removeJob,
-    addExperience,
-    removeExperience,
-    updateExperience,
-    dateChanged,
-    companyNameChanged,
-  };
 };

@@ -1,11 +1,11 @@
-import { HTMLProps, useCallback, type MouseEvent } from "react";
+import { HTMLProps } from "react";
 import {
   ChevronIcon,
-  EditableInputField,
   SquarePlusIcon,
   TrashIcon,
   XmarkIcon,
-} from "@app/components";
+} from "@app/components/icons";
+import { EditableInputField } from "@app/components/inputs";
 import { useJob } from "../context";
 
 export interface JobHistoryItemProps extends Pick<
@@ -24,30 +24,14 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
     addExperience,
     updateExperience,
     removeExperience,
+    titleChanged,
+    experienceOrderChanged,
   } = useJob(id);
-
-  const onAddExperienceClick = useCallback(
-    (event: MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      addExperience();
-    },
-    [addExperience],
-  );
-
-  const deleteJobHandler = useCallback(
-    (event: MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      removeJob();
-    },
-    [removeJob],
-  );
 
   const employmentDateChangedHandler = ([start, end]: [string, string]) =>
     dateChanged([start, end]);
-  const removeExperienceHandler = (experienceId: string) =>
-    removeExperience(experienceId);
-  const companyNameChangeHandler = (newCompanyName: string) =>
-    companyNameChanged(newCompanyName);
+
+  const experiences = Object.entries(job.experience);
 
   return (
     <div className={className}>
@@ -60,9 +44,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             aria-label="Company name"
             name={`company-name-input-${id}`}
             value={job.companyName}
-            onChanged={(companyName) =>
-              companyNameChangeHandler(companyName as string)
-            }
+            onChanged={companyNameChanged}
           >
             <strong>{job.companyName}</strong>
           </EditableInputField>
@@ -106,11 +88,13 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             title="job title"
             aria-label="job title"
             name={`job-title-${id}`}
+            value={job.title}
+            onChanged={titleChanged}
           >
             {job.title}
           </EditableInputField>
           <ul className="p-4 space-y-2">
-            {Object.entries(job.experience).map(([id, text]) => (
+            {experiences.map(([id, text], ix) => (
               <li key={id}>
                 <EditableInputField
                   className="inline-flex space-x-1 items-start"
@@ -124,14 +108,29 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
                   }
                 >
                   <div>
-                    <ChevronIcon size="sm" direction="up" />
-                    <ChevronIcon size="sm" direction="down" />
+                    <button
+                      type="button"
+                      disabled={ix === 0}
+                      onClick={() => experienceOrderChanged(id, ix - 1)}
+                      title="click to move up"
+                    >
+                      <ChevronIcon size="sm" direction="up" />
+                    </button>
+                    <button
+                      type="button"
+                      disabled={ix === experiences.length - 1}
+                      onClick={() => experienceOrderChanged(id, ix + 1)}
+                      title="click to move down"
+                    >
+                      <ChevronIcon size="sm" direction="down" />
+                    </button>
                   </div>
                   <p className="flex-1">{text}</p>
                   <button
+                    type="button"
                     title="delete experience"
                     role="button"
-                    onClick={() => removeExperienceHandler(id)}
+                    onClick={() => removeExperience(id)}
                   >
                     <XmarkIcon size="sm" />
                   </button>
@@ -142,9 +141,10 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
         </div>
         <div>
           <button
+            type="button"
             title={`delete "${job.companyName}" and all related details`}
             aria-label="Delete job"
-            onClick={deleteJobHandler}
+            onClick={() => removeJob()}
           >
             <TrashIcon size="sm" />
           </button>
@@ -153,8 +153,9 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
       <div className="flex grow items-center">
         <hr className="flex-1" />
         <button
+          type="button"
           aria-label="add experience"
-          onClick={onAddExperienceClick}
+          onClick={() => addExperience()}
           className="grow-0"
         >
           <SquarePlusIcon size="md" />

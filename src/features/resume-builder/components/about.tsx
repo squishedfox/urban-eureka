@@ -1,11 +1,11 @@
-import { useResumseBuilderForm } from "../context";
-import EditableTextArea from "@app/components/inputs/textarea";
+import { useResumeBuilderForm } from "../context";
+import { EditableTextAreaField } from "@app/components/inputs";
 
 const About = () => {
-  const { about, aboutChanged } = useResumseBuilderForm();
+  const { about, aboutChanged } = useResumeBuilderForm();
 
   return (
-    <EditableTextArea
+    <EditableTextAreaField
       name="about-input"
       onChanged={aboutChanged}
       value={about}
@@ -14,7 +14,7 @@ const About = () => {
       aria-description="details about yourself"
     >
       <p>{about}</p>
-    </EditableTextArea>
+    </EditableTextAreaField>
   );
 };
 export default About;

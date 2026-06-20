@@ -11,6 +11,7 @@ import {
   isRemoveExperienceAction,
   isRemoveJobAction,
   isUpdateExperienceAction,
+  isReOrderExperienceAction,
   type ResumeBuilderActionType,
 } from "../actions";
 import { initialState } from "../state";
@@ -19,6 +20,7 @@ import {
   addExperienceReducer,
   removeExperienceReducer,
   updateExperienceReducer,
+  reOrderExperienceReducer,
 } from "./experience";
 import {
   addJobReducer,
@@ -32,6 +34,7 @@ export const resumeBuilderReducer = (
   state = initialState,
   action: ResumeBuilderActionType,
 ) => {
+  // job actions
   if (isAddJobAction(action)) {
     return addJobReducer(state);
   } else if (isRemoveJobAction(action)) {
@@ -50,6 +53,8 @@ export const resumeBuilderReducer = (
     return Object.assign({}, state, {
       about: action.payload.newAbout,
     });
+  } else if (isReOrderExperienceAction(action)) {
+    return reOrderExperienceReducer(state, action);
   } else if (isNameChangedAction(action)) {
     return Object.assign({}, state, {
       fullName: action.payload.newName,

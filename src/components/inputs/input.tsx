@@ -47,15 +47,15 @@ const EditableInputField = ({
     (event: KeyboardEvent<HTMLInputElement>) => {
       // see https://www.w3.org/TR/uievents-key/#named-key-attribute-values
       if (event.key === "Escape" || event.key === "Cancel") {
-        event.preventDefault(); // stop propegation incase we are in a form
+        event.preventDefault(); // stop propagation in case we are in a form
         setIsEditing(false);
         setValue(valueProp); // revert back to what the consumer originally had
       }
       if (event.key === "Accept" || event.key === "Execute") {
-        event.preventDefault(); // stop propegation incase we are in a form
+        event.preventDefault(); // stop propagation in case we are in a form
         setIsEditing(false);
         if (value !== valueProp) {
-          onChanged(value as string); // tell the consumer we have made an official chane not just clicking to edit and then leaving
+          onChanged(value as string); // tell the consumer we have made an official change not just clicking to edit and then leaving
         }
       }
     },
@@ -66,7 +66,7 @@ const EditableInputField = ({
     (_: FocusEvent<HTMLInputElement>) => {
       setIsEditing(false);
       if (value !== valueProp) {
-        onChanged(value as string); // tell the consumer we have made an official chane not just clicking to edit and then leaving
+        onChanged(value as string); // tell the consumer we have made an official change not just clicking to edit and then leaving
       }
     },
     [onChanged, value, valueProp],
@@ -80,8 +80,7 @@ const EditableInputField = ({
   );
 
   const editIconClickHandler = useCallback(
-    (event: MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
+    (_: MouseEvent<HTMLButtonElement>) => {
       setIsEditing(true);
       setTimeout(() => {
         // add timeout to let the render turn into an input
@@ -107,7 +106,11 @@ const EditableInputField = ({
           placeholder={placeholder}
           {...ariaAttrs}
         />
-        <button onClick={() => setIsEditing(false)} title="Click to Cancel">
+        <button
+          type="button"
+          onClick={() => setIsEditing(false)}
+          title="Click to Cancel"
+        >
           <XmarkIcon size="sm" />
         </button>
       </div>
@@ -117,7 +120,11 @@ const EditableInputField = ({
   return (
     <div className={className}>
       {children}
-      <button onClick={editIconClickHandler} title="Click to edit">
+      <button
+        type="button"
+        onClick={editIconClickHandler}
+        title="Click to edit"
+      >
         {type === "date" ? (
           <CalendarIcon size="sm" />
         ) : (
