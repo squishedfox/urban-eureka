@@ -38,7 +38,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
       <div className="inline-flex w-full">
         <div className="flex-1">
           <EditableInputField
-            className="w-full space-x-1"
+            className="w-full"
             type="text"
             title="company name"
             aria-label="Company name"
@@ -48,9 +48,8 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
           >
             <strong>{job.companyName}</strong>
           </EditableInputField>
-          <div className="inline-flex space-x-1">
+          <div className="inline-flex items-center space-x-1 w-full">
             <EditableInputField
-              className="inline-flex items-center space-x-1"
               type="date"
               title="start date"
               aria-label="Start Date"
@@ -67,7 +66,6 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             </EditableInputField>
             <span>-</span>
             <EditableInputField
-              className="flex align-middle space-x-1"
               type="date"
               title="end date"
               aria-label="end Date"
@@ -125,7 +123,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
                       <ChevronIcon size="sm" direction="down" />
                     </button>
                   </div>
-                  <p className="flex-1">{text}</p>
+                  <p className="flex-1 border-r-gray-800 border-r">{text}</p>
                   <button
                     type="button"
                     title="delete experience"

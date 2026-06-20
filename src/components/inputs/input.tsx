@@ -92,7 +92,7 @@ const EditableInputField = ({
 
   if (isEditing) {
     return (
-      <div className={clsx(className, "w-full")}>
+      <div className={clsx("inline-flex items-center space-x-1", className)}>
         <input
           className="w-full p-1"
           title={title}
@@ -118,7 +118,7 @@ const EditableInputField = ({
   }
 
   return (
-    <div className={className}>
+    <div className={clsx("inline-flex items-center space-x-1", className)}>
       {children}
       <button
         type="button"
