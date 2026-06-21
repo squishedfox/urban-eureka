@@ -3,13 +3,16 @@ import ReactDOM from "react-dom/client";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import { HomeView, ResumeBuilderView } from "./views";
+import { Layout } from "./routes";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <HashRouter>
       <Routes>
-        <Route path="/" index element={<HomeView />} />
-        <Route path="resume-builder" element={<ResumeBuilderView />} />
+        <Route element={<Layout />}>
+          <Route path="/" index element={<HomeView />} />
+          <Route path="resume-builder" element={<ResumeBuilderView />} />
+        </Route>
       </Routes>
     </HashRouter>
   </React.StrictMode>,

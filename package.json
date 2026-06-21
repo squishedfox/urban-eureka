@@ -16,7 +16,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-fast-compare": "^3.2.2",
-    "react-router": "^8.0.1",
     "react-router-dom": "^7.18.0",
     "tailwindcss": "^4.3.0",
     "ulid": "^3.0.2"
