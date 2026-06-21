@@ -38,7 +38,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
       <div className="inline-flex w-full">
         <div className="flex-1">
           <EditableInputField
-            className="w-full"
+            className="w-1/3"
             type="text"
             title="company name"
             aria-label="Company name"
@@ -82,6 +82,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             </EditableInputField>
           </div>
           <EditableInputField
+            className="w-1/3"
             type="text"
             title="job title"
             aria-label="job title"
