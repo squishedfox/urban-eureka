@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -31,15 +31,22 @@ let win: BrowserWindow | null;
 
 function createWindow() {
   win = new BrowserWindow({
+    autoHideMenuBar: true,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
     },
   });
 
+  win.setMenuBarVisibility(false);
+  win.setMenu(null);
+  win.removeMenu();
+
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
+    win?.setMenuBarVisibility(false);
+    win?.setMenu(null);
   });
 
   if (VITE_DEV_SERVER_URL) {
@@ -76,6 +83,9 @@ app.whenReady().then(() => {
       },
     );
   });
+
+  Menu.setApplicationMenu(null);
+  app.setAboutPanelOptions({ applicationName: " " }); // optional, harmless
   createWindow();
 
   app.on("activate", () => {
