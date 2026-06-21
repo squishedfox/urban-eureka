@@ -6,7 +6,8 @@ export type JobActionName =
   | "remove-job"
   | "update-job"
   | "date-changed-job"
-  | "name-changed-job";
+  | "name-changed-job"
+  | "title-changed-job";
 
 export interface JobActionType {
   type: JobActionName;
