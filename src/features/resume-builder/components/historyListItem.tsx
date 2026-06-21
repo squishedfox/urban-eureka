@@ -95,7 +95,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             {experiences.map(([id, text], ix) => (
               <li key={id}>
                 <EditableInputField
-                  className="inline-flex space-x-1 items-start"
+                  className="space-x-1 items-start w-full"
                   type="text"
                   title="job experience"
                   aria-label="Job Experience"
