@@ -14,7 +14,7 @@ export const Layout = () => {
           </Link>
         </nav>
       </header>
-      <main className="min-h-16">
+      <main className="h-screen">
         <ErrorBoundary>
           <Outlet />
         </ErrorBoundary>

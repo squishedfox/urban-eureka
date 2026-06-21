@@ -36,19 +36,21 @@ const ResumeBuilderView = () => {
   );
 
   return (
-    <div className="h-full">
-      <div className="flex pb-16 h-full">
-        <div className="border-r border-r-gray-800 bg-gray-200 flex-1 h-full px-4 pt-4 overflow-y-scroll">
+    <div className="pb-16">
+      <div className="grid grid-cols-2 overflow-y-hidden">
+        <div className="border-r border-r-gray-800 bg-gray-200">
           <ResumeBuilderFormProvider onChange={resumeChangedHandler}>
-            <form name="job-history-form" className="space-y-2">
+            <form name="job-history-form" className="space-y-2 overflow-y-scroll px-4 pt-4 pb-16">
               <fieldset
-                className="min-w-full border border-gray-800 bg-white p-2 space-y-2"
+                className="bg-white grid grid-rows-2 p-4 border border-gray-800"
                 aria-label="About and Contact Section"
               >
-                <span className="float-right">
-                  <IDCardIcon />
-                </span>
-                <Contact className="flex flex-col space-y-1" />
+                <div className="flex">
+                  <Contact className="flex flex-col flex-1 space-y-1" />
+                  <span>
+                    <IDCardIcon />
+                  </span>
+                </div>
                 <About />
               </fieldset>
               <fieldset>
@@ -57,7 +59,7 @@ const ResumeBuilderView = () => {
             </form>
           </ResumeBuilderFormProvider>
         </div>
-        <div className="flex-1 h-full px-4 pt-4 overflow-y-scroll">
+        <div>
           <Preview {...resume} jobs={resume.jobHistory} />
         </div>
       </div>
