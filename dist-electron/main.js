@@ -2,6 +2,25 @@ import { app, ipcMain, BrowserWindow } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import fs from "node:fs";
+const saveResumeHandler = (_, data) => {
+  const appDataPath = app.getPath("appData");
+  const jsonPayload = JSON.stringify(data);
+  if (!fs.existsSync(path.join(appDataPath, "./urban-eureka"))) {
+    fs.mkdirSync(path.join(appDataPath, "./urban-eureka"));
+  }
+  fs.writeFile(
+    path.join(appDataPath, "./urban-eureka", "resume.json"),
+    jsonPayload,
+    "utf8",
+    (err) => {
+      console.error(err);
+    }
+  );
+};
+const getJobs = (_, data) => {
+  console.log("Getting Jobs", data);
+  return [];
+};
 const __dirname$1 = path.dirname(fileURLToPath(import.meta.url));
 process.env.APP_ROOT = path.join(__dirname$1, "..");
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
@@ -28,26 +47,15 @@ function createWindow() {
 }
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
+    ipcMain.removeHandler("resume-builder:save");
+    ipcMain.removeHandler("get-jobs-request");
     app.quit();
     win = null;
   }
 });
 app.whenReady().then(() => {
-  ipcMain.on("resume-builder:save", (_, data) => {
-    const appDataPath = app.getPath("appData");
-    const jsonPayload = JSON.stringify(data);
-    if (!fs.existsSync(path.join(appDataPath, "./urban-eureka"))) {
-      fs.mkdirSync(path.join(appDataPath, "./urban-eureka"));
-    }
-    fs.writeFile(
-      path.join(appDataPath, "./urban-eureka", "resume.json"),
-      jsonPayload,
-      "utf8",
-      (err) => {
-        console.error(err);
-      }
-    );
-  });
+  ipcMain.handle("resume-builder:save", saveResumeHandler);
+  ipcMain.handle("get-jobs-request", getJobs);
   createWindow();
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {

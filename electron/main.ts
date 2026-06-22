@@ -3,6 +3,7 @@ import { app, BrowserWindow, ipcMain /* Menu */ } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import fs from "node:fs";
+import { getJobs, saveResumeHandler } from "./handlers";
 
 // const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -62,27 +63,16 @@ function createWindow() {
 // explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
+    ipcMain.removeHandler("resume-builder:save");
+    ipcMain.removeHandler("get-jobs-request");
     app.quit();
     win = null;
   }
 });
 
 app.whenReady().then(() => {
-  ipcMain.on("resume-builder:save", (_, data) => {
-    const appDataPath = app.getPath("appData");
-    const jsonPayload = JSON.stringify(data);
-    if (!fs.existsSync(path.join(appDataPath, "./urban-eureka"))) {
-      fs.mkdirSync(path.join(appDataPath, "./urban-eureka"));
-    }
-    fs.writeFile(
-      path.join(appDataPath, "./urban-eureka", "resume.json"),
-      jsonPayload,
-      "utf8",
-      (err) => {
-        console.error(err);
-      },
-    );
-  });
+  ipcMain.handle("resume-builder:save", saveResumeHandler);
+  ipcMain.handle("get-jobs-request", getJobs);
 
   // Menu.setApplicationMenu(null);
   // app.setAboutPanelOptions({ applicationName: " " }); // optional, harmless
