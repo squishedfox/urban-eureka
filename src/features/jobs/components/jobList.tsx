@@ -14,13 +14,17 @@ const JobList = ({ className }: JobListProps) => {
 
   return (
     <table className={clsx("table-auto", className)}>
-      <thead className="table-header-group border-b border-b-gray-800">
+      <thead className="table-header-group border border-gray-800">
         <tr className="table-row mb-1">
-          <td className="table-cell">Company Name</td>
-          <td className="table-cell">Title</td>
-          <td className="table-cell">Date Applied</td>
-          <td className="table-cell">Salary</td>
-          <td className="table-cell">Link</td>
+          <td className="table-cell border-r border-r-gray-800 px-2">
+            Company Name
+          </td>
+          <td className="table-cell border-r border-r-gray-800 px-2">Title</td>
+          <td className="table-cell border-r border-r-gray-800 px-2">
+            Date Applied
+          </td>
+          <td className="table-cell border-r border-r-gray-800 px-2">Salary</td>
+          <td className="table-cell px-2">Link</td>
         </tr>
       </thead>
       <tbody>
