@@ -1,8 +1,11 @@
 import { useGetJobs } from "@app/features/jobs/hooks";
+import clsx from "clsx";
 
-export interface JobListProps {}
+export interface JobListProps {
+  className?: string;
+}
 
-const JobList = () => {
+const JobList = ({ className }: JobListProps) => {
   const { state, jobs = [] } = useGetJobs();
 
   if (state === "pending" || state === "fetching") {
@@ -10,23 +13,24 @@ const JobList = () => {
   }
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <td>Company Name</td>
-          <td>Title</td>
-          <td>Date Applied</td>
-          <td>Salary</td>
-          <td>Link</td>
+    <table className={clsx("table-auto", className)}>
+      <thead className="table-header-group border-b border-b-gray-800">
+        <tr className="table-row mb-1">
+          <td className="table-cell">Company Name</td>
+          <td className="table-cell">Title</td>
+          <td className="table-cell">Date Applied</td>
+          <td className="table-cell">Salary</td>
+          <td className="table-cell">Link</td>
         </tr>
       </thead>
       <tbody>
         {jobs.map((job) => (
-          <tr key={job.companyName}>
-            <td>{job.title}</td>
-            <td>{job.dateApplied}</td>
-            <td>{job.salary}</td>
-            <td>{job.applicationLink}</td>
+          <tr key={job.companyName} className="table-row">
+            <td className="table-cell">{job.companyName}</td>
+            <td className="table-cell">{job.title}</td>
+            <td className="table-cell">{job.dateApplied}</td>
+            <td className="table-cell">{job.salary}</td>
+            <td className="table-cell">{job.applicationLink}</td>
           </tr>
         ))}
       </tbody>
