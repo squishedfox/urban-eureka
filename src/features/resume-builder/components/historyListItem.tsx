@@ -36,62 +36,89 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
   return (
     <div className={className}>
       <div className="inline-flex w-full">
-        <div className="flex-1">
-          <EditableInputField
-            className="w-1/3"
-            type="text"
-            title="company name"
-            aria-label="Company name"
-            name={`company-name-input-${id}`}
-            value={job.companyName}
-            onChanged={companyNameChanged}
-          >
-            <strong>{job.companyName}</strong>
-          </EditableInputField>
-          <div className="inline-flex items-center space-x-1 w-full">
-            <EditableInputField
-              type="date"
-              title="start date"
-              aria-label="Start Date"
-              name={`start-date-input-${id}`}
-              value={job.startDate}
-              onChanged={(newDate) =>
-                employmentDateChangedHandler([
-                  newDate as string,
-                  job.endDate as string,
-                ])
-              }
+        <div className="flex-1 space-y-1">
+          <div className="flex flex-col max-w-1/3">
+            <label
+              id={`company-name-label-${id}`}
+              htmlFor={`company-name-label-${id}`}
+              className="text-xs"
             >
-              {job.startDate}
-            </EditableInputField>
-            <span>-</span>
-            <EditableInputField
-              type="date"
-              title="end date"
-              aria-label="end Date"
-              name={`end-date-input-${id}`}
-              value={job.endDate}
-              onChanged={(newEndDate) =>
-                employmentDateChangedHandler([
-                  job.startDate,
-                  newEndDate as string,
-                ])
+              Company Name
+            </label>
+            <input
+              id={`company-name-input-${id}`}
+              name={`company-name-input-${id}`}
+              className="px-2 border border-gray-800"
+              type="text"
+              value={job.companyName}
+              onChange={(event) =>
+                companyNameChanged(event.currentTarget.value)
               }
-            >
-              {job.endDate || "Current"}
-            </EditableInputField>
+            />
           </div>
-          <EditableInputField
-            className="w-1/3"
-            type="text"
-            title="job title"
-            aria-label="job title"
-            name={`job-title-${id}`}
-            value={job.title}
-            onChanged={titleChanged}
-          >
-            {job.title}
-          </EditableInputField>
+          <div className="inline-flex items-center space-x-1 w-full">
+            <div className="flex flex-col max-w-1/3">
+              <label
+                id={`start-date-label-${id}`}
+                htmlFor={`start-date-label-${id}`}
+                className="text-xs"
+              >
+                Start Date
+              </label>
+              <input
+                id={`start-date-input-${id}`}
+                name={`start-date-input-${id}`}
+                className="px-2 border border-gray-800"
+                type="date"
+                value={job.startDate}
+                onChange={(event) =>
+                  employmentDateChangedHandler([
+                    event.currentTarget.value,
+                    job.endDate ?? "",
+                  ])
+                }
+              />
+            </div>
+            <div className="flex flex-col max-w-1/3">
+              <label
+                id={`start-date-label-${id}`}
+                htmlFor={`start-date-label-${id}`}
+                className="text-xs"
+              >
+                End Date
+              </label>
+              <input
+                id={`end-date-input-${id}`}
+                name={`end-date-input-${id}`}
+                className="px-2 border border-gray-800"
+                type="date"
+                value={job.endDate}
+                onChange={(event) =>
+                  employmentDateChangedHandler([
+                    job.startDate,
+                    event.currentTarget.value,
+                  ])
+                }
+              />
+            </div>
+          </div>
+          <div className="flex flex-col max-w-1/3">
+            <label
+              id={`job-title-label-${id}`}
+              htmlFor={`job-title-label-${id}`}
+              className="text-xs"
+            >
+              Job Title
+            </label>
+            <input
+              id={`job-title-input-${id}`}
+              name={`job-title-input-${id}`}
+              className="px-2 border border-gray-800"
+              type="text"
+              value={job.title}
+              onChange={(event) => titleChanged(event.currentTarget.value)}
+            />
+          </div>
           <ul className="p-4 space-y-2">
             {experiences.map(([id, text], ix) => (
               <li key={id}>
