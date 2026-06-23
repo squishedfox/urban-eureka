@@ -22,7 +22,7 @@ const About = ({ className }: AboutProps) => {
           id="about-textarea"
           name="about-textarea"
           value={about}
-          className="border border-gray-800 w-full"
+          className="border border-gray-800 w-full min-h-32 px-2 py-1"
           onChange={(event) => aboutChanged(event.currentTarget.value)}
         />
       </div>

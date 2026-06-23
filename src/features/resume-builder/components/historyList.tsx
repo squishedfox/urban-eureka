@@ -36,7 +36,7 @@ const HistoryList = ({ className }: HistoryListProps) => {
                 <ChevronIcon size="sm" direction="down" />
               </div>
               <JobHistoryItem
-                className="grow space-y-2 border border-l-gray-800 bg-white px-2 py-2"
+                className="grow space-y-2 border border-l-gray-800 bg-white p-4"
                 key={id}
                 jobId={id}
               />

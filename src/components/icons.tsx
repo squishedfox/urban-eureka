@@ -8,9 +8,7 @@ import Export from "@assets/export.svg";
 import Pdf from "@assets/export.svg";
 import Xmark from "@assets/xmark.svg";
 import Plus from "@assets/plus.svg";
-import CirclePlus from "@assets/circle-plus.svg";
 import SquarePlus from "@assets/square-plus.svg";
-import Pencil from "@assets/pencil.svg";
 import Calendar from "@assets/calendar.svg";
 import CalendarXMark from "@assets/calendar-xmark.svg";
 import IDCard from "@assets/id-card.svg";
@@ -106,14 +104,8 @@ export const XmarkIcon = ({ size = "md" }: IconProps) => (
 export const PlusIcon = ({ size = "md" }: IconProps) => (
   <img src={Plus} className={iconClassSizeMap[size]} />
 );
-export const CirclePlusIcon = ({ size = "md" }: IconProps) => (
-  <img src={CirclePlus} className={iconClassSizeMap[size]} />
-);
 export const SquarePlusIcon = ({ size = "md" }: IconProps) => (
   <img src={SquarePlus} className={iconClassSizeMap[size]} />
-);
-export const PencilIcon = ({ size = "md" }: IconProps) => (
-  <img src={Pencil} className={iconClassSizeMap[size]} />
 );
 export const CalendarIcon = ({ size = "md" }: IconProps) => (
   <img src={Calendar} className={iconClassSizeMap[size]} />

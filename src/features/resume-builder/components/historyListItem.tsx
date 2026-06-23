@@ -1,11 +1,11 @@
 import { HTMLProps } from "react";
 import {
+  CalendarIcon,
   ChevronIcon,
   SquarePlusIcon,
   TrashIcon,
   XmarkIcon,
 } from "@app/components/icons";
-import { EditableInputField } from "@app/components/inputs";
 import { useJob } from "../context";
 
 export interface JobHistoryItemProps extends Pick<
@@ -50,7 +50,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             <input
               id={`company-name-input-${id}`}
               name={`company-name-input-${id}`}
-              className="border border-gray-800 px-2 py-1"
+              className="border border-gray-800 px-2 py-1 w-full"
               type="text"
               value={job.companyName}
               onChange={(event) =>
@@ -59,8 +59,9 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             />
           </div>
           <div className="inline-flex items-center space-x-1 w-full">
-            <div className="max-w-1/3">
-              <div>
+            <div className="max-w-1/2 space-y-1">
+              <div className="flex space-x-1">
+                <CalendarIcon size="sm" />
                 <label
                   id={`start-date-label-${id}`}
                   htmlFor={`start-date-label-${id}`}
@@ -83,8 +84,9 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
                 }
               />
             </div>
-            <div className="max-w-1/2">
-              <div>
+            <div className="max-w-1/2 space-y-1">
+              <div className="flex space-x-1">
+                <CalendarIcon size="sm" />
                 <label
                   id={`start-date-label-${id}`}
                   htmlFor={`start-date-label-${id}`}
@@ -127,10 +129,10 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               onChange={(event) => titleChanged(event.currentTarget.value)}
             />
           </div>
-          <ul className="p-4 space-y-2" role="list">
+          <ul className="my-4 space-y-2" role="list">
             {experiences.map(([id, text], ix) => (
               <li key={id} className="flex space-x-1" role="listitem">
-                <div className="self-start">
+                <div className="flex flex-col">
                   <button
                     type="button"
                     disabled={ix === 0}

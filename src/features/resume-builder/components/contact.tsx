@@ -1,10 +1,5 @@
 import { useResumeBuilderForm } from "../context";
-import {
-  CircleUserIcon,
-  EditableInputField,
-  EnvelopeIcon,
-  PhoneIcon,
-} from "@app/components";
+import { CircleUserIcon, EnvelopeIcon, PhoneIcon } from "@app/components";
 
 export interface ContactProps {
   className?: string;
@@ -40,6 +35,7 @@ const Contact = ({ className }: ContactProps) => {
           type="text"
           className="border border-gray-800 px-2 py-1"
           onChange={(event) => fullNameChanged(event.currentTarget.value)}
+          value={fullName}
         />
       </div>
       <div className="inline-flex space-x-1">
@@ -57,6 +53,7 @@ const Contact = ({ className }: ContactProps) => {
           type="email"
           className="border border-gray-800 px-2 py-1"
           onChange={(event) => emailChanged(event.currentTarget.value)}
+          value={email}
         />
       </div>
       <div className="inline-flex space-x-1">
@@ -72,6 +69,7 @@ const Contact = ({ className }: ContactProps) => {
           type="phone"
           className="border border-gray-800 px-2 py-1"
           onChange={(event) => phoneChanged(event.currentTarget.value)}
+          value={phone}
         />
       </div>
     </div>
