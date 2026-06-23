@@ -1,3 +1,4 @@
+import { BanIcon, LockIcon } from "@app/components";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -37,6 +38,14 @@ const Home = () => {
           >
             Create resume
           </Link>
+        </div>
+        <div className="flex items-center">
+          <LockIcon />
+          <p>Your program, your data.</p>
+        </div>
+        <div className="flex items-center">
+          <BanIcon />
+          <p>No Tracking. No data sharing.</p>
         </div>
       </div>
     </div>

@@ -15,6 +15,9 @@ export const Layout = () => {
           <Link className="px-4 border-r border-gray-800" to="/jobs">
             Jobs
           </Link>
+          <Link className="px-4 border-r border-gray-800" to="/about">
+            About
+          </Link>
         </nav>
       </header>
 
