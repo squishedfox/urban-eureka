@@ -21,44 +21,58 @@ const Contact = ({ className }: ContactProps) => {
 
   return (
     <div className={className}>
-      <div className="inline-flex w-1/2 space-x-1 items-center">
-        <CircleUserIcon size="sm" />
-        <EditableInputField
-          className="inline-flex w-full space-x-1 items-center"
+      <div className="inline-flex space-x-1">
+        <span>
+          <CircleUserIcon size="sm" />
+        </span>
+        <label
+          id="full-name-input-label"
+          htmlFor="full-name-input"
+          className="text-xs"
+        >
+          Full name
+        </label>
+      </div>
+      <div>
+        <input
+          id="full-name-input"
+          name="full-name-input"
           type="text"
-          aria-label="Full Name"
-          name="fullname-input"
-          value={fullName}
-          onChanged={(value) => fullNameChanged(value as string)}
-        >
-          <strong>{fullName}</strong>
-        </EditableInputField>
+          className="border border-gray-800 px-2 py-1"
+          onChange={(event) => fullNameChanged(event.currentTarget.value)}
+        />
       </div>
-      <div className="inline-flex w-1/2 space-x-1 items-center">
-        <EnvelopeIcon size="sm" />
-        <EditableInputField
-          className="inline-flex w-full space-x-1 items-center"
-          type="email"
-          aria-label="E-Mail"
+      <div className="inline-flex space-x-1">
+        <span>
+          <EnvelopeIcon size="sm" />
+        </span>
+        <label id="email-input-label" htmlFor="email-input" className="text-xs">
+          E-Mail
+        </label>
+      </div>
+      <div>
+        <input
+          id="email-input"
           name="email-input"
-          value={email}
-          onChanged={(value) => emailChanged(value as string)}
-        >
-          <strong>{email}</strong>
-        </EditableInputField>
+          type="email"
+          className="border border-gray-800 px-2 py-1"
+          onChange={(event) => emailChanged(event.currentTarget.value)}
+        />
       </div>
-      <div className="inline-flex w-1/2 space-x-1 items-center">
+      <div className="inline-flex space-x-1">
         <PhoneIcon size="sm" />
-        <EditableInputField
-          className="inline-flex w-full space-x-1 items-center"
-          type="phone"
-          aria-label="Phone Number"
+        <label id="phone-input-label" htmlFor="phone-input" className="text-xs">
+          Phone
+        </label>
+      </div>
+      <div>
+        <input
+          id="phone-input"
           name="phone-input"
-          value={phone}
-          onChanged={(value) => phoneChanged(value as string)}
-        >
-          <strong>{phone}</strong>
-        </EditableInputField>
+          type="phone"
+          className="border border-gray-800 px-2 py-1"
+          onChange={(event) => phoneChanged(event.currentTarget.value)}
+        />
       </div>
     </div>
   );

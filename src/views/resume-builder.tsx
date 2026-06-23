@@ -8,7 +8,6 @@ import {
 } from "@app/features/resume-builder";
 import { ExportIcon, IDCardIcon, SaveIcon } from "@app/components/icons";
 import { Preview } from "@app/features/preview";
-import { ErrorBoundary } from "@app/components";
 
 const ResumeBuilderView = () => {
   const [resume, setResume] = useState<ResumeBuilderFormValue>({
@@ -46,7 +45,7 @@ const ResumeBuilderView = () => {
                 className="space-y-2 px-4 pt-4 pb-16"
               >
                 <fieldset
-                  className="bg-white grid grid-rows-2 p-4 border border-gray-800"
+                  className="bg-white p-4 border border-gray-800"
                   aria-label="About and Contact Section"
                 >
                   <div className="flex">
@@ -55,7 +54,7 @@ const ResumeBuilderView = () => {
                       <IDCardIcon />
                     </span>
                   </div>
-                  <About />
+                  <About className="min-h-32" />
                 </fieldset>
 
                 <fieldset>
