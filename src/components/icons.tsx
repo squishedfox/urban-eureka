@@ -10,13 +10,15 @@ import Xmark from "@assets/xmark.svg";
 import Plus from "@assets/plus.svg";
 import SquarePlus from "@assets/square-plus.svg";
 import Calendar from "@assets/calendar.svg";
-import CalendarXMark from "@assets/calendar-xmark.svg";
 import IDCard from "@assets/id-card.svg";
 import Envelope from "@assets/envelope.svg";
 import Phone from "@assets/phone.svg";
 import CircleUser from "@assets/circle-user.svg";
+import CircleInfo from "@assets/circle-info.svg";
 import Lock from "@assets/lock.svg";
 import Ban from "@assets/ban.svg";
+import Home from "@assets/home.svg";
+import Hammer from "@assets/hammer.svg";
 
 import type { AriaAttributes, HTMLAttributes } from "react";
 
@@ -112,9 +114,6 @@ export const SquarePlusIcon = ({ size = "md" }: IconProps) => (
 export const CalendarIcon = ({ size = "md" }: IconProps) => (
   <img src={Calendar} className={iconClassSizeMap[size]} />
 );
-export const CalendarXMarkIcon = ({ size = "md" }: IconProps) => (
-  <img src={CalendarXMark} className={iconClassSizeMap[size]} />
-);
 export const IDCardIcon = ({ size = "md" }: IconProps) => (
   <img src={IDCard} className={iconClassSizeMap[size]} />
 );
@@ -132,4 +131,13 @@ export const LockIcon = ({ size = "md" }: IconProps) => (
 );
 export const BanIcon = ({ size = "md" }: IconProps) => (
   <img src={Ban} className={iconClassSizeMap[size]} />
+);
+export const CircleInfoIcon = ({ size = "md" }: IconProps) => (
+  <img src={CircleInfo} className={iconClassSizeMap[size]} />
+);
+export const HomeIcon = ({ size = "md" }: IconProps) => (
+  <img src={Home} className={iconClassSizeMap[size]} />
+);
+export const HammerIcon = ({ size = "md" }: IconProps) => (
+  <img src={Hammer} className={iconClassSizeMap[size]} />
 );

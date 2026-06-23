@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
-import { ErrorBoundary } from "./components";
+import { CircleInfoIcon, HammerIcon, HomeIcon } from "@app/components/icons";
+import { ErrorBoundary } from "@app/components";
 
 export const Layout = () => {
   return (
@@ -7,15 +8,18 @@ export const Layout = () => {
       <header className="h-16">
         <nav className="inline-flex space-x-1 px-4 border-b-gray-800 border-b h-full w-full items-center">
           <Link className="px-4 border-r border-gray-800" to="/">
+            <HomeIcon />
             Home
           </Link>
           <Link className="px-4 border-r border-gray-800" to="/resume-builder">
-            Resume Builder
+            <HammerIcon />
+            Resume
           </Link>
           <Link className="px-4 border-r border-gray-800" to="/jobs">
             Jobs
           </Link>
           <Link className="px-4 border-r border-gray-800" to="/about">
+            <CircleInfoIcon />
             About
           </Link>
         </nav>
