@@ -15,6 +15,7 @@ import IDCard from "@assets/id-card.svg";
 import Envelope from "@assets/envelope.svg";
 import Phone from "@assets/phone.svg";
 import CircleUser from "@assets/circle-user.svg";
+import Lock from "@assets/lock.svg";
 
 import type { AriaAttributes, HTMLAttributes } from "react";
 
@@ -124,4 +125,7 @@ export const PhoneIcon = ({ size = "md" }: IconProps) => (
 );
 export const CircleUserIcon = ({ size = "md" }: IconProps) => (
   <img src={CircleUser} className={iconClassSizeMap[size]} />
+);
+export const LockIcon = ({ size = "md" }: IconProps) => (
+  <img src={Lock} className={iconClassSizeMap[size]} />
 );
