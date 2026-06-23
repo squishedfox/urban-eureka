@@ -19,6 +19,7 @@ import Lock from "@assets/lock.svg";
 import Ban from "@assets/ban.svg";
 import Home from "@assets/home.svg";
 import Hammer from "@assets/hammer.svg";
+import Briefcase from "@assets/briefcase.svg";
 
 import type { AriaAttributes, HTMLAttributes } from "react";
 
@@ -140,4 +141,7 @@ export const HomeIcon = ({ size = "md" }: IconProps) => (
 );
 export const HammerIcon = ({ size = "md" }: IconProps) => (
   <img src={Hammer} className={iconClassSizeMap[size]} />
+);
+export const BriefcaseIcon = ({ size = "md" }: IconProps) => (
+  <img src={Briefcase} className={iconClassSizeMap[size]} />
 );
