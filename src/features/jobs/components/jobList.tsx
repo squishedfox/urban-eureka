@@ -1,12 +1,17 @@
-import { useGetJobs } from "@app/features/jobs/hooks";
 import clsx from "clsx";
+import { useJobListings } from "../context";
+import { XmarkIcon } from "@app/components";
 
 export interface JobListProps {
   className?: string;
 }
 
 const JobList = ({ className }: JobListProps) => {
-  const { state, jobs = [] } = useGetJobs();
+  const {
+    getJobs,
+  } = useJobListings();
+
+  const { state, jobs = [] } = getJobs();
 
   if (state === "pending" || state === "fetching") {
     return <p>Loading</p>;
@@ -25,6 +30,7 @@ const JobList = ({ className }: JobListProps) => {
           </td>
           <td className="table-cell border-r border-r-gray-800 px-2 py-1">Salary</td>
           <td className="table-cell px-2 py-1">Link</td>
+          <td className="table-cell px-2 py-1">Actions</td>
         </tr>
       </thead>
       <tbody>
@@ -35,6 +41,13 @@ const JobList = ({ className }: JobListProps) => {
             <td className="table-cell px-2 py-1">{job.dateApplied}</td>
             <td className="table-cell px-2 py-1">{job.salary}</td>
             <td className="table-cell px-2 py-1">{job.applicationLink}</td>
+            <td className="table-cell px-2 py-1">
+              <div className="inline-flex space-x-1">
+                <button type="button">
+                  <XmarkIcon />
+                </button>
+              </div>
+            </td>
           </tr>
         ))}
       </tbody>
