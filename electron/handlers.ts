@@ -2,6 +2,7 @@ import { app } from "electron";
 import path from "node:path";
 import fs from "node:fs";
 import { faker } from "@faker-js/faker";
+import { ulid } from "ulid";
 
 export const saveResumeHandler = (_: unknown, data: unknown) => {
   const appDataPath = app.getPath("appData");
@@ -21,9 +22,9 @@ export const saveResumeHandler = (_: unknown, data: unknown) => {
 
 export const getJobs = () => {
   const today = new Date();
-  const appliedJobs = [];
+  const jobListings = {};
   for (let i = 0; i < 10; ++i) {
-    appliedJobs.push({
+    const jobListing = {
       companyName: faker.company.name(),
       dateApplied: faker.date
         .between({
@@ -37,7 +38,13 @@ export const getJobs = () => {
         max: 200000,
       }),
       applicationLink: faker.internet.url(),
+    };
+    Object.defineProperty(jobListings, ulid(), {
+      value: jobListing,
+      writable: true,
+      enumerable: true,
+      configurable: true,
     });
   }
-  return appliedJobs;
+  return jobListings;
 };

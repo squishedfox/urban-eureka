@@ -3,7 +3,7 @@ import { JobListing } from "@app/features/jobs/types";
 
 export const useGetJobs = () => {
   const [error, setError] = useState<unknown | null>(null);
-  const [jobs, setJobs] = useState<JobListing[]>([]);
+  const [jobs, setJobs] = useState<{ [id: string]: JobListing }>({});
   const [state, setState] = useState<
     "fetching" | "error" | "success" | "pending"
   >("pending");

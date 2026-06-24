@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { useJobListings } from "../context";
 import { XmarkIcon } from "@app/components";
 
 export interface JobListProps {
@@ -7,11 +6,7 @@ export interface JobListProps {
 }
 
 const JobList = ({ className }: JobListProps) => {
-  const {
-    getJobs,
-  } = useJobListings();
-
-  const { state, jobs = [] } = getJobs();
+  const { state, jobs = [] } = useGetJobs();
 
   if (state === "pending" || state === "fetching") {
     return <p>Loading</p>;
@@ -24,18 +19,22 @@ const JobList = ({ className }: JobListProps) => {
           <td className="table-cell border-r border-r-gray-800 px-2 py-1">
             Company Name
           </td>
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">Title</td>
+          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
+            Title
+          </td>
           <td className="table-cell border-r border-r-gray-800 px-2 py-1">
             Date Applied
           </td>
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">Salary</td>
+          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
+            Salary
+          </td>
           <td className="table-cell px-2 py-1">Link</td>
           <td className="table-cell px-2 py-1">Actions</td>
         </tr>
       </thead>
       <tbody>
         {jobs.map((job) => (
-          <tr key={job.companyName} className="table-row" role="row">
+          <tr key={job.companyName} className="table-row">
             <td className="table-cell px-2 py-1">{job.companyName}</td>
             <td className="table-cell px-2 py-1">{job.title}</td>
             <td className="table-cell px-2 py-1">{job.dateApplied}</td>
@@ -43,7 +42,10 @@ const JobList = ({ className }: JobListProps) => {
             <td className="table-cell px-2 py-1">{job.applicationLink}</td>
             <td className="table-cell px-2 py-1">
               <div className="inline-flex space-x-1">
-                <button type="button">
+                <button
+                  type="button"
+                  onClick={() => removeJobListing(job.title)}
+                >
                   <XmarkIcon />
                 </button>
               </div>

@@ -1,1 +1,2 @@
-export * from "./getJobs";
+export * from "./queries";
+export * from "./mutations";
