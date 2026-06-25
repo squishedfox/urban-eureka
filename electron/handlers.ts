@@ -1,10 +1,16 @@
-import { app, ipcMain } from "electron";
+import { app, IpcMainInvokeEvent } from "electron";
 import path from "node:path";
 import fs from "node:fs";
 import { faker } from "@faker-js/faker";
 import { ulid } from "ulid";
 
-export const saveResumeHandler = (_: unknown, data: unknown) => {
+export const addJobListingHandler = (event: IpcMainInvokeEvent) => {
+  event.sender.send("job-listing-add-success", {
+    id: ulid(),
+  });
+};
+
+export const saveResumeHandler = (_: IpcMainInvokeEvent, data: unknown) => {
   const appDataPath = app.getPath("appData");
   const jsonPayload = JSON.stringify(data);
   if (!fs.existsSync(path.join(appDataPath, "./urban-eureka"))) {
@@ -20,7 +26,7 @@ export const saveResumeHandler = (_: unknown, data: unknown) => {
   );
 };
 
-export const getJobs = () => {
+export const getJobListings = (_: IpcMainInvokeEvent) => {
   const today = new Date();
   const jobListings = {};
   for (let i = 0; i < 10; ++i) {

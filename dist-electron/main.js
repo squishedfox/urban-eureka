@@ -1939,6 +1939,11 @@ function ulid(seedTime, prng) {
   const seed = Date.now();
   return encodeTime(seed, TIME_LEN) + encodeRandom(RANDOM_LEN, currentPRNG);
 }
+const addJobListingHandler = (event) => {
+  event.sender.send("job-listing-add-success", {
+    id: ulid()
+  });
+};
 const saveResumeHandler = (_2, data) => {
   const appDataPath = app.getPath("appData");
   const jsonPayload = JSON.stringify(data);
@@ -1954,7 +1959,7 @@ const saveResumeHandler = (_2, data) => {
     }
   );
 };
-const getJobs = () => {
+const getJobListings = (_2) => {
   const today = /* @__PURE__ */ new Date();
   const jobListings = {};
   for (let i2 = 0; i2 < 10; ++i2) {
@@ -1997,6 +2002,7 @@ function createWindow() {
   });
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+    ipcMain.on("job-listing-add-request", addJobListingHandler);
   });
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
@@ -2008,13 +2014,14 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     ipcMain.removeHandler("resume-builder:save");
     ipcMain.removeHandler("get-jobs-request");
+    ipcMain.off("job-listing-add-request", addJobListingHandler);
     app.quit();
     win = null;
   }
 });
 app.whenReady().then(() => {
   ipcMain.handle("resume-builder:save", saveResumeHandler);
-  ipcMain.handle("get-jobs-request", getJobs);
+  ipcMain.handle("get-jobs-request", getJobListings);
   createWindow();
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {

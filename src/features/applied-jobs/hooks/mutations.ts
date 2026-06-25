@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { JobListing } from "../types";
 import { IpcRendererEvent } from "electron/main";
 
-export const addAppliedJob = () => {
+export const useAddAppliedJob = () => {
   const [error, setError] = useState<unknown | null>(null);
   const [state, setState] = useState<
     "fetching" | "error" | "success" | "pending"
@@ -15,6 +15,7 @@ export const addAppliedJob = () => {
 
   const addAppliedJobSuccess = useCallback(
     (_: IpcRendererEvent, newId: string) => {
+      setState("fetching");
       setAppliedJobId(newId);
       setState("success");
       setError(null);
@@ -24,7 +25,6 @@ export const addAppliedJob = () => {
 
   const addAppliedJobFailed = useCallback(
     (_: IpcRendererEvent, error: unknown) => {
-      console.debug("updated failed. args=", error);
       setError(error);
       setState("error");
       setAppliedJobId(null);
@@ -54,6 +54,7 @@ export const addAppliedJob = () => {
 };
 
 export const useUpdateJobListing = () => {
+  const registeredRef = useRef(false);
   const [error, setError] = useState<unknown | null>(null);
   const [state, setState] = useState<
     "fetching" | "error" | "success" | "pending"
@@ -75,8 +76,15 @@ export const useUpdateJobListing = () => {
   }, []);
 
   useEffect(() => {
-    window.ipcRenderer.on("job-listing-remove-success", documentUpdateSuccess);
-    window.ipcRenderer.on("job-listing-remove-failed", documentUpdateFailed);
+    if (!registeredRef.current) {
+      window.ipcRenderer.on(
+        "job-listing-remove-success",
+        documentUpdateSuccess,
+      );
+      window.ipcRenderer.on("job-listing-remove-failed", documentUpdateFailed);
+    }
+
+    registeredRef.current = true;
 
     return () => {
       window.ipcRenderer.off(
@@ -85,7 +93,7 @@ export const useUpdateJobListing = () => {
       );
       window.ipcRenderer.off("job-listing-remove-failed", documentUpdateFailed);
     };
-  });
+  }, []);
 
   return {
     state,
@@ -95,6 +103,7 @@ export const useUpdateJobListing = () => {
 };
 
 export const useRemoveJobListing = () => {
+  const registeredRef = useRef(false);
   const [error, setError] = useState<unknown | null>(null);
   const [state, setState] = useState<
     "fetching" | "error" | "success" | "pending"
@@ -117,9 +126,14 @@ export const useRemoveJobListing = () => {
   }, []);
 
   useEffect(() => {
-    window.ipcRenderer.on("job-listing-remove-success", documentUpdateSuccess);
-    window.ipcRenderer.on("job-listing-remove-failed", documentUpdateFailed);
-
+    if (!registeredRef.current) {
+      window.ipcRenderer.on(
+        "job-listing-remove-success",
+        documentUpdateSuccess,
+      );
+      window.ipcRenderer.on("job-listing-remove-failed", documentUpdateFailed);
+      registeredRef.current = true;
+    }
     return () => {
       window.ipcRenderer.off(
         "job-listing-remove-success",

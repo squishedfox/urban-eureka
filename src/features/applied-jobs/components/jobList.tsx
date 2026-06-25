@@ -1,19 +1,23 @@
 import clsx from "clsx";
 import { XmarkIcon } from "@app/components";
-import { useAppliedJobsContext } from "../context";
+import {
+  useGetJobListings,
+  useRemoveJobListing,
+} from "@app/features/applied-jobs/hooks";
 
 export interface JobListProps {
   className?: string;
 }
 
 const JobList = ({ className }: JobListProps) => {
-  const { getJobListings, removeJobListing: removeAppliedJob } =
-    useAppliedJobsContext();
-  const { state, jobs = [] } = getJobListings();
+  const { state, jobs = {} } = useGetJobListings();
+  const { removeJobListing } = useRemoveJobListing();
 
   if (state === "pending" || state === "fetching") {
     return <p>Loading</p>;
   }
+
+  console.log(jobs);
 
   return (
     <table className={clsx("table-auto", className)}>
@@ -45,7 +49,7 @@ const JobList = ({ className }: JobListProps) => {
             <td className="table-cell px-2 py-1">{listing.applicationLink}</td>
             <td className="table-cell px-2 py-1">
               <div className="inline-flex space-x-1">
-                <button type="button" onClick={() => removeAppliedJob(id)}>
+                <button type="button" onClick={() => removeJobListing(id)}>
                   <XmarkIcon />
                 </button>
               </div>
