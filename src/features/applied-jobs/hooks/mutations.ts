@@ -48,7 +48,8 @@ export const addAppliedJob = () => {
   return {
     state,
     error,
-    updateJobListing: addJobListing,
+    addJobListing,
+    appliedJobId,
   };
 };
 

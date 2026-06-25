@@ -1,7 +1,8 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, IpcMainEvent } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { getJobs, saveResumeHandler } from "./handlers";
+import { ulid } from "ulid";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -27,6 +28,10 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
 
 let win: BrowserWindow | null;
 
+function addJobListing() {
+  win?.webContents.send("job-listing-add-success", ulid());
+}
+
 function createWindow() {
   win = new BrowserWindow({
     // autoHideMenuBar: true,
@@ -43,6 +48,7 @@ function createWindow() {
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
+    ipcMain.on("job-listing-add-request", addJobListing);
     // win?.setMenuBarVisibility(false);
     // win?.setMenu(null);
   });
@@ -62,6 +68,7 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     ipcMain.removeHandler("resume-builder:save");
     ipcMain.removeHandler("get-jobs-request");
+    ipcMain.off("job-listing-add-request", addJobListing());
     app.quit();
     win = null;
   }

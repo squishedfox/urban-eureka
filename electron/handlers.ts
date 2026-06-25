@@ -1,4 +1,4 @@
-import { app } from "electron";
+import { app, ipcMain } from "electron";
 import path from "node:path";
 import fs from "node:fs";
 import { faker } from "@faker-js/faker";
