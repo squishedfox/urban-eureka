@@ -14,10 +14,12 @@ export const useGetJobs = () => {
       setState("fetching");
       const res = await window.ipcRenderer.invoke("get-jobs-request");
       setJobs(res);
+      setError(null);
       setState("success");
     } catch (err: unknown) {
       setState("error");
       setError(err);
+      setJobs({});
     }
   }, []);
 

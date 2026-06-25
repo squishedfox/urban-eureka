@@ -1,5 +1,56 @@
 import { useCallback, useEffect, useState } from "react";
 import { JobListing } from "../types";
+import { IpcRendererEvent } from "electron/main";
+
+export const addAppliedJob = () => {
+  const [error, setError] = useState<unknown | null>(null);
+  const [state, setState] = useState<
+    "fetching" | "error" | "success" | "pending"
+  >("pending");
+  const [appliedJobId, setAppliedJobId] = useState<string | null>();
+
+  const addJobListing = useCallback(() => {
+    window.ipcRenderer.send("job-listing-add-request");
+  }, []);
+
+  const addAppliedJobSuccess = useCallback(
+    (_: IpcRendererEvent, newId: string) => {
+      setAppliedJobId(newId);
+      setState("success");
+      setError(null);
+    },
+    [],
+  );
+
+  const addAppliedJobFailed = useCallback(
+    (_: IpcRendererEvent, error: unknown) => {
+      console.debug("updated failed. args=", error);
+      setError(error);
+      setState("error");
+      setAppliedJobId(null);
+    },
+    [],
+  );
+
+  useEffect(() => {
+    window.ipcRenderer.on("job-listing-add-success", addAppliedJobSuccess);
+    window.ipcRenderer.on("job-listing-add-failed", addAppliedJobFailed);
+
+    return () => {
+      window.ipcRenderer.off(
+        "job-listing-remove-success",
+        addAppliedJobSuccess,
+      );
+      window.ipcRenderer.off("job-listing-add-failed", addAppliedJobFailed);
+    };
+  });
+
+  return {
+    state,
+    error,
+    updateJobListing: addJobListing,
+  };
+};
 
 export const useUpdateJobListing = () => {
   const [error, setError] = useState<unknown | null>(null);
