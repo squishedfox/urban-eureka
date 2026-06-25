@@ -1,12 +1,15 @@
 import clsx from "clsx";
 import { XmarkIcon } from "@app/components";
+import { useAppliedJobsContext } from "../context";
 
 export interface JobListProps {
   className?: string;
 }
 
 const JobList = ({ className }: JobListProps) => {
-  const { state, jobs = [] } = useGetJobs();
+  const { getJobListings, removeJobListing: removeAppliedJob } =
+    useAppliedJobsContext();
+  const { state, jobs = [] } = getJobListings();
 
   if (state === "pending" || state === "fetching") {
     return <p>Loading</p>;
@@ -33,19 +36,16 @@ const JobList = ({ className }: JobListProps) => {
         </tr>
       </thead>
       <tbody>
-        {jobs.map((job) => (
-          <tr key={job.companyName} className="table-row">
-            <td className="table-cell px-2 py-1">{job.companyName}</td>
-            <td className="table-cell px-2 py-1">{job.title}</td>
-            <td className="table-cell px-2 py-1">{job.dateApplied}</td>
-            <td className="table-cell px-2 py-1">{job.salary}</td>
-            <td className="table-cell px-2 py-1">{job.applicationLink}</td>
+        {Object.entries(jobs).map(([id, listing]) => (
+          <tr key={id} className="table-row">
+            <td className="table-cell px-2 py-1">{listing.companyName}</td>
+            <td className="table-cell px-2 py-1">{listing.title}</td>
+            <td className="table-cell px-2 py-1">{listing.dateApplied}</td>
+            <td className="table-cell px-2 py-1">{listing.salary}</td>
+            <td className="table-cell px-2 py-1">{listing.applicationLink}</td>
             <td className="table-cell px-2 py-1">
               <div className="inline-flex space-x-1">
-                <button
-                  type="button"
-                  onClick={() => removeJobListing(job.title)}
-                >
+                <button type="button" onClick={() => removeAppliedJob(id)}>
                   <XmarkIcon />
                 </button>
               </div>

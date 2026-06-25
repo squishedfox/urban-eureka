@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren } from "react";
+import { createContext, PropsWithChildren, useContext } from "react";
 import {
   useGetJobs,
   useRemoveJobListing,
@@ -7,43 +7,45 @@ import {
 } from "@app/features/applied-jobs/hooks";
 import { JobListing } from "@app/features/applied-jobs/types";
 
-export interface AppliedJobsContextType {
-  addAppliedJob(): void;
-  removeAppliedJob(id: string): void;
-  updateAppliedJob(id: string, payload: JobListing): void;
-  getJobs(): {
+export interface JobListingContextType {
+  addJobListing(): void;
+  removeJobListing(id: string): void;
+  updateJobListing(id: string, payload: JobListing): void;
+  getJobListings(): {
     state: "pending" | "fetching" | "success" | "error";
     error: unknown | null;
     jobs: { [id: string]: JobListing };
   };
 }
 
-const AppliedJobsContext = createContext<AppliedJobsContextType>({
-  getJobs() {
+const AppliedJobsContext = createContext<JobListingContextType>({
+  getJobListings() {
     throw new Error("getJobs function not implemented");
   },
-  addAppliedJob(): void {
+  addJobListing(): void {
     throw new Error("addAppliedJob function not implemented.");
   },
-  removeAppliedJob(_: string): void {
+  removeJobListing(_: string): void {
     throw new Error("removeAppliedJob function not implemented.");
   },
-  updateAppliedJob(_1: string, _2: JobListing): void {
+  updateJobListing(_1: string, _2: JobListing): void {
     throw new Error("updateAppliedJob function not implemented.");
   },
 });
 
-export const AppliedJobsProvider = ({ children }: PropsWithChildren<{}>) => {
+export const JobListingProvider = ({ children }: PropsWithChildren<{}>) => {
   return (
     <AppliedJobsContext.Provider
       value={{
-        addAppliedJob,
-        getJobs: useGetJobs,
-        removeAppliedJob: useRemoveJobListing,
-        updateAppliedJob: useUpdateJobListing,
+        addJobListing: addAppliedJob,
+        getJobListings: useGetJobs,
+        removeJobListing: useRemoveJobListing,
+        updateJobListing: useUpdateJobListing,
       }}
     >
       {children}
     </AppliedJobsContext.Provider>
   );
 };
+
+export const useAppliedJobsContext = () => useContext(AppliedJobsContext);
