@@ -4,8 +4,8 @@ import {
   useRemoveJobListing,
   useUpdateJobListing,
   addAppliedJob,
-} from "@app/features/jobs/hooks";
-import { JobListing } from "@app/features/jobs/types";
+} from "@app/features/applied-jobs/hooks";
+import { JobListing } from "@app/features/applied-jobs/types";
 
 export interface AppliedJobsContextType {
   addAppliedJob(): void;

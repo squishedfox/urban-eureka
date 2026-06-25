@@ -1,6 +1,6 @@
 import { BriefcaseIcon, SquarePlusIcon } from "@app/components";
-import { JobList } from "@app/features/jobs";
-import { JobListingProvider } from "@app/features/jobs/context";
+import { JobList } from "@app/features/applied-jobs";
+import { JobListingProvider } from "@app/features/applied-jobs/context";
 
 const JobView = () => (
   <JobListingProvider>
