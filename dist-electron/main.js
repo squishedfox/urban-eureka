@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-import { app, ipcMain, BrowserWindow } from "electron";
+import { ipcMain, app, BrowserWindow } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import fs from "node:fs";
@@ -1939,6 +1939,16 @@ function ulid(seedTime, prng) {
   const seed = Date.now();
   return encodeTime(seed, TIME_LEN) + encodeRandom(RANDOM_LEN, currentPRNG);
 }
+const registerHandlers = () => {
+  ipcMain.handle("resume-builder:save", saveResumeHandler);
+  ipcMain.handle("get-jobs-request", getJobListings);
+  ipcMain.on("job-listing-add-request", addJobListingHandler);
+};
+const removeHandlers = () => {
+  ipcMain.removeHandler("resume-builder:save");
+  ipcMain.removeHandler("get-jobs-request");
+  ipcMain.off("job-listing-add-request", addJobListingHandler);
+};
 const addJobListingHandler = (event) => {
   event.sender.send("job-listing-add-success", {
     id: ulid()
@@ -2002,7 +2012,7 @@ function createWindow() {
   });
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
-    ipcMain.on("job-listing-add-request", addJobListingHandler);
+    registerHandlers();
   });
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
@@ -2012,16 +2022,12 @@ function createWindow() {
 }
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
-    ipcMain.removeHandler("resume-builder:save");
-    ipcMain.removeHandler("get-jobs-request");
-    ipcMain.off("job-listing-add-request", addJobListingHandler);
+    removeHandlers();
     app.quit();
     win = null;
   }
 });
 app.whenReady().then(() => {
-  ipcMain.handle("resume-builder:save", saveResumeHandler);
-  ipcMain.handle("get-jobs-request", getJobListings);
   createWindow();
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {

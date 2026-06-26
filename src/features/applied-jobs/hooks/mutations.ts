@@ -1,99 +1,78 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { JobListing } from "../types";
-import { IpcRendererEvent } from "electron/main";
+import { useEventState } from "@app/hooks";
 
 export const useAddAppliedJob = () => {
   const [error, setError] = useState<unknown | null>(null);
-  const [state, setState] = useState<
-    "fetching" | "error" | "success" | "pending"
-  >("pending");
-  const [appliedJobId, setAppliedJobId] = useState<string | null>();
+  const [state, setState] = useEventState();
 
   const addJobListing = useCallback(() => {
     window.ipcRenderer.send("job-listing-add-request");
+    setState("fetching");
+    setError(null);
   }, []);
 
-  const addAppliedJobSuccess = useCallback(
-    (_: IpcRendererEvent, newId: string) => {
-      setState("fetching");
-      setAppliedJobId(newId);
-      setState("success");
-      setError(null);
-    },
-    [],
-  );
+  const addSuccess = useCallback(() => {
+    setState("success");
+    setError(null);
+  }, []);
 
-  const addAppliedJobFailed = useCallback(
-    (_: IpcRendererEvent, error: unknown) => {
-      setError(error);
-      setState("error");
-      setAppliedJobId(null);
-    },
-    [],
-  );
+  const addFailed = useCallback((res: { error: Error }) => {
+    setError(res.error);
+    setState("error");
+  }, []);
 
   useEffect(() => {
-    window.ipcRenderer.on("job-listing-add-success", addAppliedJobSuccess);
-    window.ipcRenderer.on("job-listing-add-failed", addAppliedJobFailed);
+    const unsubscriable = [
+      window.ipcRenderer.subscribe("job-listing-add-success", addSuccess),
+      window.ipcRenderer.subscribe("job-listing-add-failed", addFailed),
+    ];
 
     return () => {
-      window.ipcRenderer.off(
-        "job-listing-remove-success",
-        addAppliedJobSuccess,
-      );
-      window.ipcRenderer.off("job-listing-add-failed", addAppliedJobFailed);
+      for (const { unsubscribe } of unsubscriable) {
+        unsubscribe();
+      }
     };
-  });
+  }, [addSuccess, addFailed]);
 
   return {
     state,
     error,
     addJobListing,
-    appliedJobId,
   };
 };
 
 export const useUpdateJobListing = () => {
-  const registeredRef = useRef(false);
   const [error, setError] = useState<unknown | null>(null);
-  const [state, setState] = useState<
-    "fetching" | "error" | "success" | "pending"
-  >("pending");
+  const [state, setState] = useEventState();
 
   const updateJobListing = useCallback((id: string, listing: JobListing) => {
     window.ipcRenderer.send("job-listing-remove-request", id, listing);
   }, []);
 
-  const documentUpdateSuccess = useCallback((...args: any[]) => {
+  const updateSuccess = useCallback((...args: any[]) => {
     console.debug("updated args=", args);
     setState("success");
   }, []);
 
-  const documentUpdateFailed = useCallback((...args: any[]) => {
+  const updateFailed = useCallback((...args: any[]) => {
     console.debug("updated failed. args=", args);
     setError(new Error("some failure message"));
     setState("error");
   }, []);
 
   useEffect(() => {
-    if (!registeredRef.current) {
-      window.ipcRenderer.on(
-        "job-listing-remove-success",
-        documentUpdateSuccess,
-      );
-      window.ipcRenderer.on("job-listing-remove-failed", documentUpdateFailed);
-    }
-
-    registeredRef.current = true;
+    const unsubscribable = [
+      window.ipcRenderer.subscribe("job-listing-remove-success", updateSuccess),
+      window.ipcRenderer.subscribe("job-listing-remove-failed", updateFailed),
+    ];
 
     return () => {
-      window.ipcRenderer.off(
-        "job-listing-remove-success",
-        documentUpdateSuccess,
-      );
-      window.ipcRenderer.off("job-listing-remove-failed", documentUpdateFailed);
+      for (const { unsubscribe } of unsubscribable) {
+        unsubscribe();
+      }
     };
-  }, []);
+  }, [updateSuccess, updateFailed]);
 
   return {
     state,
@@ -103,45 +82,36 @@ export const useUpdateJobListing = () => {
 };
 
 export const useRemoveJobListing = () => {
-  const registeredRef = useRef(false);
   const [error, setError] = useState<unknown | null>(null);
-  const [state, setState] = useState<
-    "fetching" | "error" | "success" | "pending"
-  >("pending");
+  const [state, setState] = useEventState();
 
   const removeJobListing = useCallback((id: string) => {
-    window.ipcRenderer.send("job-listing-remove-request", id);
     setState("fetching");
+    setError(null);
+    window.ipcRenderer.send("job-listing-remove-request", id);
   }, []);
 
-  const documentUpdateSuccess = useCallback((...args: any[]) => {
-    console.debug("updated args=", args);
+  const removeSuccess = useCallback(() => {
     setState("success");
   }, []);
 
-  const documentUpdateFailed = useCallback((...args: any[]) => {
-    console.debug("remove failed. args=", args);
-    setError(new Error("some failure message"));
+  const removeFailed = useCallback((res: { error: Error }) => {
+    setError(res.error);
     setState("error");
   }, []);
 
   useEffect(() => {
-    if (!registeredRef.current) {
-      window.ipcRenderer.on(
-        "job-listing-remove-success",
-        documentUpdateSuccess,
-      );
-      window.ipcRenderer.on("job-listing-remove-failed", documentUpdateFailed);
-      registeredRef.current = true;
-    }
+    const unsubscriable = [
+      window.ipcRenderer.subscribe("job-listing-remove-success", removeSuccess),
+      window.ipcRenderer.subscribe("job-listing-remove-failed", removeFailed),
+    ];
+
     return () => {
-      window.ipcRenderer.off(
-        "job-listing-remove-success",
-        documentUpdateSuccess,
-      );
-      window.ipcRenderer.off("job-listing-remove-failed", documentUpdateFailed);
+      for (const { unsubscribe } of unsubscriable) {
+        unsubscribe();
+      }
     };
-  });
+  }, [removeFailed, removeSuccess]);
 
   return {
     state,

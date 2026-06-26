@@ -17,8 +17,6 @@ const JobList = ({ className }: JobListProps) => {
     return <p>Loading</p>;
   }
 
-  console.log(jobs);
-
   return (
     <table className={clsx("table-auto", className)}>
       <thead className="table-header-group border border-gray-800">
@@ -35,7 +33,9 @@ const JobList = ({ className }: JobListProps) => {
           <td className="table-cell border-r border-r-gray-800 px-2 py-1">
             Salary
           </td>
-          <td className="table-cell px-2 py-1">Link</td>
+          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
+            Link
+          </td>
           <td className="table-cell px-2 py-1">Actions</td>
         </tr>
       </thead>
@@ -45,7 +45,9 @@ const JobList = ({ className }: JobListProps) => {
             <td className="table-cell px-2 py-1">{listing.companyName}</td>
             <td className="table-cell px-2 py-1">{listing.title}</td>
             <td className="table-cell px-2 py-1">{listing.dateApplied}</td>
-            <td className="table-cell px-2 py-1">{listing.salary}</td>
+            <td className="table-cell px-2 py-1">
+              {Intl.NumberFormat().format(listing.salary)}
+            </td>
             <td className="table-cell px-2 py-1">{listing.applicationLink}</td>
             <td className="table-cell px-2 py-1">
               <div className="inline-flex space-x-1">

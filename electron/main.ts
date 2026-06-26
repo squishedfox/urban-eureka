@@ -1,11 +1,7 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import {
-  getJobListings,
-  saveResumeHandler,
-  addJobListingHandler,
-} from "./handlers";
+import { registerHandlers, removeHandlers } from "./handlers";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -47,7 +43,7 @@ function createWindow() {
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
-    ipcMain.on("job-listing-add-request", addJobListingHandler);
+    registerHandlers();
     // win?.setMenuBarVisibility(false);
     // win?.setMenu(null);
   });
@@ -65,18 +61,13 @@ function createWindow() {
 // explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
-    ipcMain.removeHandler("resume-builder:save");
-    ipcMain.removeHandler("get-jobs-request");
-    ipcMain.off("job-listing-add-request", addJobListingHandler);
+    removeHandlers();
     app.quit();
     win = null;
   }
 });
 
 app.whenReady().then(() => {
-  ipcMain.handle("resume-builder:save", saveResumeHandler);
-  ipcMain.handle("get-jobs-request", getJobListings);
-
   // Menu.setApplicationMenu(null);
   // app.setAboutPanelOptions({ applicationName: " " }); // optional, harmless
   createWindow();
