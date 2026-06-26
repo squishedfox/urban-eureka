@@ -88,11 +88,12 @@ export const useRemoveJobListing = () => {
   const removeJobListing = useCallback((id: string) => {
     setState("fetching");
     setError(null);
-    window.ipcRenderer.send("job-listing-remove-request", id);
+    window.ipcRenderer.send("job-listing-remove-request", { id });
   }, []);
 
   const removeSuccess = useCallback(() => {
     setState("success");
+    setError(null);
   }, []);
 
   const removeFailed = useCallback((res: { error: Error }) => {

@@ -27,6 +27,26 @@ export const useGetJobListings = () => {
     setState("success");
   }, []);
 
+  const removeJobSuccess = useCallback((res: { id: string }) => {
+    setState("fetching");
+    setError(null);
+    setJobs((prev) =>
+      Object.entries(prev).reduce((acc, [id, value]) => {
+        if (id === res.id) {
+          return acc;
+        }
+        Object.defineProperty(acc, id, {
+          value: value,
+          configurable: true,
+          writable: true,
+          enumerable: true,
+        });
+        return acc;
+      }, {}),
+    );
+    setState("success");
+  }, []);
+
   const addJobFailed = useCallback((res: { error: Error }) => {
     console.error(res.error);
   }, []);
@@ -51,6 +71,10 @@ export const useGetJobListings = () => {
     const unsubscriable = [
       window.ipcRenderer.subscribe("job-listing-add-success", addJobSuccess),
       window.ipcRenderer.subscribe("job-listing-add-failed", addJobFailed),
+      window.ipcRenderer.subscribe(
+        "job-listing-remove-success",
+        removeJobSuccess,
+      ),
     ];
     return () => {
       for (const { unsubscribe } of unsubscriable) {

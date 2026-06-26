@@ -1939,37 +1939,8 @@ function ulid(seedTime, prng) {
   const seed = Date.now();
   return encodeTime(seed, TIME_LEN) + encodeRandom(RANDOM_LEN, currentPRNG);
 }
-const registerHandlers = () => {
-  ipcMain.handle("resume-builder:save", saveResumeHandler);
-  ipcMain.handle("get-jobs-request", getJobListings);
-  ipcMain.on("job-listing-add-request", addJobListingHandler);
-};
-const removeHandlers = () => {
-  ipcMain.removeHandler("resume-builder:save");
-  ipcMain.removeHandler("get-jobs-request");
-  ipcMain.off("job-listing-add-request", addJobListingHandler);
-};
-const addJobListingHandler = (event) => {
-  event.sender.send("job-listing-add-success", {
-    id: ulid()
-  });
-};
-const saveResumeHandler = (_2, data) => {
-  const appDataPath = app.getPath("appData");
-  const jsonPayload = JSON.stringify(data);
-  if (!fs.existsSync(path.join(appDataPath, "./urban-eureka"))) {
-    fs.mkdirSync(path.join(appDataPath, "./urban-eureka"));
-  }
-  fs.writeFile(
-    path.join(appDataPath, "./urban-eureka", "resume.json"),
-    jsonPayload,
-    "utf8",
-    (err) => {
-      console.error(err);
-    }
-  );
-};
-const getJobListings = (_2) => {
+let globalJobListings = {};
+const createFakeJobListings = () => {
   const today = /* @__PURE__ */ new Date();
   const jobListings = {};
   for (let i2 = 0; i2 < 10; ++i2) {
@@ -1994,6 +1965,63 @@ const getJobListings = (_2) => {
     });
   }
   return jobListings;
+};
+const registerHandlers = () => {
+  globalJobListings = createFakeJobListings();
+  ipcMain.handle("resume-builder:save", saveResumeHandler);
+  ipcMain.handle("get-jobs-request", getJobListings);
+  ipcMain.on("job-listing-add-request", addJobListingHandler);
+  ipcMain.on("job-listing-remove-request", removeJobListingHandler);
+};
+const removeHandlers = () => {
+  ipcMain.removeHandler("resume-builder:save");
+  ipcMain.removeHandler("get-jobs-request");
+  ipcMain.off("job-listing-add-request", addJobListingHandler);
+};
+const addJobListingHandler = (event) => {
+  const id = ulid();
+  Object.defineProperty(globalJobListings, id, {
+    value: {
+      companyName: "",
+      companyLink: "",
+      applicationLink: "",
+      title: "",
+      salary: 0,
+      dateApplied: "",
+      description: "",
+      notes: ""
+    },
+    configurable: true,
+    enumerable: true,
+    writable: true
+  });
+  event.sender.send("job-listing-add-success", {
+    id
+  });
+};
+const removeJobListingHandler = (event, req) => {
+  delete globalJobListings[req.id];
+  event.sender.send("job-listing-remove-success", {
+    id: ulid()
+  });
+};
+const saveResumeHandler = (_2, data) => {
+  const appDataPath = app.getPath("appData");
+  const jsonPayload = JSON.stringify(data);
+  if (!fs.existsSync(path.join(appDataPath, "./urban-eureka"))) {
+    fs.mkdirSync(path.join(appDataPath, "./urban-eureka"));
+  }
+  fs.writeFile(
+    path.join(appDataPath, "./urban-eureka", "resume.json"),
+    jsonPayload,
+    "utf8",
+    (err) => {
+      console.error(err);
+    }
+  );
+};
+const getJobListings = (_2) => {
+  return globalJobListings;
 };
 const __dirname$1 = path.dirname(fileURLToPath(import.meta.url));
 process.env.APP_ROOT = path.join(__dirname$1, "..");
