@@ -15,9 +15,9 @@ const Preview = ({ about, fullName, email, phone, jobs }: PreviewProps) => {
   return (
     <div className="space-y-4">
       <section aria-label="contact information">
-        <h1 className="text-2xl">{fullName}</h1>
-        <p className="text-lg">{email}</p>
-        <p className="text-lg">{phone}</p>
+        <h1>{fullName}</h1>
+        <p>{email}</p>
+        <p>{phone}</p>
       </section>
       <section>
         <h3>
@@ -35,7 +35,6 @@ const Preview = ({ about, fullName, email, phone, jobs }: PreviewProps) => {
             return (
               <li
                 key={ix}
-                className="min-w-full"
                 aria-labelledby={`${companyName}-${ix}-header`}
               >
                 <div className="flex content-between items-center gap-1">
@@ -48,7 +47,7 @@ const Preview = ({ about, fullName, email, phone, jobs }: PreviewProps) => {
                     <span>{endDate ? endDate : "Current"}</span>
                   </div>
                 </div>
-                <ul className="ml-6 list-disc">
+                <ul>
                   {experience
                     .filter((exp) => !!exp)
                     .map((exp, j) => (

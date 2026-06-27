@@ -16,37 +16,28 @@ const Contact = ({ className }: ContactProps) => {
 
   return (
     <div className={className}>
-      <div className="inline-flex space-x-1">
-        <span>
-          <CircleUserIcon size="sm" />
-        </span>
+      <div className="input-group">
         <label
           id="full-name-input-label"
           htmlFor="full-name-input"
-          className="text-xs"
         >
+          <CircleUserIcon size="sm" />
           Full name
         </label>
-      </div>
-      <div>
         <input
           id="full-name-input"
           name="full-name-input"
           type="text"
-          className="border border-gray-800 px-2 py-1"
           onChange={(event) => fullNameChanged(event.currentTarget.value)}
           value={fullName}
         />
       </div>
-      <div className="inline-flex space-x-1">
-        <span>
-          <EnvelopeIcon size="sm" />
-        </span>
+      <div className="input-group">
         <label id="email-input-label" htmlFor="email-input" className="text-xs">
+
+          <EnvelopeIcon size="sm" />
           E-Mail
         </label>
-      </div>
-      <div>
         <input
           id="email-input"
           name="email-input"
@@ -56,13 +47,11 @@ const Contact = ({ className }: ContactProps) => {
           value={email}
         />
       </div>
-      <div className="inline-flex space-x-1">
+      <div className="input-group">
+        <label id="phone-input-label" htmlFor="phone-input">
         <PhoneIcon size="sm" />
-        <label id="phone-input-label" htmlFor="phone-input" className="text-xs">
           Phone
         </label>
-      </div>
-      <div>
         <input
           id="phone-input"
           name="phone-input"

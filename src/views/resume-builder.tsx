@@ -39,26 +39,24 @@ const ResumeBuilderView = () => {
       <div className="h-[calc(100vh-128px)] overflow-hidden">
         <div className="grid grid-cols-2 h-full overflow-hidden">
           <div className="border-r border-r-gray-800 bg-gray-200 overflow-y-auto">
+
             <ResumeBuilderFormProvider onChange={resumeChangedHandler}>
               <form
                 name="job-history-form"
                 className="space-y-2 px-4 pt-4 pb-16"
               >
+
                 <fieldset
-                  className="bg-white p-4 border border-gray-800"
                   aria-label="About and Contact Section"
                 >
-                  <div className="flex">
-                    <Contact className="flex flex-col flex-1 space-y-1" />
-                    <span>
-                      <IDCardIcon />
-                    </span>
-                  </div>
-                  <About className="min-h-32" />
+
+                  <IDCardIcon />
+                  <Contact />
+                  <About className="input-group" />
                 </fieldset>
 
                 <fieldset>
-                  <HistoryList className="space-y-2" />
+                  <HistoryList />
                 </fieldset>
               </form>
             </ResumeBuilderFormProvider>

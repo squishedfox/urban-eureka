@@ -24,11 +24,11 @@ import Briefcase from "@assets/briefcase.svg";
 import type { AriaAttributes, HTMLAttributes } from "react";
 
 const iconClassSizeMap = {
-  xs: "w-2 h-2",
-  sm: "w-4 h-4",
-  md: "w-8 h-8",
-  lg: "w-10 h-10",
-  xl: "w-16 h-16",
+  xs: "xs",
+  sm: "sm",
+  md: "md",
+  lg: "lg",
+  xl: "xl",
 };
 export interface IconProps
   extends AriaAttributes, Omit<HTMLAttributes<HTMLElement>, "src" | "alt"> {

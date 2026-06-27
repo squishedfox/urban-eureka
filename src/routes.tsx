@@ -5,21 +5,21 @@ import { ErrorBoundary } from "@app/components";
 export const Layout = () => {
   return (
     <>
-      <header className="h-16">
-        <nav className="inline-flex space-x-1 px-4 border-b-gray-800 border-b h-full w-full items-center">
-          <Link className="px-4 border-r border-gray-800 flex flex-col items-center" to="/">
+      <header>
+        <nav>
+          <Link to="/">
             <HomeIcon />
-            <span className="text-center">Home</span> 
+            Home
           </Link>
-          <Link className="px-4 border-r border-gray-800 flex flex-col items-center" to="/resume-builder">
+          <Link to="/resume-builder">
             <HammerIcon />
             Resume
           </Link>
-          <Link className="px-4 border-r border-gray-800 flex flex-col items-center" to="/jobs">
+          <Link to="/jobs">
             <BriefcaseIcon />
             Jobs
           </Link>
-          <Link className="px-4 border-r border-gray-800 flex flex-col items-center" to="/about">
+          <Link to="/about">
             <CircleInfoIcon />
             About
           </Link>

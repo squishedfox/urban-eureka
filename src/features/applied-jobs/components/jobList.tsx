@@ -19,37 +19,37 @@ const JobList = ({ className }: JobListProps) => {
 
   return (
     <table className={clsx("table-auto", className)}>
-      <thead className="table-header-group border border-gray-800">
+      <thead className="table-header-group">
         <tr className="table-row mb-1">
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
+          <td className="table-cell border-r">
             Company Name
           </td>
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
+          <td className="table-cell border-r">
             Title
           </td>
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
+          <td className="table-cell border-r">
             Date Applied
           </td>
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
+          <td className="table-cell border-r">
             Salary
           </td>
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
+          <td className="table-cell border-r">
             Link
           </td>
-          <td className="table-cell px-2 py-1">Actions</td>
+          <td className="table-cell">Actions</td>
         </tr>
       </thead>
       <tbody>
         {Object.entries(jobs).map(([id, listing]) => (
           <tr key={id} className="table-row">
-            <td className="table-cell px-2 py-1">{listing.companyName}</td>
-            <td className="table-cell px-2 py-1">{listing.title}</td>
-            <td className="table-cell px-2 py-1">{listing.dateApplied}</td>
-            <td className="table-cell px-2 py-1">
+            <td className="table-cell">{listing.companyName}</td>
+            <td className="table-cell">{listing.title}</td>
+            <td className="table-cell">{listing.dateApplied}</td>
+            <td className="table-cell">
               {Intl.NumberFormat().format(listing.salary)}
             </td>
-            <td className="table-cell px-2 py-1">{listing.applicationLink}</td>
-            <td className="table-cell px-2 py-1">
+            <td className="table-cell">{listing.applicationLink}</td>
+            <td className="table-cell">
               <div className="inline-flex space-x-1">
                 <button type="button" onClick={() => removeJobListing(id)}>
                   <XmarkIcon />
