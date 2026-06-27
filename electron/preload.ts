@@ -34,7 +34,6 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
   ): UnsubscribableResult {
     console.debug(`${eventName} subscribed`);
     const func = (_event: IpcRendererEvent, res: T) => {
-      console.debug("called", res);
       callback(res);
     };
     ipcRenderer.on(eventName, func);
@@ -50,4 +49,7 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
   getJobListings(): Promise<{ [id: string]: JobListing }> {
     return ipcRenderer.invoke("get-jobs-request", null);
   },
+  removeJob(jobId: string): void {
+    ipcRenderer.send("job-listing-remove-request", { id: jobId});
+  }
 });

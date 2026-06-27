@@ -23,7 +23,6 @@ electron.contextBridge.exposeInMainWorld("ipcRenderer", {
   subscribe(eventName, callback) {
     console.debug(`${eventName} subscribed`);
     const func = (_event, res) => {
-      console.debug("called", res);
       callback(res);
     };
     electron.ipcRenderer.on(eventName, func);
@@ -38,5 +37,8 @@ electron.contextBridge.exposeInMainWorld("ipcRenderer", {
   // ...
   getJobListings() {
     return electron.ipcRenderer.invoke("get-jobs-request", null);
+  },
+  removeJob(jobId) {
+    electron.ipcRenderer.send("job-listing-remove-request", { id: jobId });
   }
 });

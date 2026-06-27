@@ -1977,6 +1977,7 @@ const removeHandlers = () => {
   ipcMain.removeHandler("resume-builder:save");
   ipcMain.removeHandler("get-jobs-request");
   ipcMain.off("job-listing-add-request", addJobListingHandler);
+  ipcMain.off("job-listing-remove-request", removeJobListingHandler);
 };
 const addJobListingHandler = (event) => {
   const id = ulid();
@@ -2002,7 +2003,7 @@ const addJobListingHandler = (event) => {
 const removeJobListingHandler = (event, req) => {
   delete globalJobListings[req.id];
   event.sender.send("job-listing-remove-success", {
-    id: ulid()
+    id: req.id
   });
 };
 const saveResumeHandler = (_2, data) => {

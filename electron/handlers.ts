@@ -87,7 +87,7 @@ const removeJobListingHandler = (
 ) => {
   delete globalJobListings[req.id];
   event.sender.send("job-listing-remove-success", {
-    id: ulid(),
+    id: req.id,
   });
 };
 

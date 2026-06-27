@@ -41,6 +41,7 @@ interface SubscribeFunc {
 interface Window {
   ipcRenderer: import("electron").IpcRenderer & {
     getJobListings(): Promise<{ [id: string]: JobListing }>;
+    removeJob(jobId: string): void;
     subscribe: SubscribeFunc;
   };
 }

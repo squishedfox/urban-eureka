@@ -32,7 +32,10 @@ export const useGetJobListings = () => {
     setError(null);
     setJobs((prev) =>
       Object.entries(prev).reduce((acc, [id, value]) => {
+        console.log("id", id);
+        console.log("value", value);
         if (id === res.id) {
+          console.debug("skipping", id);
           return acc;
         }
         Object.defineProperty(acc, id, {
@@ -81,7 +84,7 @@ export const useGetJobListings = () => {
         unsubscribe();
       }
     };
-  }, [addJobSuccess, addJobFailed]);
+  }, [addJobSuccess, addJobFailed, removeJobSuccess]);
 
   useEffect(() => {
     if (!didFetchRef.current) {
