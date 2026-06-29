@@ -3,7 +3,6 @@
   --dark-gray: oklch(27.8% 0.033 256.848);
   --light-gray: oklch(92.8% 0.006 264.531);
   --container-bg-color: #fff;
-  --header-height: 4rem;
 }
 
 html,
@@ -13,22 +12,6 @@ body {
   margin: 0;
   top: 0;
   left: 0;
-  min-height: 100vh;
-}
-
-main {
-  height: calc(100vh - var(--header-height));
-}
-
-a {
-  text-decoration: none;
-  text-transform: none;
-  color: inherit;
-
-  &.button {
-    border: 1px solid var(--dark-gray);
-    padding: 0.5rem 0.25rem;
-  }
 }
 
 input,
@@ -58,12 +41,10 @@ fieldset {
   gap: 0.5rem;
   padding: 0.25rem 0.5rem;
   background-color: var(--container-bg-color);
+  border: none;
 }
 
-form,
-fieldset {
-  border: none;
-
+form {
   label {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -76,32 +57,6 @@ fieldset {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-  }
-}
-
-div {
-  &.action-group {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-
-    hr {
-      flex-grow: 1;
-      height: 1px;
-    }
-  }
-  &.container {
-    background-color: var(--container-bg-color);
-    border: 1px solid var(--dark-gray);
-    padding: 0.25rem 1.5rem;
-  }
-
-  &.center {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
 
@@ -125,7 +80,7 @@ ul {
 }
 
 header {
-  min-height: var(--header-height);
+  min-height: 4rem;
 
   nav {
     gap: 0.5rem;
@@ -168,6 +123,14 @@ img {
   }
 }
 
-h1 {
-  border-bottom: 1px solid var(--dark-gray);
+.action-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+
+  hr {
+    flex-grow: 1;
+    height: 1px;
+  }
 }
