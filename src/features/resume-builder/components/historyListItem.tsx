@@ -35,19 +35,22 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
 
   return (
     <div className={className}>
-      <div>
-        <div>
-          <div className="input-group">
-            <label
-              id={`company-name-label-${id}`}
-              htmlFor={`company-name-label-${id}`}
-              className="text-xs"
-            >
-              Company Name
-            </label>
+      <div className="inline-flex w-full">
+        <div className="flex-1 space-y-1">
+          <div className="max-w-1/3">
+            <div>
+              <label
+                id={`company-name-label-${id}`}
+                htmlFor={`company-name-label-${id}`}
+                className="text-xs"
+              >
+                Company Name
+              </label>
+            </div>
             <input
               id={`company-name-input-${id}`}
               name={`company-name-input-${id}`}
+              className="border border-gray-800 px-2 py-1 w-full"
               type="text"
               value={job.companyName}
               onChange={(event) =>
@@ -55,18 +58,22 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               }
             />
           </div>
-          <div>
-            <div className="input-group">
-              <label
-                id={`start-date-label-${id}`}
-                htmlFor={`start-date-label-${id}`}
-              >
+          <div className="inline-flex items-center space-x-1 w-full">
+            <div className="max-w-1/2 space-y-1">
+              <div className="flex space-x-1">
                 <CalendarIcon size="sm" />
-                Start Date
-              </label>
+                <label
+                  id={`start-date-label-${id}`}
+                  htmlFor={`start-date-label-${id}`}
+                  className="text-xs"
+                >
+                  Start Date
+                </label>
+              </div>
               <input
                 id={`start-date-input-${id}`}
                 name={`start-date-input-${id}`}
+                className="border border-gray-800 px-2 py-1"
                 type="date"
                 value={job.startDate}
                 onChange={(event) =>
@@ -75,19 +82,23 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
                     job.endDate ?? "",
                   ])
                 }
-                />
+              />
             </div>
-            <div className="input-group">
-              <label
-                id={`start-date-label-${id}`}
-                htmlFor={`start-date-label-${id}`}
-                >
+            <div className="max-w-1/2 space-y-1">
+              <div className="flex space-x-1">
                 <CalendarIcon size="sm" />
-                End Date
-              </label>
+                <label
+                  id={`start-date-label-${id}`}
+                  htmlFor={`start-date-label-${id}`}
+                  className="text-xs"
+                >
+                  End Date
+                </label>
+              </div>
               <input
                 id={`end-date-input-${id}`}
                 name={`end-date-input-${id}`}
+                className="border border-gray-800 px-2 py-1 w-full"
                 type="date"
                 value={job.endDate}
                 onChange={(event) =>
@@ -99,25 +110,29 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               />
             </div>
           </div>
-          <div className="input-group">
-            <label
-              id={`job-title-label-${id}`}
-              htmlFor={`job-title-label-${id}`}
-            >
-              Job Title
-            </label>
+          <div className="max-w-1/2">
+            <div>
+              <label
+                id={`job-title-label-${id}`}
+                htmlFor={`job-title-label-${id}`}
+                className="text-xs"
+              >
+                Job Title
+              </label>
+            </div>
             <input
               id={`job-title-input-${id}`}
               name={`job-title-input-${id}`}
+              className="border border-gray-800 px-2 py-1 w-full"
               type="text"
               value={job.title}
               onChange={(event) => titleChanged(event.currentTarget.value)}
             />
           </div>
-          <ul role="list">
+          <ul className="my-4 space-y-2" role="list">
             {experiences.map(([id, text], ix) => (
-              <li key={id} className="experience" role="listitem">
-                <div>
+              <li key={id} className="flex space-x-1" role="listitem">
+                <div className="flex flex-col">
                   <button
                     type="button"
                     disabled={ix === 0}
@@ -139,6 +154,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
                   type="text"
                   title="job experience"
                   aria-label="Job Experience"
+                  className="border border-ray-800 px-2 py-1 grow"
                   name={`${id}-experience-input`}
                   value={text}
                   onChange={(event) =>
@@ -168,12 +184,13 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
           </button>
         </div>
       </div>
-      <div className="action-group">
-        <hr />
+      <div className="flex grow items-center">
+        <hr className="flex-1" />
         <button
           type="button"
           aria-label="add experience"
           onClick={() => addExperience()}
+          className="grow-0"
         >
           <SquarePlusIcon size="md" />
         </button>

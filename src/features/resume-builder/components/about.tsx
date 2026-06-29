@@ -8,19 +8,24 @@ const About = ({ className }: AboutProps) => {
 
   return (
     <div className={className}>
-      <label
-        id="about-textarea-label"
-        htmlFor="about-textarea"
-      >
-        About
-      </label>
-      <textarea
-        id="about-textarea"
-        name="about-textarea"
-        value={about}
-        className="border border-gray-800 w-full min-h-32 px-2 py-1"
-        onChange={(event) => aboutChanged(event.currentTarget.value)}
-      />
+      <div>
+        <label
+          id="about-textarea-label"
+          htmlFor="about-textarea"
+          className="text-sm"
+        >
+          About
+        </label>
+      </div>
+      <div className="h-full">
+        <textarea
+          id="about-textarea"
+          name="about-textarea"
+          value={about}
+          className="border border-gray-800 w-full min-h-32 px-2 py-1"
+          onChange={(event) => aboutChanged(event.currentTarget.value)}
+        />
+      </div>
     </div>
   );
 };

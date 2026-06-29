@@ -1,4 +1,3 @@
-import "./index.css";
 export { default as HistoryList } from "./historyList";
 export { default as HistoryListItem } from "./historyListItem";
 export { default as About } from "./about";
