@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
-import { HomeView, ResumeBuilderView, AppliedJobs, About } from "./views";
+import { HomeView, ResumeBuilderView, AppliedJobs, About, NewJobListingView } from "./views";
 import { Layout } from "./routes";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -12,7 +12,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route element={<Layout />}>
           <Route path="/" index element={<HomeView />} />
           <Route path="/resume-builder" element={<ResumeBuilderView />} />
-          <Route path="/jobs" element={<AppliedJobs />}>
+          <Route path="/jobs">
+            <Route index element={<AppliedJobs />} />
+            <Route path="new"  element={<NewJobListingView />} />
           </Route>
           <Route path="/about" element={<About />} />
         </Route>

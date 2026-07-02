@@ -1979,19 +1979,10 @@ const removeHandlers = () => {
   ipcMain.off("job-listing-add-request", addJobListingHandler);
   ipcMain.off("job-listing-remove-request", removeJobListingHandler);
 };
-const addJobListingHandler = (event) => {
+const addJobListingHandler = (event, data) => {
   const id = ulid();
   Object.defineProperty(globalJobListings, id, {
-    value: {
-      companyName: "",
-      companyLink: "",
-      applicationLink: "",
-      title: "",
-      salary: 0,
-      dateApplied: "",
-      description: "",
-      notes: ""
-    },
+    value: data,
     configurable: true,
     enumerable: true,
     writable: true

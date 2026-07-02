@@ -6,8 +6,8 @@ export const useAddAppliedJob = () => {
   const [error, setError] = useState<unknown | null>(null);
   const [state, setState] = useEventState();
 
-  const addJobListing = useCallback(() => {
-    window.ipcRenderer.send("job-listing-add-request");
+  const addJobListing = useCallback((listing: JobListing) => {
+    window.ipcRenderer.send("job-listing-add-request", listing);
     setState("fetching");
     setError(null);
   }, []);

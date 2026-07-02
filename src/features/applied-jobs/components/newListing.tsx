@@ -1,8 +1,10 @@
-import { ChangeEvent, FormEvent, useState } from "react"
-import { JobListing } from "../types"
+import { ChangeEvent, FormEvent, useState, MouseEvent } from "react"
+import { JobListing } from "@types"
 import { useAddAppliedJob } from "@app/features/applied-jobs/hooks";
+import { useNavigate } from "react-router-dom";
 
 const NewJobListing = () => {
+  const navigate = useNavigate();
   const [formValue, setFormValue] = useState<JobListing>({
     companyLink: "",
     companyName: "",
@@ -14,32 +16,40 @@ const NewJobListing = () => {
     notes: "",
   });
 
-
   const { addJobListing } = useAddAppliedJob();
 
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    window.ipcRenderer.
+    addJobListing(formValue);
+    navigate("/jobs");
   }
 
-  const inputChangedHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const inputChangedHandler = ({target}: ChangeEvent<HTMLInputElement>) => {
+    const value: string|number = target.name === "salary" ? target.valueAsNumber : target.value;
     setFormValue((prev) => Object.assign({}, prev, {
-      [event.currentTarget.name]: event.currentTarget.value,
+      [target.name]: value,
     })) 
   }
 
-  return (<form noValidate onSubmit={submitHandler}>
-    <div className="inline-flex">
-      <label htmlFor="company-name-input">Company Name</label>
-      <input name="companyName"
-        id="company-name-input"
-        value={formValue.companyName}
-        type="text"
-        onChange={inputChangedHandler}
+  const cancelClickHandler = (_: MouseEvent<HTMLButtonElement>) => {
+    navigate(-1);
+  }
+
+  return (<form noValidate onSubmit={submitHandler} className="border border-gray-800 bg-white flex flex-col">
+    <div className="py-1 px-2">
+      <label className="text-sm" htmlFor="company-name-input">Company Name</label>
+      <div>
+        <input name="companyName"
+          id="company-name-input"
+          value={formValue.companyName}
+          type="text"
+          onChange={inputChangedHandler}
+          className="border border-gray-800"
         />
+      </div>
     </div>
     <div className="inline-flex space-x-1">
-      <button type="button">Cancel</button>
+      <button type="button" onClick={cancelClickHandler}>Cancel</button>
       <button type="submit">Create</button>
     </div>
   </form>)

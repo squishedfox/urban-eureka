@@ -3,7 +3,7 @@ import path from "node:path";
 import fs from "node:fs";
 import { faker } from "@faker-js/faker";
 import { ulid } from "ulid";
-import { JobListing } from "@app/features/applied-jobs";
+import { JobListing } from "@types";
 
 // this is a test object and is not concurrent safe
 let globalJobListings: { [id: string]: JobListing } = {};
@@ -59,19 +59,10 @@ export const removeHandlers = () => {
   ipcMain.off("job-listing-remove-request", removeJobListingHandler);
 };
 
-const addJobListingHandler = (event: IpcMainInvokeEvent) => {
+const addJobListingHandler = (event: IpcMainInvokeEvent, data: JobListing) => {
   const id = ulid();
   Object.defineProperty(globalJobListings, id, {
-    value: {
-      companyName: "",
-      companyLink: "",
-      applicationLink: "",
-      title: "",
-      salary: 0,
-      dateApplied: "",
-      description: "",
-      notes: "",
-    },
+    value: data,
     configurable: true,
     enumerable: true,
     writable: true,

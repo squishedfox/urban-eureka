@@ -25,9 +25,9 @@
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
       "@features/*": ["./src/features/*"],
-      "@types/*": ["./src/types/*"],
-    },
+      "@types/*": ["./types/*"]
+    }
   },
   "include": ["src", "electron"],
-  "references": [{ "path": "./tsconfig.node.json" }],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
