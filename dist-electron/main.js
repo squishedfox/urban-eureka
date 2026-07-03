@@ -1966,7 +1966,12 @@ const createFakeJobListings = () => {
   }
   return jobListings;
 };
+let isRegistered = false;
 const registerHandlers = () => {
+  if (isRegistered) {
+    return;
+  }
+  isRegistered = true;
   globalJobListings = createFakeJobListings();
   ipcMain.handle("resume-builder:save", saveResumeHandler);
   ipcMain.handle("get-jobs-request", getJobListings);

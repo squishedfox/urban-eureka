@@ -37,7 +37,12 @@ const createFakeJobListings = () => {
   return jobListings;
 };
 
+let isRegistered = false;
 export const registerHandlers = () => {
+  if (isRegistered) {
+    return;
+  }
+  isRegistered = true;
   globalJobListings = createFakeJobListings();
 
   // async (invoke) handlers
