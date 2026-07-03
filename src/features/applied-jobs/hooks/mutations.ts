@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { JobListing } from "../types";
+import { JobListing } from "@core/types";
 import { useEventState } from "@app/hooks";
 
 export const useAddAppliedJob = () => {
