@@ -27,9 +27,9 @@ const HistoryList = ({ className }: HistoryListProps) => {
           <PlusIcon />
         </button>
       </div>
-      <ul className="space-y-4">
+      <ul className="space-y-4" role="list">
         {Object.keys(jobs).map((id) => (
-          <li key={id} className="flex space-x-1 space-y-1">
+          <li key={id} className="flex" role="listitem">
             <ErrorBoundary>
               <div className="pt-1">
                 <ChevronIcon size="sm" direction="up" />
