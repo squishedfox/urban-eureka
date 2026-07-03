@@ -13,7 +13,23 @@ export interface InputGroupProps {
 
   input: Pick<
     HTMLProps<HTMLInputElement>,
-    "name" | "onChange" | "onBlur" | "onFocus" | "type" | "value"
+    "name" | "onChange" | "onBlur" | "onFocus" | "type" | "value" | "required"
+  >;
+}
+
+export interface TextAreaGroupProps {
+  /**
+   * Should be the label (display text). All translations should be done before
+   */
+  label: { icon?: React.ReactNode; text: string };
+  /**
+   * Icon to display with the label
+   */
+  icon?: React.ReactNode;
+
+  textArea: Pick<
+    HTMLProps<HTMLTextAreaElement>,
+    "name" | "onChange" | "onBlur" | "onFocus" | "type" | "value" | "required"
   >;
 }
 
@@ -59,6 +75,25 @@ export const InputGroup = ({ label, input }: InputGroupProps) => {
         {label.text}
       </Label>
       <input {...input} id={`${input.name}-input`} className={classes.input} />
+    </div>
+  );
+};
+
+export const TextAreaGroup = ({ label, textArea }: TextAreaGroupProps) => {
+  return (
+    <div className={classes.inputGroup}>
+      <Label
+        id={`${textArea.name}-input-label`}
+        icon={label.icon}
+        htmlFor={`${textArea.name}-input`}
+      >
+        {label.text}
+      </Label>
+      <textarea
+        {...textArea}
+        id={`${textArea.name}-input`}
+        className={classes.textarea}
+      />
     </div>
   );
 };

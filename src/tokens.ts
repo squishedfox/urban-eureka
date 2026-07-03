@@ -7,6 +7,6 @@ export const classes = Object.freeze({
   inputGroup: "flex flex-col space-x-1 space-y-1",
   textarea: "border border-gray-800 w-full min-h-32 px-2 py-1",
   label: "text-sm",
-  form: "border border-gray-800 bg-white p-4",
+  form: "border border-gray-800 bg-white p-4 space-y-4",
   actions: "w-full flex flex-row-reverse pr-2",
 });
