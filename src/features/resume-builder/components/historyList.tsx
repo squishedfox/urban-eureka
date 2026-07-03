@@ -1,6 +1,5 @@
 import JobHistoryItem from "./historyListItem";
-import { ChevronIcon, PlusIcon } from "@app/components/icons";
-import { ErrorBoundary } from "@app/components";
+import { PlusIcon } from "@app/components/icons";
 import { useResumeBuilderForm } from "../context";
 
 export interface HistoryListProps {
