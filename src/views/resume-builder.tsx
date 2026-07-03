@@ -8,6 +8,8 @@ import {
 } from "@app/features/resume-builder";
 import { ExportIcon, IDCardIcon, SaveIcon } from "@app/components/icons";
 import { Preview } from "@app/features/preview";
+import { classes } from "@app/tokens";
+import { ActionsLayout } from "@app/layouts";
 
 const ResumeBuilderView = () => {
   const [resume, setResume] = useState<ResumeBuilderFormValue>({
@@ -40,10 +42,7 @@ const ResumeBuilderView = () => {
         <div className="grid grid-cols-2 h-full overflow-hidden">
           <div className="border-r border-r-gray-800 bg-gray-200 overflow-y-auto">
             <ResumeBuilderFormProvider onChange={resumeChangedHandler}>
-              <form
-                name="job-history-form"
-                className="space-y-2 px-4 pt-4 pb-16"
-              >
+              <form name="job-history-form" className={classes.form}>
                 <fieldset
                   className="bg-white p-4 border border-gray-800"
                   aria-label="About and Contact Section"
@@ -57,9 +56,7 @@ const ResumeBuilderView = () => {
                   <About className="min-h-32" />
                 </fieldset>
 
-                <fieldset>
-                  <HistoryList className="space-y-2" />
-                </fieldset>
+                <HistoryList className="space-y-2" />
               </form>
             </ResumeBuilderFormProvider>
           </div>
@@ -69,14 +66,14 @@ const ResumeBuilderView = () => {
         </div>
       </div>
 
-      <div className="h-16 border border-gray-800 fixed bottom-0 left-0 z-50 w-full flex flex-row-reverse pr-2">
+      <ActionsLayout className="h-16 border border-gray-800 fixed bottom-0 left-0 z-50">
         <button>
           <ExportIcon size="lg" />
         </button>
         <button onClick={saveHandler}>
           <SaveIcon size="lg" />
         </button>
-      </div>
+      </ActionsLayout>
     </div>
   );
 };

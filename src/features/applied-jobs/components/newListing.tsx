@@ -8,6 +8,8 @@ import { useAddAppliedJob } from "@app/features/applied-jobs/hooks";
 import { useNavigate } from "react-router-dom";
 import { type JobListing } from "@core/types";
 import { classes } from "@app/tokens";
+import { BanIcon, SaveIcon } from "@app/components";
+import { ActionsLayout } from "@app/layouts";
 
 const NewJobListing = () => {
   const navigate = useNavigate();
@@ -55,11 +57,7 @@ const NewJobListing = () => {
   };
 
   return (
-    <form
-      noValidate
-      onSubmit={submitHandler}
-      className="border border-gray-800 bg-white flex flex-col p-4"
-    >
+    <form noValidate onSubmit={submitHandler} className={classes.form}>
       <div className="py-1 px-2">
         <label className={classes.label} htmlFor="company-name-input">
           Company Name
@@ -119,12 +117,14 @@ const NewJobListing = () => {
           />
         </div>
       </div>
-      <div className="inline-flex space-x-1">
-        <button type="button" onClick={cancelClickHandler}>
-          Cancel
+      <ActionsLayout>
+        <button type="button" onClick={cancelClickHandler} title="cancel">
+          <BanIcon size="lg" />
         </button>
-        <button type="submit">Create</button>
-      </div>
+        <button type="submit" title="save">
+          <SaveIcon size="lg" />
+        </button>
+      </ActionsLayout>
     </form>
   );
 };
