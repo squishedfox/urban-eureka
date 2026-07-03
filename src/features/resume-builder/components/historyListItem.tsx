@@ -36,7 +36,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
   const experiences = Object.entries(job.experience);
 
   return (
-    <div className={className}>
+    <fieldset className={className}>
       <div className="inline-flex w-full">
         <div className="flex-1 space-y-1">
           <div className="max-w-1/3">
@@ -197,7 +197,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
           <SquarePlusIcon size="md" />
         </button>
       </div>
-    </div>
+    </fieldset>
   );
 };
 
