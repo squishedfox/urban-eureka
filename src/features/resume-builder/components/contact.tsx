@@ -1,3 +1,4 @@
+import { classes } from "@app/tokens";
 import { useResumeBuilderForm } from "../context";
 import { CircleUserIcon, EnvelopeIcon, PhoneIcon } from "@app/components";
 
@@ -23,7 +24,7 @@ const Contact = ({ className }: ContactProps) => {
         <label
           id="full-name-input-label"
           htmlFor="full-name-input"
-          className="text-xs"
+          className={classes.label}
         >
           Full name
         </label>
@@ -33,7 +34,7 @@ const Contact = ({ className }: ContactProps) => {
           id="full-name-input"
           name="full-name-input"
           type="text"
-          className="border border-gray-800 px-2 py-1"
+          className={classes.input}
           onChange={(event) => fullNameChanged(event.currentTarget.value)}
           value={fullName}
         />
@@ -42,7 +43,11 @@ const Contact = ({ className }: ContactProps) => {
         <span>
           <EnvelopeIcon size="sm" />
         </span>
-        <label id="email-input-label" htmlFor="email-input" className="text-xs">
+        <label
+          id="email-input-label"
+          htmlFor="email-input"
+          className={classes.label}
+        >
           E-Mail
         </label>
       </div>
@@ -51,14 +56,18 @@ const Contact = ({ className }: ContactProps) => {
           id="email-input"
           name="email-input"
           type="email"
-          className="border border-gray-800 px-2 py-1"
+          className={classes.input}
           onChange={(event) => emailChanged(event.currentTarget.value)}
           value={email}
         />
       </div>
       <div className="inline-flex space-x-1">
         <PhoneIcon size="sm" />
-        <label id="phone-input-label" htmlFor="phone-input" className="text-xs">
+        <label
+          id="phone-input-label"
+          htmlFor="phone-input"
+          className={classes.label}
+        >
           Phone
         </label>
       </div>
@@ -67,7 +76,7 @@ const Contact = ({ className }: ContactProps) => {
           id="phone-input"
           name="phone-input"
           type="phone"
-          className="border border-gray-800 px-2 py-1"
+          className={classes.input}
           onChange={(event) => phoneChanged(event.currentTarget.value)}
           value={phone}
         />

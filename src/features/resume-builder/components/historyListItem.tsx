@@ -7,6 +7,8 @@ import {
   XmarkIcon,
 } from "@app/components/icons";
 import { useJob } from "../context";
+import { classes } from "@app/tokens";
+import clsx from "clsx";
 
 export interface JobHistoryItemProps extends Pick<
   HTMLProps<HTMLElement>,
@@ -50,7 +52,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             <input
               id={`company-name-input-${id}`}
               name={`company-name-input-${id}`}
-              className="border border-gray-800 px-2 py-1 w-full"
+              className={classes.input}
               type="text"
               value={job.companyName}
               onChange={(event) =>
@@ -73,7 +75,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               <input
                 id={`start-date-input-${id}`}
                 name={`start-date-input-${id}`}
-                className="border border-gray-800 px-2 py-1"
+                className={classes.input}
                 type="date"
                 value={job.startDate}
                 onChange={(event) =>
@@ -98,7 +100,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               <input
                 id={`end-date-input-${id}`}
                 name={`end-date-input-${id}`}
-                className="border border-gray-800 px-2 py-1 w-full"
+                className={classes.input}
                 type="date"
                 value={job.endDate}
                 onChange={(event) =>
@@ -123,7 +125,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             <input
               id={`job-title-input-${id}`}
               name={`job-title-input-${id}`}
-              className="border border-gray-800 px-2 py-1 w-full"
+              className={classes.input}
               type="text"
               value={job.title}
               onChange={(event) => titleChanged(event.currentTarget.value)}
@@ -154,7 +156,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
                   type="text"
                   title="job experience"
                   aria-label="Job Experience"
-                  className="border border-ray-800 px-2 py-1 grow"
+                  className={clsx(classes.input, "grow")}
                   name={`${id}-experience-input`}
                   value={text}
                   onChange={(event) =>

@@ -1,9 +1,9 @@
-import { app, ipcMain, IpcMainInvokeEvent } from "electron";
+import { app, ipcMain, type IpcMainInvokeEvent } from "electron";
 import path from "node:path";
 import fs from "node:fs";
 import { faker } from "@faker-js/faker";
 import { ulid } from "ulid";
-import { JobListing } from "@types";
+import { type JobListing } from "@core/types";
 
 // this is a test object and is not concurrent safe
 let globalJobListings: { [id: string]: JobListing } = {};

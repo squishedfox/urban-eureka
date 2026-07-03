@@ -1,4 +1,5 @@
 import { useResumeBuilderForm } from "../context";
+import { classes } from "@app/tokens";
 
 export interface AboutProps {
   className?: string;
@@ -12,7 +13,7 @@ const About = ({ className }: AboutProps) => {
         <label
           id="about-textarea-label"
           htmlFor="about-textarea"
-          className="text-sm"
+          className={classes.label}
         >
           About
         </label>
@@ -22,7 +23,7 @@ const About = ({ className }: AboutProps) => {
           id="about-textarea"
           name="about-textarea"
           value={about}
-          className="border border-gray-800 w-full min-h-32 px-2 py-1"
+          className={classes.textarea}
           onChange={(event) => aboutChanged(event.currentTarget.value)}
         />
       </div>

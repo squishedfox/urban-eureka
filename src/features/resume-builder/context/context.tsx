@@ -6,7 +6,7 @@ import {
   useReducer,
   type PropsWithChildren,
 } from "react";
-import { type JobHistoryListItem } from "@app/types";
+import { type JobHistoryListItem } from "@core/types";
 import {
   type DateRange,
   type ResumeBuilderFormValue,
@@ -16,9 +16,9 @@ import { resumeBuilderReducer } from "../reducers";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const ResumeBuilderContext = createContext({
-  fullName: "A full Name User",
-  email: "first.last@domain.net",
-  phone: "+1 123-444-5656",
+  fullName: "",
+  email: "",
+  phone: "",
   about: "",
   aboutChanged: (newAbout: string) => {
     !!newAbout;

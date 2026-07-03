@@ -9,9 +9,16 @@
     "verbatimModuleSyntax": true,
     "strict": true,
     "types": ["node"],
-    "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@core/*": ["./core/*"],
+    },
   },
-  "include": ["electron", "vite.config.ts", "vitest.config.ts", "package.json"]
+  "include": [
+    "electron",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "package.json",
+    "core",
+  ],
 }
-
