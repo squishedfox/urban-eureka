@@ -1,10 +1,12 @@
 import { NewJobListing } from "@app/features/applied-jobs";
-import { CenterLayout } from "@app/layouts";
 
 const NewJobListingView = () => {
-  return (<CenterLayout>
-    <NewJobListing />
-  </CenterLayout>)
-}
+  return (
+    <div className="p-4">
+      <h2 className="text-2xl">New Job Listing</h2>
+      <NewJobListing />
+    </div>
+  );
+};
 
 export default NewJobListingView;

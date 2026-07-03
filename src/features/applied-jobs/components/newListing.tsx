@@ -40,6 +40,16 @@ const NewJobListing = () => {
     );
   };
 
+  const textAreaChangedHandler = ({
+    target,
+  }: ChangeEvent<HTMLTextAreaElement>) => {
+    setFormValue((prev) =>
+      Object.assign({}, prev, {
+        [target.name]: target.value,
+      }),
+    );
+  };
+
   const cancelClickHandler = (_: MouseEvent<HTMLButtonElement>) => {
     navigate(-1);
   };
@@ -100,13 +110,12 @@ const NewJobListing = () => {
           Description
         </label>
         <div>
-          <input
-            name="title"
+          <textarea
+            name="description"
             id="description-input"
             value={formValue.description}
-            type="text"
-            onChange={inputChangedHandler}
-            className={classes.input}
+            onChange={textAreaChangedHandler}
+            className={classes.textarea}
           />
         </div>
       </div>
