@@ -29,14 +29,14 @@ const HistoryList = ({ className }: HistoryListProps) => {
       </div>
       <ul className="space-y-4">
         {Object.keys(jobs).map((id) => (
-          <li key={id} className="flex items-start gap-x-1">
+          <li key={id} className="flex space-x-1 space-y-1">
             <ErrorBoundary>
               <div className="pt-1">
                 <ChevronIcon size="sm" direction="up" />
                 <ChevronIcon size="sm" direction="down" />
               </div>
               <JobHistoryItem
-                className="grow space-y-2 border border-l-gray-800 bg-white p-4"
+                className="grow space-y-2 border border-l-gray-800 p-4"
                 key={id}
                 jobId={id}
               />
