@@ -11,19 +11,11 @@ export interface HistoryListProps {
 const HistoryList = ({ className }: HistoryListProps) => {
   const { jobs, addJob } = useResumeBuilderForm();
 
-  const addJobHandler = useCallback(
-    (event: MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      addJob();
-    },
-    [addJob],
-  );
-
   return (
     <div className={className}>
       <div className="flex grow items-center">
         <hr className="flex-1" />
-        <button onClick={addJobHandler} className="grow-0">
+        <button onClick={() => addJob()} className="grow-0" type="button">
           <PlusIcon />
         </button>
       </div>
