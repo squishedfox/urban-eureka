@@ -1,6 +1,6 @@
-import { classes } from "@app/tokens";
 import { useResumeBuilderForm } from "../context";
 import { CircleUserIcon, EnvelopeIcon, PhoneIcon } from "@app/components";
+import { InputGroup } from "@app/components/forms";
 
 export interface ContactProps {
   className?: string;
@@ -17,70 +17,33 @@ const Contact = ({ className }: ContactProps) => {
 
   return (
     <div className={className}>
-      <div className="inline-flex space-x-1">
-        <span>
-          <CircleUserIcon size="sm" />
-        </span>
-        <label
-          id="full-name-input-label"
-          htmlFor="full-name-input"
-          className={classes.label}
-        >
-          Full name
-        </label>
-      </div>
-      <div>
-        <input
-          id="full-name-input"
-          name="full-name-input"
-          type="text"
-          className={classes.input}
-          onChange={(event) => fullNameChanged(event.currentTarget.value)}
-          value={fullName}
-        />
-      </div>
-      <div className="inline-flex space-x-1">
-        <span>
-          <EnvelopeIcon size="sm" />
-        </span>
-        <label
-          id="email-input-label"
-          htmlFor="email-input"
-          className={classes.label}
-        >
-          E-Mail
-        </label>
-      </div>
-      <div>
-        <input
-          id="email-input"
-          name="email-input"
-          type="email"
-          className={classes.input}
-          onChange={(event) => emailChanged(event.currentTarget.value)}
-          value={email}
-        />
-      </div>
-      <div className="inline-flex space-x-1">
-        <PhoneIcon size="sm" />
-        <label
-          id="phone-input-label"
-          htmlFor="phone-input"
-          className={classes.label}
-        >
-          Phone
-        </label>
-      </div>
-      <div>
-        <input
-          id="phone-input"
-          name="phone-input"
-          type="phone"
-          className={classes.input}
-          onChange={(event) => phoneChanged(event.currentTarget.value)}
-          value={phone}
-        />
-      </div>
+      <InputGroup
+        label={{ text: "Full Name", icon: <CircleUserIcon size="sm" /> }}
+        input={{
+          name: "fullName",
+          type: "text",
+          value: fullName,
+          onChange: (event) => fullNameChanged(event.currentTarget.value),
+        }}
+      />
+      <InputGroup
+        label={{ text: "E-Mail", icon: <EnvelopeIcon size="sm" /> }}
+        input={{
+          name: "email",
+          type: "email",
+          value: email,
+          onChange: (event) => emailChanged(event.currentTarget.value),
+        }}
+      />
+      <InputGroup
+        label={{ text: "Phone", icon: <PhoneIcon size="sm" /> }}
+        input={{
+          name: "phone",
+          type: "phone",
+          value: phone,
+          onChange: (event) => phoneChanged(event.currentTarget.value),
+        }}
+      />
     </div>
   );
 };
