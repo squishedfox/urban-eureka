@@ -1,9 +1,10 @@
 import { BanIcon, LockIcon } from "@app/components";
+import { CenterLayout } from "@app/layouts";
 import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="h-[calc(100vh-64px)] flex items-center justify-center bg-gray-200">
+    <CenterLayout>
       <div className="flex flex-col items-center justify-center text-center space-y-4 bg-white p-8 border border-gray-800">
         <h1 className="text-xl border-b border-b-gray-800">Welcome</h1>
         <p>Create one resume with all job history, experience, and skills</p>
@@ -48,7 +49,7 @@ const Home = () => {
           <p>No Tracking. No data sharing.</p>
         </div>
       </div>
-    </div>
+    </CenterLayout>
   );
 };
 
