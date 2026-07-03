@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
     "composite": true,
-    "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "moduleDetection": "force",
-    "allowSyntheticDefaultImports": true,
     "verbatimModuleSyntax": true,
-    "strict": true,
     "types": ["node"],
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["electron", "vite.config.ts", "vitest.config.ts", "package.json"]
 }

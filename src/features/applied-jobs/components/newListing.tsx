@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState, MouseEvent } from "react"
-import { JobListing } from "@types"
 import { useAddAppliedJob } from "@app/features/applied-jobs/hooks";
 import { useNavigate } from "react-router-dom";
+import { JobListing } from "@types";
 
 const NewJobListing = () => {
   const navigate = useNavigate();
