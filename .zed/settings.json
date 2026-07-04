@@ -1,0 +1,22 @@
+{
+  "lsp": {
+    "eslint": {
+      "settings": {
+        "codeActionOnSave": {
+          "source.fixAll.eslint": true,
+        },
+        "codeActionsOnSave": {
+          "source.fixAll.eslint": true,
+        },
+      },
+    },
+  },
+  "code_actions_on_format": {
+    "source.fixAll.eslint": true,
+  },
+  "formatter": {
+    "language_server": {
+      "name": "eslint",
+    },
+  },
+}

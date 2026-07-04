@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
-import { JobListing } from "@core/types";
 import { useEventState } from "@app/hooks";
 import { AppEventName } from "@core/events";
+import { JobListing } from "@core/types";
+import { useCallback, useEffect, useState } from "react";
 
 export const useAddAppliedJob = () => {
   const [error, setError] = useState<unknown | null>(null);
@@ -11,17 +11,17 @@ export const useAddAppliedJob = () => {
     window.ipcRenderer.addJobListing(listing);
     setState("fetching");
     setError(null);
-  }, []);
+  }, [setState]);
 
   const addSuccess = useCallback(() => {
     setState("success");
     setError(null);
-  }, []);
+  }, [setState]);
 
   const addFailed = useCallback((res: { error: Error }) => {
     setError(res.error);
     setState("error");
-  }, []);
+  }, [setState]);
 
   useEffect(() => {
     const unsubscriable = [
@@ -48,27 +48,33 @@ export const useAddAppliedJob = () => {
 
 export const useUpdateJobListing = () => {
   const [error, setError] = useState<unknown | null>(null);
-  const [state, setState] = useEventState();
+  const [eventState, setEventState] = useEventState();
 
   const updateJobListing = useCallback((id: string, listing: JobListing) => {
-    window.ipcRenderer.send("job-listing-remove-request", id, listing);
+    window.ipcRenderer.send(AppEventName.UpdateJobListing, id, listing);
   }, []);
 
-  const updateSuccess = useCallback((...args: any[]) => {
+  const updateSuccess = useCallback((...args: unknown[]) => {
     console.debug("updated args=", args);
-    setState("success");
-  }, []);
+    setEventState("success");
+  }, [setEventState]);
 
-  const updateFailed = useCallback((...args: any[]) => {
+  const updateFailed = useCallback((...args: unknown[]) => {
     console.debug("updated failed. args=", args);
     setError(new Error("some failure message"));
-    setState("error");
-  }, []);
+    setEventState("error");
+  }, [setEventState]);
 
   useEffect(() => {
     const unsubscribable = [
-      window.ipcRenderer.subscribe("job-listing-remove-success", updateSuccess),
-      window.ipcRenderer.subscribe("job-listing-remove-failed", updateFailed),
+      window.ipcRenderer.subscribe(
+        AppEventName.UpdateJobListingSuccess,
+        updateSuccess,
+      ),
+      window.ipcRenderer.subscribe(
+        AppEventName.UpdateJobListingFailed,
+        updateFailed,
+      ),
     ];
 
     return () => {
@@ -79,7 +85,7 @@ export const useUpdateJobListing = () => {
   }, [updateSuccess, updateFailed]);
 
   return {
-    state,
+    state: eventState,
     error,
     updateJobListing,
   };
@@ -87,28 +93,34 @@ export const useUpdateJobListing = () => {
 
 export const useRemoveJobListing = () => {
   const [error, setError] = useState<unknown | null>(null);
-  const [state, setState] = useEventState();
+  const [eventState, setEventState] = useEventState();
 
   const removeJobListing = useCallback((id: string) => {
-    setState("fetching");
+    setEventState("fetching");
     setError(null);
     window.ipcRenderer.removeJob(id);
-  }, []);
+  }, [setEventState]);
 
   const removeSuccess = useCallback(() => {
-    setState("success");
+    setEventState("success");
     setError(null);
-  }, []);
+  }, [setEventState]);
 
   const removeFailed = useCallback((res: { error: Error }) => {
     setError(res.error);
-    setState("error");
-  }, []);
+    setEventState("error");
+  }, [setEventState]);
 
   useEffect(() => {
     const unsubscriable = [
-      window.ipcRenderer.subscribe("job-listing-remove-success", removeSuccess),
-      window.ipcRenderer.subscribe("job-listing-remove-failed", removeFailed),
+      window.ipcRenderer.subscribe(
+        AppEventName.RemoveJobListingSuccess,
+        removeSuccess,
+      ),
+      window.ipcRenderer.subscribe(
+        AppEventName.RemoveJobListingFailed,
+        removeFailed,
+      ),
     ];
 
     return () => {
@@ -119,7 +131,7 @@ export const useRemoveJobListing = () => {
   }, [removeFailed, removeSuccess]);
 
   return {
-    state,
+    state: eventState,
     error,
     removeJobListing,
   };

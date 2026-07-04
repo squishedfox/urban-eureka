@@ -1,4 +1,4 @@
-import { NewJobListing } from "@app/features/applied-jobs";
+import { NewJobListing } from "@app/features";
 
 const NewJobListingView = () => {
   return (

@@ -1,4 +1,3 @@
-import { HTMLProps } from "react";
 import {
   CalendarIcon,
   ChevronIcon,
@@ -6,9 +5,11 @@ import {
   TrashIcon,
   XmarkIcon,
 } from "@app/components/icons";
-import { useJob } from "../context";
 import { classes } from "@app/tokens";
 import clsx from "clsx";
+import { HTMLProps } from "react";
+
+import { useJob } from "../context";
 
 export interface JobHistoryItemProps extends Pick<
   HTMLProps<HTMLElement>,
@@ -131,8 +132,10 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               onChange={(event) => titleChanged(event.currentTarget.value)}
             />
           </div>
+          { /* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
           <ul className="my-4 space-y-2" role="list">
             {experiences.map(([id, text], ix) => (
+              // eslint-disable-next-line jsx-a11y/no-redundant-roles
               <li key={id} className="flex space-x-1" role="listitem">
                 <div className="flex flex-col">
                   <button
@@ -166,7 +169,6 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
                 <button
                   type="button"
                   title="delete experience"
-                  role="button"
                   onClick={() => removeExperience(id)}
                 >
                   <XmarkIcon size="sm" />

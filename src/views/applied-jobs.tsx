@@ -1,5 +1,5 @@
 import { BriefcaseIcon, SquarePlusIcon } from "@app/components";
-import { JobList } from "@app/features/applied-jobs";
+import { JobList } from "@app/features";
 import { Link } from "react-router-dom";
 
 const JobView = () => (

@@ -1,4 +1,5 @@
-import type { JobHistoryListItem } from "@app/types";
+import type { JobHistoryListItem } from "@core/types";
+
 import { faker } from "@faker-js/faker";
 
 export interface ResumeBuilderState {

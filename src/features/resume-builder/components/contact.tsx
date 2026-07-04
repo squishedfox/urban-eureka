@@ -1,6 +1,7 @@
-import { useResumeBuilderForm } from "../context";
 import { CircleUserIcon, EnvelopeIcon, PhoneIcon } from "@app/components";
 import { InputGroup } from "@app/components/forms";
+
+import { useResumeBuilderForm } from "../context";
 
 export interface ContactProps {
   className?: string;

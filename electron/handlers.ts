@@ -1,10 +1,11 @@
-import { app, ipcMain, type IpcMainInvokeEvent } from "electron";
-import path from "node:path";
 import fs from "node:fs";
-import { faker } from "@faker-js/faker";
-import { ulid } from "ulid";
-import { type JobListing } from "@core/types";
+import path from "node:path";
+
 import { AppEventName } from "@core/events";
+import { type JobListing } from "@core/types";
+import { faker } from "@faker-js/faker";
+import { app, ipcMain, type IpcMainInvokeEvent } from "electron";
+import { ulid } from "ulid";
 
 // this is a test object and is not concurrent safe
 let globalJobListings: { [id: string]: JobListing } = {};
@@ -104,6 +105,4 @@ const saveResumeHandler = (_: IpcMainInvokeEvent, data: unknown) => {
   );
 };
 
-const getJobListings = (_: IpcMainInvokeEvent) => {
-  return globalJobListings;
-};
+const getJobListings = () => globalJobListings;

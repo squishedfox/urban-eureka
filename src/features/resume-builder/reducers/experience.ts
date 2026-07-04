@@ -1,4 +1,8 @@
-import { type JobHistoryListItem } from "@app/types";
+import { sort } from "@app/objects";
+import { type JobHistoryListItem } from "@core/types";
+import { faker } from "@faker-js/faker";
+import { ulid } from "ulid";
+
 import {
   ReOrderExperienceAction,
   type AddExperienceAction,
@@ -6,9 +10,6 @@ import {
   type UpdateExperienceAction,
 } from "../actions";
 import { type ResumeBuilderState } from "../state";
-import { ulid } from "ulid";
-import { faker } from "@faker-js/faker";
-import { sort } from "@app/objects";
 
 export const addExperienceReducer = (
   state: ResumeBuilderState,

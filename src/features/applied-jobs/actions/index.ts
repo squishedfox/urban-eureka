@@ -1,4 +1,4 @@
-import { JobListing } from "@core/types";
+import { type JobListing } from "@core/types";
 
 export type JobListingActionName =
   | "get-job-listings"

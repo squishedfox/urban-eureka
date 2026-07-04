@@ -17,10 +17,11 @@ export enum AppEventName {
 
   AddJobListing = "job-listing:add",
   RemoveJobListing = "job-listing:remove",
-  AddJobListingSuccess = "job-listing:add:success",
-  AddJobListingFailed = "job-listing:add:failed",
   RemoveJobListingSuccess = "job-listing:remove:success",
   RemoveJobListingFailed = "job-listing:remove:failed",
+  AddJobListingSuccess = "job-listing:add:success",
+  AddJobListingFailed = "job-listing:add:failed",
+  UpdateJobListing = "job-listing:update",
   UpdateJobListingSuccess = "job-listing:update:success",
   UpdateJobListingFailed = "job-listing:update:failed",
 }

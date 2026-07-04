@@ -1,13 +1,15 @@
-import { type JobHistoryListItem } from "@app/types";
+import type { ResumeBuilderState } from "../state";
+
+import { type JobHistoryListItem } from "@core/types";
+import { faker } from "@faker-js/faker";
 import { ulid } from "ulid";
+
 import {
   JobTitleChangedAction,
   type JobDateChangedAction,
   type JobNameChangedAction,
   type RemoveJobAction,
 } from "../actions";
-import type { ResumeBuilderState } from "../state";
-import { faker } from "@faker-js/faker";
 
 export const createEmptyJobHistoryItem = (): JobHistoryListItem => ({
   companyName: faker.company.name(),

@@ -1,15 +1,16 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { JobListing } from "@core/types";
 import { useEventState } from "@app/hooks";
+import { AppEventName } from "@core/events";
+import { JobListing } from "@core/types";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useGetJobListings = () => {
-  const didFetchRef = useRef(false);
+  const didFetchRef = useRef(true);
   const [error, setError] = useState<unknown | null>(null);
   const [jobs, setJobs] = useState<{ [id: string]: JobListing }>({});
-  const [state, setState] = useEventState();
+  const [eventState, setEventState] = useEventState();
 
   const addJobSuccess = useCallback((res: { id: string }) => {
-    setState("fetching");
+    setEventState("fetching");
     setError(null);
     setJobs((prev) => ({
       ...prev,
@@ -24,11 +25,11 @@ export const useGetJobListings = () => {
         title: "",
       },
     }));
-    setState("success");
-  }, []);
+    setEventState("success");
+  }, [setEventState]);
 
   const removeJobSuccess = useCallback((res: { id: string }) => {
-    setState("fetching");
+    setEventState("fetching");
     setError(null);
     setJobs((prev) =>
       Object.entries(prev).reduce((acc, [id, value]) => {
@@ -47,8 +48,8 @@ export const useGetJobListings = () => {
         return acc;
       }, {}),
     );
-    setState("success");
-  }, []);
+    setEventState("success");
+  }, [setEventState]);
 
   const addJobFailed = useCallback((res: { error: Error }) => {
     console.error(res.error);
@@ -56,26 +57,32 @@ export const useGetJobListings = () => {
 
   const getJobs = useCallback(async () => {
     try {
-      setState("fetching");
+      setEventState("fetching");
       const res = await window.ipcRenderer.getJobListings();
       setJobs(res);
       setError(null);
-      setState("success");
+      setEventState("success");
     } catch (err: unknown) {
-      setState("error");
+      setEventState("error");
       setError(err);
       setJobs({});
     }
-  }, []);
+  }, [setEventState]);
 
   useEffect(() => {
     // you should make sure these are setup first before renders
     // start taking over
     const unsubscriable = [
-      window.ipcRenderer.subscribe("job-listing-add-success", addJobSuccess),
-      window.ipcRenderer.subscribe("job-listing-add-failed", addJobFailed),
       window.ipcRenderer.subscribe(
-        "job-listing-remove-success",
+        AppEventName.AddJobListingSuccess,
+        addJobSuccess,
+      ),
+      window.ipcRenderer.subscribe(
+        AppEventName.AddJobListingFailed,
+        addJobFailed,
+      ),
+      window.ipcRenderer.subscribe(
+        AppEventName.RemoveJobListingSuccess,
         removeJobSuccess,
       ),
     ];
@@ -95,7 +102,7 @@ export const useGetJobListings = () => {
   }, [getJobs]);
 
   return {
-    state,
+    state: eventState,
     error,
     jobs,
   };

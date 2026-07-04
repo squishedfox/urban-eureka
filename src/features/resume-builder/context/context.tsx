@@ -1,4 +1,9 @@
 import {
+  type DateRange,
+  type ResumeBuilderFormValue,
+} from "@app/features/resume-builder/types";
+import { type JobHistoryListItem } from "@core/types";
+import {
   createContext,
   useCallback,
   useEffect,
@@ -6,13 +11,9 @@ import {
   useReducer,
   type PropsWithChildren,
 } from "react";
-import { type JobHistoryListItem } from "@core/types";
-import {
-  type DateRange,
-  type ResumeBuilderFormValue,
-} from "@app/features/resume-builder/types";
-import { initialState } from "../state";
+
 import { resumeBuilderReducer } from "../reducers";
+import { initialState } from "../state";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const ResumeBuilderContext = createContext({
@@ -21,6 +22,7 @@ export const ResumeBuilderContext = createContext({
   phone: "",
   about: "",
   aboutChanged: (newAbout: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!newAbout;
     /* left intentionally blank */
   },
@@ -29,36 +31,49 @@ export const ResumeBuilderContext = createContext({
     /* left intentionally blank */
   },
   removeJob: (id: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!id;
     /* left intentionally blank */
   },
   dateChanged: (id: string, range: DateRange) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!id;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!range;
     /* left intentionally blank */
   },
   companyNameChanged: (id: string, newName: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!id;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!newName;
     /* left intentionally blank */
   },
   jobTitleChanged: (id: string, newTitle: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!id;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!newTitle;
     /* left intentionally blank */
   },
   addExperience: (jobId: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!jobId;
     /* left intentionally blank */
   },
   removeExperience: (jobId: string, experienceId: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!jobId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!experienceId;
     /* left intentionally blank */
   },
   updateExperience: (jobId: string, experienceId: string, newValue: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!jobId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!experienceId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!newValue;
     /* left intentionally blank */
   },
@@ -67,20 +82,26 @@ export const ResumeBuilderContext = createContext({
     experienceId: string,
     newOrdinal: number,
   ) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!jobId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!experienceId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!newOrdinal;
     /* left intentionally blank */
   },
   fullNameChanged: (newValue: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!newValue;
     /* left intentionally blank */
   },
   emailChanged: (newValue: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!newValue;
     /* left intentionally blank */
   },
   phoneChanged: (newValue: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!newValue;
     /* left intentionally blank */
   },

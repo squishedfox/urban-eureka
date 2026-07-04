@@ -1,11 +1,11 @@
-import clsx from "clsx";
 import { XmarkIcon } from "@app/components";
 import {
   useGetJobListings,
   useRemoveJobListing,
 } from "@app/features/applied-jobs/hooks";
-import { classes } from "@app/tokens";
 import { ActionsLayout } from "@app/layouts";
+import { classes } from "@app/tokens";
+import clsx from "clsx";
 
 export interface JobListProps {
   className?: string;

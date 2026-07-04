@@ -1,16 +1,15 @@
+import { BanIcon, SaveIcon } from "@app/components";
+import { InputGroup, TextAreaGroup } from "@app/components/forms";
+import { useAddAppliedJob } from "@app/features/applied-jobs/hooks";
+import { ActionsLayout } from "@app/layouts";
+import { classes } from "@app/tokens";
+import { type JobListing } from "@core/types";
 import {
   type ChangeEvent,
   type FormEvent,
-  type MouseEvent,
   useState,
 } from "react";
-import { useAddAppliedJob } from "@app/features/applied-jobs/hooks";
 import { useNavigate } from "react-router-dom";
-import { type JobListing } from "@core/types";
-import { classes } from "@app/tokens";
-import { BanIcon, SaveIcon } from "@app/components";
-import { ActionsLayout } from "@app/layouts";
-import { InputGroup, TextAreaGroup } from "@app/components/forms";
 
 const NewJobListing = () => {
   const navigate = useNavigate();
@@ -51,10 +50,6 @@ const NewJobListing = () => {
         [target.name]: target.value,
       }),
     );
-  };
-
-  const cancelClickHandler = (_: MouseEvent<HTMLButtonElement>) => {
-    navigate(-1);
   };
 
   return (
@@ -105,7 +100,7 @@ const NewJobListing = () => {
         <button type="submit" title="save">
           <SaveIcon size="lg" />
         </button>
-        <button type="button" onClick={cancelClickHandler} title="cancel">
+        <button type="button" onClick={() => navigate(-1)} title="cancel">
           <BanIcon size="lg" />
         </button>
       </ActionsLayout>

@@ -1,26 +1,25 @@
-import ChevronUp from "@assets/chevron-up.svg";
+import Ban from "@assets/ban.svg";
+import Briefcase from "@assets/briefcase.svg";
+import Calendar from "@assets/calendar.svg";
 import ChevronDown from "@assets/chevron-down.svg";
-import ChevronRight from "@assets/chevron-right.svg";
 import ChevronLeft from "@assets/chevron-left.svg";
-import Trash from "@assets/trash.svg";
-import Save from "@assets/save.svg";
+import ChevronRight from "@assets/chevron-right.svg";
+import ChevronUp from "@assets/chevron-up.svg";
+import CircleInfo from "@assets/circle-info.svg";
+import CircleUser from "@assets/circle-user.svg";
+import Envelope from "@assets/envelope.svg";
 import Export from "@assets/export.svg";
 import Pdf from "@assets/export.svg";
-import Xmark from "@assets/xmark.svg";
-import Plus from "@assets/plus.svg";
-import SquarePlus from "@assets/square-plus.svg";
-import Calendar from "@assets/calendar.svg";
-import IDCard from "@assets/id-card.svg";
-import Envelope from "@assets/envelope.svg";
-import Phone from "@assets/phone.svg";
-import CircleUser from "@assets/circle-user.svg";
-import CircleInfo from "@assets/circle-info.svg";
-import Lock from "@assets/lock.svg";
-import Ban from "@assets/ban.svg";
-import Home from "@assets/home.svg";
 import Hammer from "@assets/hammer.svg";
-import Briefcase from "@assets/briefcase.svg";
-
+import Home from "@assets/home.svg";
+import IDCard from "@assets/id-card.svg";
+import Lock from "@assets/lock.svg";
+import Phone from "@assets/phone.svg";
+import Plus from "@assets/plus.svg";
+import Save from "@assets/save.svg";
+import SquarePlus from "@assets/square-plus.svg";
+import Trash from "@assets/trash.svg";
+import Xmark from "@assets/xmark.svg";
 import type { AriaAttributes, HTMLAttributes } from "react";
 
 const iconClassSizeMap = {
@@ -92,56 +91,56 @@ export const ChevronIcon = ({
 };
 
 export const TrashIcon = ({ size = "md" }: IconProps) => (
-  <img src={Trash} className={iconClassSizeMap[size]} />
+  <img src={Trash} className={iconClassSizeMap[size]} alt="tash icon" />
 );
 export const SaveIcon = ({ size = "md" }: IconProps) => (
-  <img src={Save} className={iconClassSizeMap[size]} />
+  <img src={Save} className={iconClassSizeMap[size]} alt="save icon" />
 );
 export const ExportIcon = ({ size = "md" }: IconProps) => (
-  <img src={Export} className={iconClassSizeMap[size]} />
+  <img src={Export} className={iconClassSizeMap[size]} alt="export icon" />
 );
 export const PdfIcon = ({ size = "md" }: IconProps) => (
-  <img src={Pdf} className={iconClassSizeMap[size]} />
+  <img src={Pdf} className={iconClassSizeMap[size]} alt="pdf icon" />
 );
 export const XmarkIcon = ({ size = "md" }: IconProps) => (
-  <img src={Xmark} className={iconClassSizeMap[size]} />
+  <img src={Xmark} className={iconClassSizeMap[size]} alt="xmark icon" />
 );
 export const PlusIcon = ({ size = "md" }: IconProps) => (
-  <img src={Plus} className={iconClassSizeMap[size]} />
+  <img src={Plus} className={iconClassSizeMap[size]} alt="plus sign icon" />
 );
 export const SquarePlusIcon = ({ size = "md" }: IconProps) => (
-  <img src={SquarePlus} className={iconClassSizeMap[size]} />
+  <img src={SquarePlus} className={iconClassSizeMap[size]} alt="square plus icon" />
 );
 export const CalendarIcon = ({ size = "md" }: IconProps) => (
-  <img src={Calendar} className={iconClassSizeMap[size]} />
+  <img src={Calendar} className={iconClassSizeMap[size]} alt="calendar icon" />
 );
 export const IDCardIcon = ({ size = "md" }: IconProps) => (
-  <img src={IDCard} className={iconClassSizeMap[size]} />
+  <img src={IDCard} className={iconClassSizeMap[size]} alt="id card icon" />
 );
 export const EnvelopeIcon = ({ size = "md" }: IconProps) => (
-  <img src={Envelope} className={iconClassSizeMap[size]} />
+  <img src={Envelope} className={iconClassSizeMap[size]} alt="envelope icon" />
 );
 export const PhoneIcon = ({ size = "md" }: IconProps) => (
-  <img src={Phone} className={iconClassSizeMap[size]} />
+  <img src={Phone} className={iconClassSizeMap[size]} alt="phone icon" />
 );
 export const CircleUserIcon = ({ size = "md" }: IconProps) => (
-  <img src={CircleUser} className={iconClassSizeMap[size]} />
+  <img src={CircleUser} className={iconClassSizeMap[size]} alt="circle user icon" />
 );
 export const LockIcon = ({ size = "md" }: IconProps) => (
-  <img src={Lock} className={iconClassSizeMap[size]} />
+  <img src={Lock} className={iconClassSizeMap[size]} alt="lock icon" />
 );
 export const BanIcon = ({ size = "md" }: IconProps) => (
-  <img src={Ban} className={iconClassSizeMap[size]} />
+  <img src={Ban} className={iconClassSizeMap[size]} alt="ban icon" />
 );
 export const CircleInfoIcon = ({ size = "md" }: IconProps) => (
-  <img src={CircleInfo} className={iconClassSizeMap[size]} />
+  <img src={CircleInfo} className={iconClassSizeMap[size]} alt="circle info icon" />
 );
 export const HomeIcon = ({ size = "md" }: IconProps) => (
-  <img src={Home} className={iconClassSizeMap[size]} />
+  <img src={Home} className={iconClassSizeMap[size]} alt="home icon" />
 );
 export const HammerIcon = ({ size = "md" }: IconProps) => (
-  <img src={Hammer} className={iconClassSizeMap[size]} />
+  <img src={Hammer} className={iconClassSizeMap[size]} alt="hammer icon" />
 );
 export const BriefcaseIcon = ({ size = "md" }: IconProps) => (
-  <img src={Briefcase} className={iconClassSizeMap[size]} />
+  <img src={Briefcase} className={iconClassSizeMap[size]} alt="briefcase icon" />
 );

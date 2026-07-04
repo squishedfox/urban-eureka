@@ -1,15 +1,16 @@
 import { classes } from "@app/tokens";
+import { ReactNode } from "react";
 import { type HTMLProps, type PropsWithChildren } from "react";
 
 export interface InputGroupProps {
   /**
    * Should be the label (display text). All translations should be done before
    */
-  label: { icon?: React.ReactNode; text: string };
+  label: { icon?: ReactNode; text: string };
   /**
    * Icon to display with the label
    */
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 
   input: Pick<
     HTMLProps<HTMLInputElement>,
@@ -21,11 +22,11 @@ export interface TextAreaGroupProps {
   /**
    * Should be the label (display text). All translations should be done before
    */
-  label: { icon?: React.ReactNode; text: string };
+  label: { icon?: ReactNode; text: string };
   /**
    * Icon to display with the label
    */
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 
   textArea: Pick<
     HTMLProps<HTMLTextAreaElement>,
@@ -38,7 +39,7 @@ export interface LabelProps extends HTMLProps<HTMLLabelElement> {
    * Icon that will be displayed with the label.
    * The icon will always be displayed to the left of the label in forms.
    */
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 }
 
 export const Label = ({

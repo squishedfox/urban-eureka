@@ -1,5 +1,6 @@
-import { useResumeBuilderForm } from "../context";
 import { classes } from "@app/tokens";
+
+import { useResumeBuilderForm } from "../context";
 
 export interface AboutProps {
   className?: string;

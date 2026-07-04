@@ -1,6 +1,6 @@
-import { Link, Outlet } from "react-router-dom";
-import { BriefcaseIcon, CircleInfoIcon, HammerIcon, HomeIcon } from "@app/components/icons";
 import { ErrorBoundary } from "@app/components";
+import { BriefcaseIcon, CircleInfoIcon, HammerIcon, HomeIcon } from "@app/components/icons";
+import { Link, Outlet } from "react-router-dom";
 
 export const Layout = () => {
   return (

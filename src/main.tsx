@@ -1,9 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import "./index.css";
-import { HomeView, ResumeBuilderView, AppliedJobs, About, NewJobListingView } from "./views";
+
 import { Layout } from "./routes";
+import {
+  HomeView,
+  ResumeBuilderView,
+  AppliedJobs,
+  About,
+  NewJobListingView,
+} from "./views";
+
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -14,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/resume-builder" element={<ResumeBuilderView />} />
           <Route path="/jobs">
             <Route index element={<AppliedJobs />} />
-            <Route path="new"  element={<NewJobListingView />} />
+            <Route path="new" element={<NewJobListingView />} />
           </Route>
           <Route path="/about" element={<About />} />
         </Route>
@@ -24,6 +32,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 );
 
 // Use contextBridge
-window.ipcRenderer.on("main-process-message", (_event, message) => {
-  console.log(message);
-});
+window.ipcRenderer.on(
+  "main-process-message",
+  (_event: unknown, message: string) => {
+    console.log(message);
+  },
+);

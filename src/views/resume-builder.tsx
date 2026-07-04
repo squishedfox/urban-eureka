@@ -1,11 +1,12 @@
-import { useCallback, useState, type MouseEvent } from "react";
+import { ExportIcon, SaveIcon } from "@app/components/icons";
 import {
   ResumeBuilderForm,
   Preview,
   type ResumeBuilderFormValue,
 } from "@app/features";
-import { ExportIcon, SaveIcon } from "@app/components/icons";
 import { ActionsLayout } from "@app/layouts";
+import { AppEventName } from "@core/events";
+import { useCallback, useState } from "react";
 
 const ResumeBuilderView = () => {
   const [resume, setResume] = useState<ResumeBuilderFormValue>({
@@ -24,15 +25,13 @@ const ResumeBuilderView = () => {
   );
 
   const saveHandler = useCallback(
-    (_: MouseEvent<HTMLButtonElement>) => {
-      window.ipcRenderer.send("resume-builder:save", resume);
-    },
+    () => window.ipcRenderer.send(AppEventName.SaveResume, resume),
     [resume],
   );
 
   return (
     <div>
-      <div className="h-[calc(100vh-128px)] overflow-hidden">
+      <div className="">
         <div className="grid grid-cols-2 h-full overflow-hidden">
           <div className="bg-gray-200 overflow-y-auto">
             <ResumeBuilderForm onChange={resumeChangedHandler} />

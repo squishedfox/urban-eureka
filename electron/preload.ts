@@ -2,7 +2,7 @@ import { AppEventName } from "@core/events";
 import { type JobListing } from "@core/types";
 import { ipcRenderer, contextBridge, type IpcRendererEvent } from "electron";
 
-interface CallbackFunc<T extends any = unknown> {
+interface CallbackFunc<T = unknown> {
   (args: T): void | Promise<void>;
 }
 interface UnsubscribableResult {
@@ -29,7 +29,7 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
     const [channel, ...omit] = args;
     return ipcRenderer.invoke(channel, ...omit);
   },
-  subscribe<T extends any = unknown>(
+  subscribe<T = unknown>(
     eventName: AppEventName,
     callback: CallbackFunc<T>,
   ): UnsubscribableResult {
