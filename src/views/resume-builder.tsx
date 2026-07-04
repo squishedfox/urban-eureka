@@ -1,16 +1,11 @@
 import { useCallback, useState, type MouseEvent } from "react";
 import {
-  About,
-  HistoryList,
-  Contact,
+  ResumeBuilderForm,
+  Preview,
   type ResumeBuilderFormValue,
-  ResumeBuilderFormProvider,
-} from "@app/features/resume-builder";
-import { ExportIcon, IDCardIcon, SaveIcon } from "@app/components/icons";
-import { Preview } from "@app/features/preview";
-import { classes } from "@app/tokens";
+} from "@app/features";
+import { ExportIcon, SaveIcon } from "@app/components/icons";
 import { ActionsLayout } from "@app/layouts";
-import ResumeBuilderForm from "@app/features/resume-builder/builder";
 
 const ResumeBuilderView = () => {
   const [resume, setResume] = useState<ResumeBuilderFormValue>({

@@ -1,14 +1,12 @@
 import { classes } from "@app/tokens";
-import {
-  ResumeBuilderFormProvider,
-  ResumeBuilderFormProviderProps,
-} from "@app/features/resume-builder/context";
+import { IDCardIcon } from "@app/components";
 import {
   About,
   Contact,
   HistoryList,
-} from "@app/features/resume-builder/components";
-import { IDCardIcon } from "@app/components";
+  ResumeBuilderFormProvider,
+  ResumeBuilderFormProviderProps,
+} from "@app/features";
 
 export interface ResumeBuilderFormProps {
   onChange: ResumeBuilderFormProviderProps["onChange"];
