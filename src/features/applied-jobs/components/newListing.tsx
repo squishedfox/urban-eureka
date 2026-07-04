@@ -11,7 +11,6 @@ import { classes } from "@app/tokens";
 import { BanIcon, SaveIcon } from "@app/components";
 import { ActionsLayout } from "@app/layouts";
 import { InputGroup, TextAreaGroup } from "@app/components/forms";
-import { faker } from "@faker-js/faker";
 
 const NewJobListing = () => {
   const navigate = useNavigate();

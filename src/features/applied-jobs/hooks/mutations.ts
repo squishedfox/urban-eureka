@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { JobListing } from "@core/types";
 import { useEventState } from "@app/hooks";
+import { AppEventName } from "@core/events";
 
 export const useAddAppliedJob = () => {
   const [error, setError] = useState<unknown | null>(null);
   const [state, setState] = useEventState();
 
   const addJobListing = useCallback((listing: JobListing) => {
-    window.ipcRenderer.send("job-listing-add-request", listing);
+    window.ipcRenderer.addJobListing(listing);
     setState("fetching");
     setError(null);
   }, []);
@@ -24,8 +25,11 @@ export const useAddAppliedJob = () => {
 
   useEffect(() => {
     const unsubscriable = [
-      window.ipcRenderer.subscribe("job-listing-add-success", addSuccess),
-      window.ipcRenderer.subscribe("job-listing-add-failed", addFailed),
+      window.ipcRenderer.subscribe(
+        AppEventName.AddJobListingSuccess,
+        addSuccess,
+      ),
+      window.ipcRenderer.subscribe(AppEventName.AddJobListingFailed, addFailed),
     ];
 
     return () => {

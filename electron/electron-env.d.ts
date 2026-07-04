@@ -1,5 +1,8 @@
 /// <reference types="vite-plugin-electron/electron-env" />
 
+import type { AppEventName } from "@core/events";
+import type { JobListing } from "@core/types";
+
 declare namespace NodeJS {
   interface ProcessEnv {
     /**
@@ -21,18 +24,9 @@ declare namespace NodeJS {
   }
 }
 
-type SubscribableEventNames =
-  | "get-jobs-request"
-  | "job-listing-add-success"
-  | "job-listing-add-failed"
-  | "job-listing-remove-success"
-  | "job-listing-remove-failed"
-  | "job-listing-updated-success"
-  | "job-listing-updated-failed";
-
 interface SubscribeFunc {
   <T extends any>(
-    eventName: SubscribableEventNames,
+    eventName: AppEventName,
     callback: (args: T) => void | Promise<void>,
   ): { unsubscribe: () => void };
 }
@@ -42,6 +36,7 @@ interface Window {
   ipcRenderer: import("electron").IpcRenderer & {
     getJobListings(): Promise<{ [id: string]: JobListing }>;
     removeJob(jobId: string): void;
+    addJobListing(listing: JobListing);
     subscribe: SubscribeFunc;
   };
 }

@@ -4,6 +4,7 @@ import fs from "node:fs";
 import { faker } from "@faker-js/faker";
 import { ulid } from "ulid";
 import { type JobListing } from "@core/types";
+import { AppEventName } from "@core/events";
 
 // this is a test object and is not concurrent safe
 let globalJobListings: { [id: string]: JobListing } = {};
@@ -46,22 +47,22 @@ export const registerHandlers = () => {
   globalJobListings = createFakeJobListings();
 
   // async (invoke) handlers
-  ipcMain.handle("resume-builder:save", saveResumeHandler);
-  ipcMain.handle("get-jobs-request", getJobListings);
+  ipcMain.handle(AppEventName.SaveResume, saveResumeHandler);
+  ipcMain.handle(AppEventName.GetJobs, getJobListings);
 
   // pub/sub handlers
-  ipcMain.on("job-listing-add-request", addJobListingHandler);
-  ipcMain.on("job-listing-remove-request", removeJobListingHandler);
+  ipcMain.on(AppEventName.AddJobListing, addJobListingHandler);
+  ipcMain.on(AppEventName.RemoveJobListing, removeJobListingHandler);
 };
 
 export const removeHandlers = () => {
   // ipcMain.handle
-  ipcMain.removeHandler("resume-builder:save");
-  ipcMain.removeHandler("get-jobs-request");
+  ipcMain.removeHandler(AppEventName.SaveResume);
+  ipcMain.removeHandler(AppEventName.GetJobs);
 
   // async handlers
-  ipcMain.off("job-listing-add-request", addJobListingHandler);
-  ipcMain.off("job-listing-remove-request", removeJobListingHandler);
+  ipcMain.off(AppEventName.AddJobListing, addJobListingHandler);
+  ipcMain.off(AppEventName.RemoveJobListing, removeJobListingHandler);
 };
 
 const addJobListingHandler = (event: IpcMainInvokeEvent, data: JobListing) => {

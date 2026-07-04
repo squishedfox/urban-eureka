@@ -1,5 +1,6 @@
-import { JobListing } from "@app/features/applied-jobs";
-import { ipcRenderer, contextBridge, IpcRendererEvent } from "electron";
+import { AppEventName } from "@core/events";
+import { type JobListing } from "@core/types";
+import { ipcRenderer, contextBridge, type IpcRendererEvent } from "electron";
 
 interface CallbackFunc<T extends any = unknown> {
   (args: T): void | Promise<void>;
@@ -29,7 +30,7 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
     return ipcRenderer.invoke(channel, ...omit);
   },
   subscribe<T extends any = unknown>(
-    eventName: string,
+    eventName: AppEventName,
     callback: CallbackFunc<T>,
   ): UnsubscribableResult {
     console.debug(`${eventName} subscribed`);
@@ -44,12 +45,13 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
       },
     };
   },
-  // You can expose other APTs you need here.
-  // ...
   getJobListings(): Promise<{ [id: string]: JobListing }> {
-    return ipcRenderer.invoke("get-jobs-request", null);
+    return ipcRenderer.invoke(AppEventName.GetJobs, null);
   },
   removeJob(jobId: string): void {
-    ipcRenderer.send("job-listing-remove-request", { id: jobId});
-  }
+    ipcRenderer.send(AppEventName.RemoveJobListing, { id: jobId });
+  },
+  addJobListing(listing: JobListing): void {
+    ipcRenderer.send(AppEventName.AddJobListing, listing);
+  },
 });
