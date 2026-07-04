@@ -1,4 +1,7 @@
+import clsx from "clsx";
+
 export interface PreviewProps {
+  className?: string;
   fullName: string;
   email: string;
   phone: string;
@@ -11,9 +14,16 @@ export interface PreviewProps {
   }[];
 }
 
-const Preview = ({ about, fullName, email, phone, jobs }: PreviewProps) => {
+const Preview = ({
+  about,
+  fullName,
+  email,
+  phone,
+  jobs,
+  className,
+}: PreviewProps) => {
   return (
-    <div className="space-y-4">
+    <div className={clsx(className, "space-y-2")}>
       <section aria-label="contact information">
         <h1 className="text-2xl">{fullName}</h1>
         <p className="text-lg">{email}</p>
