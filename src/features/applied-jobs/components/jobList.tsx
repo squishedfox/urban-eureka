@@ -4,6 +4,8 @@ import {
   useGetJobListings,
   useRemoveJobListing,
 } from "@app/features/applied-jobs/hooks";
+import { classes } from "@app/tokens";
+import { ActionsLayout } from "@app/layouts";
 
 export interface JobListProps {
   className?: string;
@@ -18,43 +20,33 @@ const JobList = ({ className }: JobListProps) => {
   }
 
   return (
-    <table className={clsx("table-auto", className)}>
-      <thead className="table-header-group border border-gray-800">
-        <tr className="table-row mb-1">
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
-            Company Name
-          </td>
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
-            Title
-          </td>
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
-            Date Applied
-          </td>
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
-            Salary
-          </td>
-          <td className="table-cell border-r border-r-gray-800 px-2 py-1">
-            Link
-          </td>
-          <td className="table-cell px-2 py-1">Actions</td>
+    <table className={clsx(classes.table.classes, className)}>
+      <thead className={classes.table.thead}>
+        <tr className={classes.table.headerRow}>
+          <td className={classes.table.cellHeader}>Company Name</td>
+          <td className={classes.table.cellHeader}>Title</td>
+          <td className={classes.table.cellHeader}>Date Applied</td>
+          <td className={classes.table.cellHeader}>Salary</td>
+          <td className={classes.table.cellHeader}>Link</td>
+          <td className={classes.table.cellHeader}>Actions</td>
         </tr>
       </thead>
       <tbody>
         {Object.entries(jobs).map(([id, listing]) => (
-          <tr key={id} className="table-row">
-            <td className="table-cell px-2 py-1">{listing.companyName}</td>
-            <td className="table-cell px-2 py-1">{listing.title}</td>
-            <td className="table-cell px-2 py-1">{listing.dateApplied}</td>
-            <td className="table-cell px-2 py-1">
+          <tr key={id} className={classes.table.row}>
+            <td className={classes.table.cell}>{listing.companyName}</td>
+            <td className={classes.table.cell}>{listing.title}</td>
+            <td className={classes.table.cell}>{listing.dateApplied}</td>
+            <td className={classes.table.cell}>
               {Intl.NumberFormat().format(listing.salary)}
             </td>
-            <td className="table-cell px-2 py-1">{listing.applicationLink}</td>
-            <td className="table-cell px-2 py-1">
-              <div className="inline-flex space-x-1">
+            <td className={classes.table.cell}>{listing.applicationLink}</td>
+            <td className={classes.table.cell}>
+              <ActionsLayout>
                 <button type="button" onClick={() => removeJobListing(id)}>
                   <XmarkIcon />
                 </button>
-              </div>
+              </ActionsLayout>
             </td>
           </tr>
         ))}
