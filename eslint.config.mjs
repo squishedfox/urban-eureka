@@ -7,10 +7,13 @@ import reactPlugin from 'eslint-plugin-react'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
 import perfectionist from 'eslint-plugin-perfectionist'
 import globals from 'globals'
+import eslintConfigPrettier from "eslint-config-prettier/flat";
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 
 export default [
   js.configs.recommended,
-
+  eslintConfigPrettier,
+  eslintPluginPrettierRecommended,
   // Electron main/preload — Node environment
   {
     files: ['**/electron/**/*.{ts,js}'],
