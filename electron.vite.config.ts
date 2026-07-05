@@ -26,7 +26,8 @@ export default defineConfig({
     resolve: { alias },
     plugins: [],
     define: {
-      "process.env": process.env
+      "process.platform": process.platform,
+      "process.env.VITE_DEV_SERVER_URL": process.env["VITE_DEV_SERVER_URL"],
     }
   },
   preload: {
@@ -43,7 +44,8 @@ export default defineConfig({
     resolve: { alias },
     plugins: [],
     define: {
-      "process.env": process.env
+      "process.platform": process.platform,
+      "process.env.VITE_DEV_SERVER_URL": process.env["VITE_DEV_SERVER_URL"],
     }
   },
   renderer: {
@@ -57,8 +59,5 @@ export default defineConfig({
       },
     },
     plugins: [react(), svgr(), tailwindcss()],
-    define: {
-      "process.env": process.env
-    }
   },
 });
