@@ -34,12 +34,12 @@ const ResumeBuilderView = () => {
       <div className="grid grid-cols-2 h-full pb-32">
         <ResumeBuilderForm
           onChange={resumeChangedHandler}
-          className="bg-white overflow-y-scroll"
+          className="bg-white overflow-y-scroll border-none"
         />
         <Preview
           {...resume}
           jobs={resume.jobHistory}
-          className="p-4 bg-gray-200 overflow-y-scroll"
+          className="p-4 bg-gray-200 overflow-y-scroll border-l border-l-gray-800"
         />
       </div>
 
