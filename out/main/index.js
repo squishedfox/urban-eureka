@@ -109,9 +109,10 @@ let win;
 function createWindow() {
   win = new BrowserWindow({
     webPreferences: {
-      preload: path.join(__dirname$1, "preload.mjs"),
+      preload: path.join(__dirname$1, "../preload/index.cjs"),
       contextIsolation: true,
-      nodeIntegration: false
+      nodeIntegration: false,
+      sandbox: true
     }
   });
   win.webContents.on("did-finish-load", () => {

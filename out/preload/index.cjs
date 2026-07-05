@@ -1,4 +1,5 @@
-import { contextBridge, ipcRenderer } from "electron";
+"use strict";
+const electron = require("electron");
 var AppEventName = /* @__PURE__ */ ((AppEventName2) => {
   AppEventName2["SaveResume"] = "resume:save";
   AppEventName2["GetJobs"] = "jobs:list";
@@ -13,46 +14,46 @@ var AppEventName = /* @__PURE__ */ ((AppEventName2) => {
   AppEventName2["UpdateJobListingFailed"] = "job-listing:update:failed";
   return AppEventName2;
 })(AppEventName || {});
-contextBridge.exposeInMainWorld("ipcRenderer", {
+electron.contextBridge.exposeInMainWorld("ipcRenderer", {
   on(...args) {
     const [channel, listener] = args;
-    return ipcRenderer.on(
+    return electron.ipcRenderer.on(
       channel,
       (event, ...args2) => listener(event, ...args2)
     );
   },
   off(...args) {
     const [channel, ...omit] = args;
-    return ipcRenderer.off(channel, ...omit);
+    return electron.ipcRenderer.off(channel, ...omit);
   },
   send(...args) {
     const [channel, ...omit] = args;
-    return ipcRenderer.send(channel, ...omit);
+    return electron.ipcRenderer.send(channel, ...omit);
   },
   invoke(...args) {
     const [channel, ...omit] = args;
-    return ipcRenderer.invoke(channel, ...omit);
+    return electron.ipcRenderer.invoke(channel, ...omit);
   },
   subscribe(eventName, callback) {
     console.debug(`${eventName} subscribed`);
     const func = (_event, res) => {
       callback(res);
     };
-    ipcRenderer.on(eventName, func);
+    electron.ipcRenderer.on(eventName, func);
     return {
       unsubscribe: () => {
         console.debug(`${eventName} unsubscribed`);
-        ipcRenderer.off(eventName, func);
+        electron.ipcRenderer.off(eventName, func);
       }
     };
   },
   getJobListings() {
-    return ipcRenderer.invoke(AppEventName.GetJobs, null);
+    return electron.ipcRenderer.invoke(AppEventName.GetJobs, null);
   },
   removeJob(jobId) {
-    ipcRenderer.send(AppEventName.RemoveJobListing, { id: jobId });
+    electron.ipcRenderer.send(AppEventName.RemoveJobListing, { id: jobId });
   },
   addJobListing(listing) {
-    ipcRenderer.send(AppEventName.AddJobListing, listing);
+    electron.ipcRenderer.send(AppEventName.AddJobListing, listing);
   }
 });

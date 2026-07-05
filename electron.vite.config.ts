@@ -1,6 +1,8 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig} from "electron-vite";
 import { resolve } from "path";
+import svgr from "vite-plugin-svgr";
+import tailwindcss from "@tailwindcss/vite"
 
 const __dirname = import.meta.dirname;
 
@@ -33,6 +35,9 @@ export default defineConfig({
         input: {
           index: resolve(__dirname, "electron/preload.ts"),
         },
+        output: {
+          format: "cjs",
+        }
       },
     },
     resolve: { alias },
@@ -43,6 +48,7 @@ export default defineConfig({
   },
   renderer: {
     root: ".",
+    resolve: { alias },
     build: {
       rollupOptions: {
         input: {
@@ -50,8 +56,7 @@ export default defineConfig({
         },
       },
     },
-    resolve: { alias },
-    plugins: [react()],
+    plugins: [react(), svgr(), tailwindcss()],
     define: {
       "process.env": process.env
     }

@@ -16,11 +16,12 @@ let win: BrowserWindow | null
 function createWindow() {
   win = new BrowserWindow({
     webPreferences: {
-      preload: path.join(__dirname, 'preload.mjs'),
+      preload: path.join(__dirname, '../preload/index.cjs'),
       contextIsolation: true,
       nodeIntegration: false,
+      sandbox: true,
     },
-  })
+  });
 
   win.webContents.on('did-finish-load', () => {
     win?.webContents.send('main-process-message', new Date().toLocaleString())
