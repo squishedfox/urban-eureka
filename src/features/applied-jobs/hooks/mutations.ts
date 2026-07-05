@@ -5,23 +5,26 @@ import { useCallback, useEffect, useState } from "react";
 
 export const useAddAppliedJob = () => {
   const [error, setError] = useState<unknown | null>(null);
-  const [state, setState] = useEventState();
+  const [state, setEventState] = useEventState();
 
   const addJobListing = useCallback((listing: JobListing) => {
     window.ipcRenderer.addJobListing(listing);
-    setState("fetching");
+    setEventState("fetching");
     setError(null);
-  }, [setState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const addSuccess = useCallback(() => {
-    setState("success");
+    setEventState("success");
     setError(null);
-  }, [setState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const addFailed = useCallback((res: { error: Error }) => {
     setError(res.error);
-    setState("error");
-  }, [setState]);
+    setEventState("error");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const unsubscriable = [
@@ -57,13 +60,15 @@ export const useUpdateJobListing = () => {
   const updateSuccess = useCallback((...args: unknown[]) => {
     console.debug("updated args=", args);
     setEventState("success");
-  }, [setEventState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateFailed = useCallback((...args: unknown[]) => {
     console.debug("updated failed. args=", args);
     setError(new Error("some failure message"));
     setEventState("error");
-  }, [setEventState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const unsubscribable = [
@@ -99,17 +104,20 @@ export const useRemoveJobListing = () => {
     setEventState("fetching");
     setError(null);
     window.ipcRenderer.removeJob(id);
-  }, [setEventState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const removeSuccess = useCallback(() => {
     setEventState("success");
     setError(null);
-  }, [setEventState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const removeFailed = useCallback((res: { error: Error }) => {
     setError(res.error);
     setEventState("error");
-  }, [setEventState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const unsubscriable = [

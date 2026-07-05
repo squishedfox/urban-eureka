@@ -7,17 +7,24 @@ import {
   ResumeBuilderFormProviderProps,
 } from "@app/features";
 import { classes } from "@app/tokens";
+import clsx from "clsx";
 
 export interface ResumeBuilderFormProps {
+  className?: string;
   onChange: ResumeBuilderFormProviderProps["onChange"];
 }
 
-const ResumeBuilderForm = ({ onChange }: ResumeBuilderFormProps) => {
+const ResumeBuilderForm = ({ className, onChange }: ResumeBuilderFormProps) => {
   return (
     <ResumeBuilderFormProvider onChange={onChange}>
-      <form name="job-history-form" className={classes.form}>
+      <form
+        noValidate
+        method="post"
+        action="#"
+        className={clsx(classes.form, className)}
+      >
         <fieldset
-          className="bg-white p-4 border border-gray-800"
+          className="p-4 border border-gray-800"
           aria-label="About and Contact Section"
         >
           <div className="flex">

@@ -74,7 +74,7 @@ const addJobListingHandler = (event: IpcMainInvokeEvent, data: JobListing) => {
     enumerable: true,
     writable: true,
   });
-  event.sender.send("job-listing-add-success", {
+  event.sender.send(AppEventName.AddJobListingSuccess, {
     id: id,
   });
 };
@@ -84,7 +84,7 @@ const removeJobListingHandler = (
   req: { id: string },
 ) => {
   delete globalJobListings[req.id];
-  event.sender.send("job-listing-remove-success", {
+  event.sender.send(AppEventName.RemoveJobListingSuccess, {
     id: req.id,
   });
 };

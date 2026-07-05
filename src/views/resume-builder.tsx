@@ -30,21 +30,16 @@ const ResumeBuilderView = () => {
   );
 
   return (
-    <div>
-      <div className="">
-        <div className="grid grid-cols-2 h-full overflow-hidden">
-          <div className="bg-gray-200 overflow-y-auto">
-            <ResumeBuilderForm onChange={resumeChangedHandler} />
-          </div>
-          <Preview
-            {...resume}
-            jobs={resume.jobHistory}
-            className="p-4 overflow-y-auto"
-          />
-        </div>
+    <div className="h-screen w-screen overflow-hidden bg-gray-200">
+      <div className="grid grid-cols-2 h-full pb-32">
+        <ResumeBuilderForm
+          onChange={resumeChangedHandler}
+          className="bg-white overflow-y-scroll"
+        />
+        <Preview {...resume} jobs={resume.jobHistory} className="p-4" />
       </div>
 
-      <ActionsLayout className="h-16 border border-gray-800 fixed bottom-0 left-0 z-50">
+      <ActionsLayout className="h-16 border border-gray-800 fixed bottom-0 left-0 z-50 bg-white">
         <button type="button">
           <ExportIcon size="lg" />
         </button>

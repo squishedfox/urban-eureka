@@ -4,7 +4,7 @@ import { JobListing } from "@core/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useGetJobListings = () => {
-  const didFetchRef = useRef(true);
+  const didFetchRef = useRef(false);
   const [error, setError] = useState<unknown | null>(null);
   const [jobs, setJobs] = useState<{ [id: string]: JobListing }>({});
   const [eventState, setEventState] = useEventState();
@@ -26,7 +26,8 @@ export const useGetJobListings = () => {
       },
     }));
     setEventState("success");
-  }, [setEventState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const removeJobSuccess = useCallback((res: { id: string }) => {
     setEventState("fetching");
@@ -49,7 +50,8 @@ export const useGetJobListings = () => {
       }, {}),
     );
     setEventState("success");
-  }, [setEventState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const addJobFailed = useCallback((res: { error: Error }) => {
     console.error(res.error);
@@ -67,7 +69,8 @@ export const useGetJobListings = () => {
       setError(err);
       setJobs({});
     }
-  }, [setEventState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     // you should make sure these are setup first before renders
@@ -96,9 +99,8 @@ export const useGetJobListings = () => {
   useEffect(() => {
     if (!didFetchRef.current) {
       getJobs();
+      didFetchRef.current = true; // you should register ASAP this to avoid race conditions
     }
-
-    didFetchRef.current = true; // you should register ASAP this to avoid race conditions
   }, [getJobs]);
 
   return {
