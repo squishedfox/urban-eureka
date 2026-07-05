@@ -1,4 +1,5 @@
 import js from '@eslint/js'
+import react from "eslint-plugin-react";
 import tsParser from '@typescript-eslint/parser'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -31,6 +32,7 @@ export default [
     plugins: {
       '@typescript-eslint': tsPlugin,
       perfectionist,
+      react,
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
