@@ -5,8 +5,8 @@
   "type": "module",
   "main": "./out/main/index.js",
   "scripts": {
-    "dev": "electron-vite dev",
-    "build": "electron-vite build",
+    "dev": "VITE_DEV_SERVER_URL=http://localhost:5173 electron-vite dev --mode=dev --watch",
+    "build": "electron-vite build --mode=dev",
     "preview": "electron-vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
@@ -17,7 +17,7 @@
     "react-dom": "^18.2.0",
     "react-fast-compare": "^3.2.2",
     "react-router-dom": "^7.18.0",
-    "ulid": "^3.0.2"
+    "ulid": "^3.0.3"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.0",
