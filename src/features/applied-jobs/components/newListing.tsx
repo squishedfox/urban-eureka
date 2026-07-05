@@ -1,14 +1,14 @@
 import { BanIcon, SaveIcon } from "@app/components";
-import { InputGroup, TextAreaGroup } from "@app/components/forms";
+import {
+  DateInputGroup,
+  InputGroup,
+  TextAreaGroup,
+} from "@app/components/forms";
 import { useAddAppliedJob } from "@app/features/applied-jobs/hooks";
 import { ActionsLayout } from "@app/layouts";
 import { classes } from "@app/tokens";
 import { type JobListing } from "@core/types";
-import {
-  type ChangeEvent,
-  type FormEvent,
-  useState,
-} from "react";
+import { type ChangeEvent, type FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const NewJobListing = () => {
@@ -63,6 +63,15 @@ const NewJobListing = () => {
             type: "text",
             name: "companyName",
             required: true,
+          }}
+        />
+        <InputGroup
+          label={{ text: "Date Applied" }}
+          input={{
+            value: formValue.dateApplied,
+            onChange: inputChangedHandler,
+            type: "date",
+            name: "dateApplied",
           }}
         />
         <InputGroup
