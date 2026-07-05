@@ -1,8 +1,8 @@
 import react from "@vitejs/plugin-react";
-import { defineConfig} from "electron-vite";
+import { defineConfig } from "electron-vite";
 import { resolve } from "path";
 import svgr from "vite-plugin-svgr";
-import tailwindcss from "@tailwindcss/vite"
+import tailwindcss from "@tailwindcss/vite";
 
 const __dirname = import.meta.dirname;
 
@@ -26,9 +26,11 @@ export default defineConfig({
     resolve: { alias },
     plugins: [],
     define: {
-      "process.platform": process.platform,
-      "process.env.VITE_DEV_SERVER_URL": process.env["VITE_DEV_SERVER_URL"],
-    }
+      "process.platform": JSON.stringify(process.platform),
+      "process.env.VITE_DEV_SERVER_URL": JSON.stringify(
+        process.env["VITE_DEV_SERVER_URL"],
+      ),
+    },
   },
   preload: {
     build: {
@@ -38,15 +40,11 @@ export default defineConfig({
         },
         output: {
           format: "cjs",
-        }
+        },
       },
     },
     resolve: { alias },
     plugins: [],
-    define: {
-      "process.platform": process.platform,
-      "process.env.VITE_DEV_SERVER_URL": process.env["VITE_DEV_SERVER_URL"],
-    }
   },
   renderer: {
     root: ".",

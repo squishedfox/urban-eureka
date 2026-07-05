@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <CenterLayout>
       <div className="flex flex-col items-center justify-center text-center space-y-4 bg-white p-8 border border-gray-800">
-        <h1 className="text-xl border-b border-b-gray-800">Welcome</h1>
+        <h1 className="text-xl border-b border-b-gray-800">Welcome!</h1>
         <p>Create one resume with all job history, experience, and skills</p>
         <ol className="list-decimal text-left">
           <h2 className="text-l border-b border-b-gray-800 pb-1">
