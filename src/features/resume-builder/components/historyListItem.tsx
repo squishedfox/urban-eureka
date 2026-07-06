@@ -1,15 +1,9 @@
-import {
-  CalendarIcon,
-  ChevronIcon,
-  SquarePlusIcon,
-  TrashIcon,
-  XmarkIcon,
-} from "@app/components/icons";
+import { CalendarIcon, SquarePlusIcon, TrashIcon } from "@app/components/icons";
 import { classes } from "@app/tokens";
-import clsx from "clsx";
 import { HTMLProps } from "react";
 
 import { useJob } from "../context";
+import ExperienceList from "./experienceList";
 
 export interface JobHistoryItemProps extends Pick<
   HTMLProps<HTMLElement>,
@@ -25,16 +19,11 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
     removeJob,
     companyNameChanged,
     addExperience,
-    updateExperience,
-    removeExperience,
     titleChanged,
-    experienceOrderChanged,
   } = useJob(id);
 
   const employmentDateChangedHandler = ([start, end]: [string, string]) =>
     dateChanged([start, end]);
-
-  const experiences = Object.entries(job.experience);
 
   return (
     <fieldset className={className}>
@@ -132,50 +121,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               onChange={(event) => titleChanged(event.currentTarget.value)}
             />
           </div>
-          {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
-          <ul className="my-4 space-y-2" role="list">
-            {experiences.map(([id, text], ix) => (
-              // eslint-disable-next-line jsx-a11y/no-redundant-roles
-              <li key={id} className="flex space-x-1" role="listitem">
-                <div className="flex flex-col">
-                  <button
-                    type="button"
-                    disabled={ix === 0}
-                    onClick={() => experienceOrderChanged(id, ix - 1)}
-                    title="click to move up"
-                  >
-                    <ChevronIcon size="sm" direction="up" />
-                  </button>
-                  <button
-                    type="button"
-                    disabled={ix === experiences.length - 1}
-                    onClick={() => experienceOrderChanged(id, ix + 1)}
-                    title="click to move down"
-                  >
-                    <ChevronIcon size="sm" direction="down" />
-                  </button>
-                </div>
-                <input
-                  type="text"
-                  title="job experience"
-                  aria-label="Job Experience"
-                  className={clsx(classes.input, "grow")}
-                  name={`${id}-experience-input`}
-                  value={text}
-                  onChange={(event) =>
-                    updateExperience(id, event.currentTarget.value)
-                  }
-                />
-                <button
-                  type="button"
-                  title="delete experience"
-                  onClick={() => removeExperience(id)}
-                >
-                  <XmarkIcon size="sm" />
-                </button>
-              </li>
-            ))}
-          </ul>
+          <ExperienceList jobId={id} />
         </div>
         <div>
           <button

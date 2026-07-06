@@ -4,6 +4,7 @@ import { faker } from "@faker-js/faker";
 import { ulid } from "ulid";
 
 import {
+  ExperienceIncludeExcludeAction,
   ReOrderExperienceAction,
   type AddExperienceAction,
   type RemoveExperienceAction,
@@ -25,7 +26,10 @@ export const addExperienceReducer = (
             {},
             state.jobs[action.payload.jobId].experience,
             {
-              [ulid()]: faker.lorem.paragraph(),
+              [ulid()]: {
+                text: faker.lorem.paragraph(),
+                included: true,
+              },
             },
           ),
         },
@@ -46,13 +50,16 @@ export const removeExperienceReducer = (
           experience: Object.entries(
             state.jobs[action.payload.jobId].experience,
           ).reduce(
-            (acc, [id, value]) => {
+            (acc, [id, { text, included }]) => {
               if (id !== action.payload.expId) {
-                acc[id] = value;
+                acc[id] = {
+                  text,
+                  included,
+                };
               }
               return acc;
             },
-            {} as Record<string, string>,
+            {} as Record<string, { text: string; included: boolean }>,
           ),
         },
       ),
@@ -73,7 +80,45 @@ export const updateExperienceReducer = (
             {},
             state.jobs[action.payload.jobId].experience,
             {
-              [action.payload.expId]: action.payload.newValue,
+              [action.payload.expId]: Object.assign(
+                {},
+                state.jobs[action.payload.jobId].experience[
+                  action.payload.expId
+                ],
+                {
+                  text: action.payload.newValue,
+                },
+              ),
+            },
+          ),
+        },
+      ),
+    }),
+  });
+
+export const includeExcludeExperienceReducer = (
+  state: ResumeBuilderState,
+  action: ExperienceIncludeExcludeAction,
+) =>
+  Object.assign({} as ResumeBuilderState, state, {
+    jobs: Object.assign({}, state.jobs, {
+      [action.payload.jobId]: Object.assign(
+        {},
+        state.jobs[action.payload.jobId],
+        {
+          experience: Object.assign(
+            {},
+            state.jobs[action.payload.jobId].experience,
+            {
+              [action.payload.expId]: Object.assign(
+                {},
+                state.jobs[action.payload.jobId].experience[
+                  action.payload.expId
+                ],
+                {
+                  included: action.payload.included,
+                },
+              ),
             },
           ),
         },

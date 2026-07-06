@@ -13,6 +13,7 @@ import {
   isUpdateExperienceAction,
   isReOrderExperienceAction,
   type ResumeBuilderActionType,
+  isExperienceIncludeExcludeAction,
 } from "../actions";
 import { initialState } from "../state";
 import {
@@ -20,6 +21,7 @@ import {
   removeExperienceReducer,
   updateExperienceReducer,
   reOrderExperienceReducer,
+  includeExcludeExperienceReducer,
 } from "./experience";
 import {
   addJobReducer,
@@ -48,6 +50,8 @@ export const resumeBuilderReducer = (
     return removeExperienceReducer(state, action);
   } else if (isUpdateExperienceAction(action)) {
     return updateExperienceReducer(state, action);
+  } else if (isExperienceIncludeExcludeAction(action)) {
+    return includeExcludeExperienceReducer(state, action);
   } else if (isAboutChangedAction(action)) {
     return Object.assign({}, state, {
       about: action.payload.newAbout,

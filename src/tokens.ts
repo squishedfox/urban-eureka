@@ -5,6 +5,7 @@
 export const classes = Object.freeze({
   input: "border border-gray-800 px-2 py-1 w-full",
   inputGroup: "flex flex-col space-x-1 space-y-1",
+  checkbox: "text-lg",
   textarea: "border border-gray-800 w-full min-h-32 px-2 py-1",
   label: "text-sm",
   form: "border border-gray-800 bg-white p-4 space-y-4",

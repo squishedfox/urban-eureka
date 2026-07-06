@@ -34,7 +34,19 @@ export interface JobHistoryListItem {
   /**
    * List of exerpience you have in your job
    */
-  experience: Record<string, string>;
+  experience: Record<
+    string,
+    {
+      /**
+       * Translated text that should be displayed to the user
+       */
+      text: string;
+      /**
+       * True to include in the resume, else false to exclude but keep in template for later
+       */
+      included: boolean;
+    }
+  >;
 }
 
 export interface JobHistoryList {

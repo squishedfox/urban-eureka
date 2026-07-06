@@ -15,6 +15,7 @@ export const useJob = (id: string) => {
     dateChanged: jobDateChanged,
     companyNameChanged: jobNameChanged,
     experienceOrderChanged: jobExperienceOrderChanged,
+    experienceIncludeChanged: jobExperienceIncludeChanged,
     jobTitleChanged,
   } = useResumeBuilderForm();
 
@@ -53,6 +54,14 @@ export const useJob = (id: string) => {
     [jobTitleChanged, id],
   );
 
+  const experienceIncludeChanged = useCallback(
+    (expId: string, include: boolean) => {
+      console.log("should be included", include);
+      jobExperienceIncludeChanged(id, expId, include);
+    },
+    [id, jobExperienceIncludeChanged],
+  );
+
   return {
     job: jobs[id],
     removeJob,
@@ -62,6 +71,51 @@ export const useJob = (id: string) => {
     dateChanged,
     companyNameChanged,
     experienceOrderChanged,
+    experienceIncludeChanged,
     titleChanged,
+  };
+};
+
+export interface UseExperienceArgs {
+  jobId: string;
+  experienceId: string;
+}
+export const useExperience = ({ jobId, experienceId }: UseExperienceArgs) => {
+  const {
+    job,
+    removeExperience: removeJobExperience,
+    updateExperience: updateJobExperience,
+    experienceOrderChanged: orderJobExperience,
+    experienceIncludeChanged: includeExcludeJobExperience,
+  } = useJob(jobId);
+
+  const experience = job.experience[experienceId];
+
+  const remove = useCallback(
+    () => removeJobExperience(experienceId),
+    [experienceId, removeJobExperience],
+  );
+
+  const updateText = useCallback(
+    (newText: string) => updateJobExperience(experienceId, newText),
+    [experienceId, updateJobExperience],
+  );
+
+  const reOrder = useCallback(
+    (newOrdinal: number) => orderJobExperience(experienceId, newOrdinal),
+    [experienceId, orderJobExperience],
+  );
+
+  const includeExclude = useCallback(
+    (include: boolean) => includeExcludeJobExperience(experienceId, include),
+    [experienceId, includeExcludeJobExperience],
+  );
+
+  return {
+    experience,
+    remove,
+    updateText,
+    reOrder,
+    includeExclude,
   };
 };

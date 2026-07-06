@@ -105,6 +105,19 @@ export const ResumeBuilderContext = createContext({
     !!newValue;
     /* left intentionally blank */
   },
+  experienceIncludeChanged: (
+    jobId: string,
+    experienceId: string,
+    included: boolean,
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!jobId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!experienceId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!included;
+    /* left intentionally blank */
+  },
 });
 
 export interface ResumeBuilderFormProviderProps {
@@ -243,6 +256,20 @@ export const ResumeBuilderFormProvider = ({
     [dispatch],
   );
 
+  const experienceIncludeChanged = useCallback(
+    (jobId: string, expId: string, included: boolean) => {
+      dispatch({
+        type: "include-exclude-experience",
+        payload: {
+          jobId,
+          expId,
+          included,
+        },
+      });
+    },
+    [dispatch],
+  );
+
   useEffect(() => {
     // I do not love this logic but here we are
     onChange({
@@ -252,7 +279,15 @@ export const ResumeBuilderFormProvider = ({
       about: state.about,
       jobHistory: Object.values(state.jobs).map((job) => ({
         endDate: job.endDate,
-        experience: Object.values(job.experience),
+        experience: Object.entries(job.experience).reduce(
+          (acc, [, { text, included }]) => {
+            if (included) {
+              acc.push(text);
+            }
+            return acc;
+          },
+          new Array<string>(),
+        ),
         startDate: job.startDate,
         companyName: job.companyName,
         title: job.title,
@@ -288,6 +323,7 @@ export const ResumeBuilderFormProvider = ({
         fullNameChanged,
         jobTitleChanged,
         experienceOrderChanged,
+        experienceIncludeChanged,
       }}
     >
       {children}
