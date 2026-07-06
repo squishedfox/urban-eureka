@@ -1,4 +1,11 @@
-import { CalendarIcon, SquarePlusIcon, TrashIcon } from "@app/components/icons";
+import { InputGroup } from "@app/components/forms";
+import {
+  BuildingIcon,
+  CalendarIcon,
+  PersonCircleExclamationIcon,
+  SquarePlusIcon,
+  TrashIcon,
+} from "@app/components/icons";
 import { classes } from "@app/tokens";
 import { HTMLProps } from "react";
 
@@ -30,95 +37,58 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
       <div className="inline-flex w-full">
         <div className="flex-1 space-y-1">
           <div className="max-w-1/3">
-            <div>
-              <label
-                id={`company-name-label-${id}`}
-                htmlFor={`company-name-label-${id}`}
-                className="text-xs"
-              >
-                Company Name
-              </label>
-            </div>
-            <input
-              id={`company-name-input-${id}`}
-              name={`company-name-input-${id}`}
-              className={classes.input}
-              type="text"
-              value={job.companyName}
-              onChange={(event) =>
-                companyNameChanged(event.currentTarget.value)
-              }
+            <InputGroup
+              label={{
+                text: "Company Name",
+                icon: <BuildingIcon size="sm" />,
+              }}
+              input={{
+                name: "companyName",
+                type: "text",
+                value: job.companyName,
+                onChange: (event) =>
+                  companyNameChanged(event.currentTarget.value),
+              }}
             />
           </div>
-          <div className="inline-flex items-center space-x-1 w-full">
-            <div className="max-w-1/2 space-y-1">
-              <div className="flex space-x-1">
-                <CalendarIcon size="sm" />
-                <label
-                  id={`start-date-label-${id}`}
-                  htmlFor={`start-date-label-${id}`}
-                  className="text-xs"
-                >
-                  Start Date
-                </label>
-              </div>
-              <input
-                id={`start-date-input-${id}`}
-                name={`start-date-input-${id}`}
-                className={classes.input}
-                type="date"
-                value={job.startDate}
-                onChange={(event) =>
-                  employmentDateChangedHandler([
-                    event.currentTarget.value,
-                    job.endDate ?? "",
-                  ])
-                }
-              />
-            </div>
-            <div className="max-w-1/2 space-y-1">
-              <div className="flex space-x-1">
-                <CalendarIcon size="sm" />
-                <label
-                  id={`start-date-label-${id}`}
-                  htmlFor={`start-date-label-${id}`}
-                  className="text-xs"
-                >
-                  End Date
-                </label>
-              </div>
-              <input
-                id={`end-date-input-${id}`}
-                name={`end-date-input-${id}`}
-                className={classes.input}
-                type="date"
-                value={job.endDate}
-                onChange={(event) =>
-                  employmentDateChangedHandler([
-                    job.startDate,
-                    event.currentTarget.value,
-                  ])
-                }
-              />
-            </div>
+          <div className="grid grid-cols-2 gap-x-4 max-w-1/2">
+            <InputGroup
+              label={{
+                text: "Start Date",
+                icon: <CalendarIcon size="sm" />,
+              }}
+              input={{
+                required: true,
+                value: job.startDate,
+                onChange: (event) =>
+                  dateChanged([event.currentTarget.value, job.endDate]),
+              }}
+            />
+            <InputGroup
+              label={{
+                text: "Start Date",
+                icon: <CalendarIcon size="sm" />,
+              }}
+              input={{
+                required: true,
+                value: job.startDate,
+                onChange: (event) =>
+                  dateChanged([event.currentTarget.value, job.endDate]),
+              }}
+            />
           </div>
           <div className="max-w-1/2">
-            <div>
-              <label
-                id={`job-title-label-${id}`}
-                htmlFor={`job-title-label-${id}`}
-                className="text-xs"
-              >
-                Job Title
-              </label>
-            </div>
-            <input
-              id={`job-title-input-${id}`}
-              name={`job-title-input-${id}`}
-              className={classes.input}
-              type="text"
-              value={job.title}
-              onChange={(event) => titleChanged(event.currentTarget.value)}
+            <InputGroup
+              label={{
+                text: "Title",
+                icon: <PersonCircleExclamationIcon size="sm" />,
+              }}
+              input={{
+                name: "jobTitle",
+                type: "text",
+                value: job.title,
+                onChange: (event) => titleChanged(event.currentTarget.value),
+              }}
             />
           </div>
           <ExperienceList jobId={id} />

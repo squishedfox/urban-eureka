@@ -56,7 +56,6 @@ export const useJob = (id: string) => {
 
   const experienceIncludeChanged = useCallback(
     (expId: string, include: boolean) => {
-      console.log("should be included", include);
       jobExperienceIncludeChanged(id, expId, include);
     },
     [id, jobExperienceIncludeChanged],

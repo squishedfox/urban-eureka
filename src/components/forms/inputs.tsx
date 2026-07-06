@@ -7,10 +7,6 @@ export interface InputGroupProps {
    * Should be the label (display text). All translations should be done before
    */
   label: { icon?: ReactNode; text: string };
-  /**
-   * Icon to display with the label
-   */
-  icon?: ReactNode;
 
   input: Pick<
     HTMLProps<HTMLInputElement>,

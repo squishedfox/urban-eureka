@@ -33,14 +33,12 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
     eventName: AppEventName,
     callback: CallbackFunc<T>,
   ): UnsubscribableResult {
-    console.debug(`${eventName} subscribed`);
     const func = (_event: IpcRendererEvent, res: T) => {
       callback(res);
     };
     ipcRenderer.on(eventName, func);
     return {
       unsubscribe: () => {
-        console.debug(`${eventName} unsubscribed`);
         ipcRenderer.off(eventName, func);
       },
     };

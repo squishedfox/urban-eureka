@@ -57,14 +57,14 @@ export const useUpdateJobListing = () => {
     window.ipcRenderer.send(AppEventName.UpdateJobListing, id, listing);
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const updateSuccess = useCallback((...args: unknown[]) => {
-    console.debug("updated args=", args);
     setEventState("success");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const updateFailed = useCallback((...args: unknown[]) => {
-    console.debug("updated failed. args=", args);
     setError(new Error("some failure message"));
     setEventState("error");
     // eslint-disable-next-line react-hooks/exhaustive-deps
