@@ -6,7 +6,6 @@ import {
   SquarePlusIcon,
   TrashIcon,
 } from "@app/components/icons";
-import { classes } from "@app/tokens";
 import { HTMLProps } from "react";
 
 import { useJob } from "../context";
@@ -28,9 +27,6 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
     addExperience,
     titleChanged,
   } = useJob(id);
-
-  const employmentDateChangedHandler = ([start, end]: [string, string]) =>
-    dateChanged([start, end]);
 
   return (
     <fieldset className={className}>
