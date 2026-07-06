@@ -1,9 +1,5 @@
 import { BanIcon, SaveIcon } from "@app/components";
-import {
-  DateInputGroup,
-  InputGroup,
-  TextAreaGroup,
-} from "@app/components/forms";
+import { InputGroup, TextAreaGroup } from "@app/components/forms";
 import { useAddAppliedJob } from "@app/features/applied-jobs/hooks";
 import { ActionsLayout } from "@app/layouts";
 import { classes } from "@app/tokens";
