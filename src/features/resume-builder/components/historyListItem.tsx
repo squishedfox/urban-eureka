@@ -132,7 +132,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               onChange={(event) => titleChanged(event.currentTarget.value)}
             />
           </div>
-          { /* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
+          {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
           <ul className="my-4 space-y-2" role="list">
             {experiences.map(([id, text], ix) => (
               // eslint-disable-next-line jsx-a11y/no-redundant-roles
