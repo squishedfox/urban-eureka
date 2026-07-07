@@ -1,4 +1,4 @@
-import { InputGroup } from "@app/components/forms";
+import { DateRangeInputGroup, InputGroup } from "@app/components/forms";
 import {
   BuildingIcon,
   CalendarIcon,
@@ -47,32 +47,10 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
               }}
             />
           </div>
-          <div className="grid grid-cols-2 gap-x-4 max-w-1/2">
-            <InputGroup
-              label={{
-                text: "Start Date",
-                icon: <CalendarIcon size="sm" />,
-              }}
-              input={{
-                required: true,
-                value: job.startDate,
-                onChange: (event) =>
-                  dateChanged([event.currentTarget.value, job.endDate]),
-              }}
-            />
-            <InputGroup
-              label={{
-                text: "Start Date",
-                icon: <CalendarIcon size="sm" />,
-              }}
-              input={{
-                required: true,
-                value: job.startDate,
-                onChange: (event) =>
-                  dateChanged([event.currentTarget.value, job.endDate]),
-              }}
-            />
-          </div>
+          <DateRangeInputGroup
+            range={[job.startDate, job.endDate]}
+            onChange={dateChanged}
+          />
           <div className="max-w-1/2">
             <InputGroup
               label={{

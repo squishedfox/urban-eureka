@@ -1,6 +1,9 @@
 import { classes } from "@app/tokens";
+import clsx from "clsx";
 import { ReactNode } from "react";
 import { type HTMLProps, type PropsWithChildren } from "react";
+
+import { CalendarIcon } from "../icons";
 
 export interface InputGroupProps {
   /**
@@ -94,3 +97,40 @@ export const TextAreaGroup = ({ label, textArea }: TextAreaGroupProps) => {
     </div>
   );
 };
+
+export interface DateRangeInputGroupProps {
+  className?: string;
+  range: [string, string | undefined];
+  onChange(range: [string, string]): void;
+}
+
+export const DateRangeInputGroup = ({
+  className,
+  range,
+  onChange,
+}: DateRangeInputGroupProps) => (
+  <div className={clsx("grid grid-cols-2 gap-x-4", className)}>
+    <InputGroup
+      label={{
+        text: "Start Date",
+        icon: <CalendarIcon size="sm" />,
+      }}
+      input={{
+        type: "date",
+        value: range[0],
+        onChange: (event) => onChange([event.currentTarget.value, range[1]]),
+      }}
+    />
+    <InputGroup
+      label={{
+        text: "End Date",
+        icon: <CalendarIcon size="sm" />,
+      }}
+      input={{
+        type: "date",
+        value: range[1],
+        onChange: (event) => onChange([range[0], event.currentTarget.value]),
+      }}
+    />
+  </div>
+);
