@@ -35,9 +35,9 @@ const JobListing = ({ jobListingId, className }: JobListingProps) => {
 
   return (
     <div className={className}>
-      <h1 className="inline-flex items-center w-full gap-x-1">
+      <p className="inline-flex items-center w-full gap-x-1">
         <BuildingIcon size="sm" /> <strong>Company Name:</strong> {companyName}
-      </h1>
+      </p>
       <p className="inline-flex items-center w-full gap-x-1">
         <strong>Company Link:</strong> {companyLink ?? "<empty>"}
       </p>
