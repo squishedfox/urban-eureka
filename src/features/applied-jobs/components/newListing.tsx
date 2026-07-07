@@ -2,7 +2,6 @@ import {
   BanIcon,
   BuildingIcon,
   CalendarIcon,
-  CircleUserIcon,
   CoinsIcon,
   PersonCircleExclamationIcon,
   SaveIcon,
