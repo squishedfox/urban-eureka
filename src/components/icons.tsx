@@ -12,6 +12,7 @@ import Coins from "@assets/coins.svg";
 import Envelope from "@assets/envelope.svg";
 import Export from "@assets/export.svg";
 import Pdf from "@assets/export.svg";
+import FontAwesome from "@assets/font-awesome.svg";
 import Hammer from "@assets/hammer.svg";
 import Home from "@assets/home.svg";
 import IDCard from "@assets/id-card.svg";
@@ -19,9 +20,13 @@ import Lock from "@assets/lock.svg";
 import PersonCircleExclamation from "@assets/person-circle-exclamation.svg";
 import Phone from "@assets/phone.svg";
 import Plus from "@assets/plus.svg";
+import React from "@assets/react.svg";
 import Save from "@assets/save.svg";
 import SquarePlus from "@assets/square-plus.svg";
+import Tailwindcss from "@assets/tailwindcss.svg";
+import Github from "@assets/tailwindcss.svg";
 import Trash from "@assets/trash.svg";
+import Vim from "@assets/vim.svg";
 import Xmark from "@assets/xmark.svg";
 import type { AriaAttributes, HTMLAttributes } from "react";
 
@@ -168,6 +173,29 @@ export const BuildingIcon = ({ size = "md" }: IconProps) => (
 );
 export const CoinsIcon = ({ size = "md" }: IconProps) => (
   <img src={Coins} className={iconClassSizeMap[size]} alt="coins icon" />
+);
+export const ReactIcon = ({ size = "md" }: IconProps) => (
+  <img src={React} className={iconClassSizeMap[size]} alt="react icon" />
+);
+export const FontAwesomeIcon = ({ size = "md" }: IconProps) => (
+  <img
+    src={FontAwesome}
+    className={iconClassSizeMap[size]}
+    alt="font awesome icon"
+  />
+);
+export const TailwindcssIcon = ({ size = "md" }: IconProps) => (
+  <img
+    src={Tailwindcss}
+    className={iconClassSizeMap[size]}
+    alt="tailwind css icon"
+  />
+);
+export const GithubIcon = ({ size = "md" }: IconProps) => (
+  <img src={Github} className={iconClassSizeMap[size]} alt="github icon" />
+);
+export const VimIcon = ({ size = "md" }: IconProps) => (
+  <img src={Vim} className={iconClassSizeMap[size]} alt="vim icon" />
 );
 export const PersonCircleExclamationIcon = ({ size = "md" }: IconProps) => (
   <img

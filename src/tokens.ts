@@ -22,4 +22,7 @@ export const classes = Object.freeze({
     root: "p-4",
     nested: "py-1 px-2 border border-gray-800",
   },
+  headings: {
+    h1: "text-lg border-b border-b-gray-800",
+  },
 });
