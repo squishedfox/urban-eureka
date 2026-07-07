@@ -18,4 +18,8 @@ export const classes = Object.freeze({
     cell: "table-cell px-2 py-1",
     row: "table-row",
   },
+  container: {
+    root: "p-4",
+    nested: "py-1 px-2 border border-gray-800",
+  },
 });

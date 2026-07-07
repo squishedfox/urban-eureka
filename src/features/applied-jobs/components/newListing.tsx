@@ -25,6 +25,8 @@ const NewJobListing = () => {
     description: "",
     title: "",
     notes: "",
+    requirements: "",
+    qualifications: "",
   });
 
   const { addJobListing } = useAddAppliedJob();
@@ -107,6 +109,26 @@ const NewJobListing = () => {
             onChange: textAreaChangedHandler,
             type: "text",
             name: "description",
+            required: true,
+          }}
+        />
+        <TextAreaGroup
+          label={{ text: "Requirements" }}
+          textArea={{
+            value: formValue.requirements,
+            onChange: textAreaChangedHandler,
+            type: "text",
+            name: "requirements",
+            required: true,
+          }}
+        />
+        <TextAreaGroup
+          label={{ text: "Qualifications" }}
+          textArea={{
+            value: formValue.qualifications,
+            onChange: textAreaChangedHandler,
+            type: "text",
+            name: "qualifications",
             required: true,
           }}
         />

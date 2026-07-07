@@ -7,6 +7,8 @@ export interface JobListing {
   applicationLink: string;
   notes: string;
   title: string;
+  requirements: string;
+  qualifications: string;
 }
 
 export interface JobHistoryListItem {
