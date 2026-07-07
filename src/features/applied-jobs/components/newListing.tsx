@@ -1,4 +1,12 @@
-import { BanIcon, SaveIcon } from "@app/components";
+import {
+  BanIcon,
+  BuildingIcon,
+  CalendarIcon,
+  CircleUserIcon,
+  CoinsIcon,
+  PersonCircleExclamationIcon,
+  SaveIcon,
+} from "@app/components";
 import { InputGroup, TextAreaGroup } from "@app/components/forms";
 import { useAddAppliedJob } from "@app/features/applied-jobs/hooks";
 import { ActionsLayout } from "@app/layouts";
@@ -50,9 +58,9 @@ const NewJobListing = () => {
 
   return (
     <form noValidate onSubmit={submitHandler} className={classes.form}>
-      <fieldset>
+      <fieldset className="space-y-2">
         <InputGroup
-          label={{ text: "Company Name" }}
+          label={{ text: "Company Name", icon: <BuildingIcon size="sm" /> }}
           input={{
             value: formValue.companyName,
             onChange: inputChangedHandler,
@@ -62,7 +70,7 @@ const NewJobListing = () => {
           }}
         />
         <InputGroup
-          label={{ text: "Date Applied" }}
+          label={{ text: "Date Applied", icon: <CalendarIcon size="sm" /> }}
           input={{
             value: formValue.dateApplied,
             onChange: inputChangedHandler,
@@ -71,7 +79,10 @@ const NewJobListing = () => {
           }}
         />
         <InputGroup
-          label={{ text: "Title" }}
+          label={{
+            text: "Title",
+            icon: <PersonCircleExclamationIcon size="sm" />,
+          }}
           input={{
             value: formValue.title,
             onChange: inputChangedHandler,
@@ -81,7 +92,7 @@ const NewJobListing = () => {
           }}
         />
         <InputGroup
-          label={{ text: "Salary" }}
+          label={{ text: "Salary", icon: <CoinsIcon size="sm" /> }}
           input={{
             value: formValue.salary,
             onChange: inputChangedHandler,

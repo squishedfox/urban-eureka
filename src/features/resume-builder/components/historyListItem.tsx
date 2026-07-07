@@ -48,7 +48,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
             />
           </div>
           <DateRangeInputGroup
-            range={[job.startDate, job.endDate]}
+            range={[job.startDate, job.endDate ?? ""]}
             onChange={dateChanged}
           />
           <div className="max-w-1/2">

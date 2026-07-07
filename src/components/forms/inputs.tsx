@@ -100,7 +100,7 @@ export const TextAreaGroup = ({ label, textArea }: TextAreaGroupProps) => {
 
 export interface DateRangeInputGroupProps {
   className?: string;
-  range: [string, string | undefined];
+  range: [string, string];
   onChange(range: [string, string]): void;
 }
 
