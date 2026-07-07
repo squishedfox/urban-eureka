@@ -1,0 +1,26 @@
+{
+  "version": "0.2",
+  "language": "en-US",
+  "words": [
+    "luasnip",
+    "nvim",
+    "lspconfig",
+    "bufopts",
+    "bufnr",
+    "gitsigns",
+    "treesitter",
+    "tailwindcss",
+    "prettierd",
+    "stylua"
+  ],
+  "ignorePaths": [
+    "node_modules",
+    "dist",
+    "build",
+    ".git",
+    "*.min.*",
+    "package-lock.json",
+    "yarn.lock"
+  ],
+  "enabled": true
+}
