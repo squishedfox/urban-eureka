@@ -1,7 +1,7 @@
 import { PlusIcon } from "@app/components/icons";
 
 import { useResumeBuilderForm } from "../context";
-import JobHistoryItem from "./historyListItem";
+import JobHistoryItem from "./history-list-item";
 
 export interface HistoryListProps {
   className?: string;

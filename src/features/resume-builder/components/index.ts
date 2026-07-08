@@ -1,9 +1,11 @@
-export { default as HistoryList } from "./historyList";
-export { default as HistoryListItem } from "./historyListItem";
+export { default as HistoryList, type HistoryListProps } from "./history-list";
+export {
+  default as HistoryItem,
+  type JobHistoryItemProps,
+} from "./history-list-item";
 export { default as About } from "./about";
 export { default as Contact } from "./contact";
-export { type JobHistoryItemProps } from "./historyListItem";
 export {
   default as ExperienceList,
   type ExperienceListProps,
-} from "./experienceList";
+} from "./experience-list";

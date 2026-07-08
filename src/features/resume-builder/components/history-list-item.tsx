@@ -1,7 +1,6 @@
 import { DateRangeInputGroup, InputGroup } from "@app/components/forms";
 import {
   BuildingIcon,
-  CalendarIcon,
   PersonCircleExclamationIcon,
   SquarePlusIcon,
   TrashIcon,
@@ -9,7 +8,7 @@ import {
 import { HTMLProps } from "react";
 
 import { useJob } from "../context";
-import ExperienceList from "./experienceList";
+import ExperienceList from "./experience-list";
 
 export interface JobHistoryItemProps extends Pick<
   HTMLProps<HTMLElement>,
