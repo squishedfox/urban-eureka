@@ -1,9 +1,5 @@
 # About this project
 
-## Summary
-
-I built this is a way for proving my own capabilities and to a friend who wanted a way to build resumes for free using AI tools
-
 ## Product Requirements
 
 - Must meet accessability requirements for https://www.w3.org/WAI/standards-guidelines/
