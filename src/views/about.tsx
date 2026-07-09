@@ -18,16 +18,20 @@ export interface AboutProps {
 
 const About = ({ className }: AboutProps) => {
   const [notification, setNotification] = useState("");
-  const [prevTimeout, setPrevTimeout] = useState(null);
+  const [prevTimeout, setPrevTimeout] = useState<number | null>(null);
 
   const copy = (event: MouseEvent<HTMLButtonElement>) => {
     const copyText = event.currentTarget.innerText;
     navigator.clipboard.writeText(copyText);
 
-    setTimeout(() => {
+    if (prevTimeout !== null) {
+      clearTimeout(prevTimeout);
+    }
+
+    const timeout = setTimeout(() => {
       setNotification("");
     }, 3000);
-
+    setPrevTimeout(timeout as unknown as number); // no idea why typescript is fighting this
     setNotification(`Copied ${copyText} to clipboard`);
   };
 
