@@ -9,6 +9,7 @@ import ChevronUp from "@assets/chevron-up.svg";
 import CircleInfo from "@assets/circle-info.svg";
 import CircleUser from "@assets/circle-user.svg";
 import Coins from "@assets/coins.svg";
+import Copy from "@assets/copy.svg";
 import Envelope from "@assets/envelope.svg";
 import Export from "@assets/export.svg";
 import Pdf from "@assets/export.svg";
@@ -196,6 +197,9 @@ export const GithubIcon = ({ size = "md" }: IconProps) => (
 );
 export const VimIcon = ({ size = "md" }: IconProps) => (
   <img src={Vim} className={iconClassSizeMap[size]} alt="vim icon" />
+);
+export const CopyIcon = ({ size = "md" }: IconProps) => (
+  <img src={Copy} className={iconClassSizeMap[size]} alt="copy icon" />
 );
 export const PersonCircleExclamationIcon = ({ size = "md" }: IconProps) => (
   <img

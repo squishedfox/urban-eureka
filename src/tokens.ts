@@ -21,8 +21,12 @@ export const classes = Object.freeze({
   container: {
     root: "p-4",
     nested: "py-1 px-2 border border-gray-800",
+    inline: "inline-flex items-center w-full space-x-1",
   },
   headings: {
     h1: "text-lg border-b border-b-gray-800",
+  },
+  buttons: {
+    link: "px-2 py-1 space-x-1 inline-flex items-center",
   },
 });
