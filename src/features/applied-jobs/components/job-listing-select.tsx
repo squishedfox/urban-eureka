@@ -26,6 +26,10 @@ const JobListingSelect = ({ onChange }: JobListingSelectProps) => {
 
   return (
     <div className={classes.inputGroup}>
+      <p>
+        Select a job from the drop down to get started. This will help you
+        refine your CSV to one specific requirement and yield better results
+      </p>
       <label className={classes.label} htmlFor={id}>
         Target Job
       </label>
@@ -35,6 +39,9 @@ const JobListingSelect = ({ onChange }: JobListingSelectProps) => {
         className={clsx(classes.input, "bg-white")}
         onChange={changeHandler}
       >
+        <option value="" disabled hidden>
+          Select a target job...
+        </option>
         {Object.keys(jobs).map((jobId) => (
           <option key={jobId} value={jobId}>
             {jobs[jobId].companyName}
