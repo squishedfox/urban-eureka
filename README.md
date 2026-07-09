@@ -8,7 +8,9 @@ This project is for fun. I'm builidng it because applying for jobs in the future
 
 ## 🥅 Goals
 
-- ✅ Meet (minimum) WCAG 2 standards. My goal is to get it to WCAG 3. see. https://www.w3.org/WAI/standards-guidelines/wcag/
+- ✅ No LLMs or AI used to develop this application
+- ✅ Use only open source tools and libraries
+- ✅ Meet (minimum) WCAG 2 standards or ideally WCAG 3. see. https://www.w3.org/WAI/standards-guidelines/wcag/
 - ✅ Provide support for individuals with Dyslexia. Credit to https://opendyslexic.org
 - ✅ Provide support for indivdiauls with colour blindness. See https://coloruxlab.com/guides/color-accessibility
 
