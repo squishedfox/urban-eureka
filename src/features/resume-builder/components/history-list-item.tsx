@@ -28,7 +28,14 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
   } = useJob(id);
 
   return (
-    <fieldset className={className}>
+    <fieldset
+      className={className}
+      aria-label={
+        job.companyName
+          ? `Experience for ${job.companyName}`
+          : "New Experience entry"
+      }
+    >
       <div className="inline-flex w-full">
         <div className="flex-1 space-y-1">
           <div className="max-w-1/3">
