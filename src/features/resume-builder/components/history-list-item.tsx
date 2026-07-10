@@ -76,8 +76,7 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
         <div>
           <button
             type="button"
-            title={`delete "${job.companyName}" and all related details`}
-            aria-label="Delete job"
+            title={`delete "${job.companyName || "this job"}" and all related details`}
             onClick={() => removeJob()}
           >
             <TrashIcon size="sm" />
@@ -85,10 +84,10 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
         </div>
       </div>
       <div className="flex grow items-center">
-        <hr className="flex-1" />
+        <hr className="flex-1" aria-hidden="true" />
         <button
           type="button"
-          aria-label="add experience"
+          title={`Add experience to "${job.companyName || "this job"}`}
           onClick={() => addExperience()}
           className="grow-0"
         >
