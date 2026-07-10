@@ -11,8 +11,9 @@ const HistoryList = ({ className }: HistoryListProps) => {
   const { jobs, addJob } = useResumeBuilderForm();
 
   return (
-    <div className={className}>
-      <div className="flex grow items-center">
+    <fieldset className={className}>
+      <div className="flex grow items-center space-x-1">
+        <h2 className="text-lg font-bold">Experience</h2>
         <hr className="flex-1" />
         <button onClick={() => addJob()} className="grow-0" type="button">
           <PlusIcon />
@@ -31,7 +32,7 @@ const HistoryList = ({ className }: HistoryListProps) => {
           </li>
         ))}
       </ul>
-    </div>
+    </fieldset>
   );
 };
 
