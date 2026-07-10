@@ -11,6 +11,39 @@ export interface JobListing {
   qualifications: string;
 }
 
+export interface Degrees {
+  /**
+   * Should be the name of the degree received. B.S. Computer Science, PHD in napping
+   */
+  title: string;
+  /**
+   * Name of accredited institution
+   */
+  institution: string;
+  /*
+   * Year the degree will be received or was received
+   */
+  graduationYear: string;
+}
+export interface Certification {
+  /**
+   * Name of the certification received
+   */
+  title: string;
+  /**
+   * Name of accredited institution
+   */
+  issuer: string;
+  /**
+   * Should be the date received for the certification
+   */
+  dateIssued: string;
+  /**
+   * Should be the date the certification will expire
+   */
+  dateExpires: string;
+}
+
 export interface JobHistoryListItem {
   /**
    * Full name of the company
