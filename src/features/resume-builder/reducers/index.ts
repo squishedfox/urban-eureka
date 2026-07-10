@@ -35,44 +35,44 @@ export const resumeBuilderReducer = (
   state = initialState,
   action: ResumeBuilderActionType,
 ) => {
-  // job actions
-  if (isAddJobAction(action)) {
-    return addJobReducer(state);
-  } else if (isRemoveJobAction(action)) {
-    return removeJobReducer(state, action);
-  } else if (isJobDateChangedAction(action)) {
-    return jobDateChangedReducer(state, action);
-  } else if (isJobNameChangeAction(action)) {
-    return jobNameChangedReducer(state, action);
-  } else if (isAddExperienceAction(action)) {
-    return addExperienceReducer(state, action);
-  } else if (isRemoveExperienceAction(action)) {
-    return removeExperienceReducer(state, action);
-  } else if (isUpdateExperienceAction(action)) {
-    return updateExperienceReducer(state, action);
-  } else if (isExperienceIncludeExcludeAction(action)) {
-    return includeExcludeExperienceReducer(state, action);
-  } else if (isAboutChangedAction(action)) {
-    return Object.assign({}, state, {
-      about: action.payload.newAbout,
-    });
-  } else if (isReOrderExperienceAction(action)) {
-    return reOrderExperienceReducer(state, action);
-  } else if (isNameChangedAction(action)) {
-    return Object.assign({}, state, {
-      fullName: action.payload.newName,
-    });
-  } else if (isJobTitleChangeAction(action)) {
-    return jobTitleChangedReducer(state, action);
-  } else if (isEmailChangedAction(action)) {
-    return Object.assign({}, state, {
-      email: action.payload.newEmail,
-    });
-  } else if (isPhoneChangedAction(action)) {
-    return Object.assign({}, state, {
-      phone: action.payload.newPhone,
-    });
-  } else {
-    return state;
+  switch (action.type) {
+    case "add-job":
+      return addJobReducer(state);
+    case "remove-job":
+      return removeJobReducer(state, action);
+    case "date-changed-job":
+      return jobDateChangedReducer(state, action);
+    case "name-changed-job":
+      return jobNameChangedReducer(state, action);
+    case "title-changed-job":
+      return jobTitleChangedReducer(state, action);
+    case "add-experience":
+      return addExperienceReducer(state, action);
+    case "remove-experience":
+      return removeExperienceReducer(state, action);
+    case "update-experience":
+      return updateExperienceReducer(state, action);
+    case "include-exclude-experience":
+      return includeExcludeExperienceReducer(state, action);
+    case "reorder-experience":
+      return reOrderExperienceReducer(state, action);
+    case "about-changed":
+      return Object.assign({}, state, {
+        about: action.payload.newAbout,
+      });
+    case "name-changed":
+      return Object.assign({}, state, {
+        fullName: action.payload.newName,
+      });
+    case "email-changed":
+      return Object.assign({}, state, {
+        email: action.payload.newEmail,
+      });
+    case "phone-changed":
+      return Object.assign({}, state, {
+        phone: action.payload.newPhone,
+      });
+    default:
+      return state;
   }
 };
