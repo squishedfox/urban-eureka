@@ -24,6 +24,8 @@ export interface Degrees {
    * Year the degree will be received or was received
    */
   graduationYear: string;
+
+  included: boolean;
 }
 export interface Certification {
   /**
@@ -42,6 +44,8 @@ export interface Certification {
    * Should be the date the certification will expire
    */
   dateExpires: string;
+
+  included: boolean;
 }
 
 export interface JobHistoryListItem {

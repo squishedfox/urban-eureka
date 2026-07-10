@@ -16,7 +16,7 @@ export const createEmptyJobHistoryItem = (): JobHistoryListItem => ({
   startDate: faker.date.past({ years: 1 }).toLocaleDateString(),
   endDate: "",
   title: faker.person.jobTitle(),
-  experience: {} as Record<string, string>,
+  experience: {} as Record<string, { text: string; included: boolean }>,
 });
 
 export const addJobReducer = (prev: ResumeBuilderState) =>

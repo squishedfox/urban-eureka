@@ -2,7 +2,11 @@ import {
   type DateRange,
   type ResumeBuilderFormValue,
 } from "@app/features/resume-builder/types";
-import { type JobHistoryListItem } from "@core/types";
+import {
+  type Certification,
+  type Degrees,
+  type JobHistoryListItem,
+} from "@core/types";
 import {
   createContext,
   useCallback,
@@ -114,6 +118,66 @@ export const ResumeBuilderContext = createContext({
     !!jobId;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!experienceId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!included;
+    /* left intentionally blank */
+  },
+  // --- Degree handlers ---
+  degrees: {} as Record<string, Degrees>,
+  addDegree: () => {
+    /* left intentionally blank */
+  },
+  removeDegree: (degreeId: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!degreeId;
+    /* left intentionally blank */
+  },
+  updateDegree: (
+    degreeId: string,
+    field: "title" | "institution" | "graduationYear",
+    value: string,
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!degreeId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!field;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!value;
+    /* left intentionally blank */
+  },
+  degreeIncludeChanged: (degreeId: string, included: boolean) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!degreeId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!included;
+    /* left intentionally blank */
+  },
+  // --- Certification handlers ---
+  certifications: {} as Record<string, Certification>,
+  addCertification: () => {
+    /* left intentionally blank */
+  },
+  removeCertification: (certId: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!certId;
+    /* left intentionally blank */
+  },
+  updateCertification: (
+    certId: string,
+    field: "title" | "issuer" | "dateIssued" | "dateExpires",
+    value: string,
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!certId;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!field;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!value;
+    /* left intentionally blank */
+  },
+  certificationIncludeChanged: (certId: string, included: boolean) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    !!certId;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !!included;
     /* left intentionally blank */
@@ -270,6 +334,76 @@ export const ResumeBuilderFormProvider = ({
     [dispatch],
   );
 
+  const addDegree = useCallback(() => {
+    dispatch({ type: "add-degree" });
+  }, [dispatch]);
+
+  const removeDegree = useCallback(
+    (degreeId: string) => {
+      dispatch({ type: "remove-degree", payload: { degreeId } });
+    },
+    [dispatch],
+  );
+
+  const updateDegree = useCallback(
+    (
+      degreeId: string,
+      field: "title" | "institution" | "graduationYear",
+      value: string,
+    ) => {
+      dispatch({
+        type: "update-degree",
+        payload: { degreeId, field, value },
+      });
+    },
+    [dispatch],
+  );
+
+  const degreeIncludeChanged = useCallback(
+    (degreeId: string, included: boolean) => {
+      dispatch({
+        type: "include-exclude-degree",
+        payload: { degreeId, included },
+      });
+    },
+    [dispatch],
+  );
+
+  const addCertification = useCallback(() => {
+    dispatch({ type: "add-certification" });
+  }, [dispatch]);
+
+  const removeCertification = useCallback(
+    (certId: string) => {
+      dispatch({ type: "remove-certification", payload: { certId } });
+    },
+    [dispatch],
+  );
+
+  const updateCertification = useCallback(
+    (
+      certId: string,
+      field: "title" | "issuer" | "dateIssued" | "dateExpires",
+      value: string,
+    ) => {
+      dispatch({
+        type: "update-certification",
+        payload: { certId, field, value },
+      });
+    },
+    [dispatch],
+  );
+
+  const certificationIncludeChanged = useCallback(
+    (certId: string, included: boolean) => {
+      dispatch({
+        type: "include-exclude-certification",
+        payload: { certId, included },
+      });
+    },
+    [dispatch],
+  );
+
   useEffect(() => {
     // I do not love this logic but here we are
     onChange({
@@ -277,6 +411,12 @@ export const ResumeBuilderFormProvider = ({
       email: state.email,
       phone: state.phone,
       about: state.about,
+      education: {
+        degrees: Object.values(state.education.degrees).map((degree) => degree),
+        certifications: Object.values(state.education.certifications).map(
+          (cert) => cert,
+        ),
+      },
       jobHistory: Object.values(state.jobs).map((job) => ({
         endDate: job.endDate,
         experience: Object.entries(job.experience).reduce(
@@ -301,6 +441,14 @@ export const ResumeBuilderFormProvider = ({
   const phone = useMemo(() => state.phone, [state.phone]);
   const about = useMemo(() => state.about, [state.about]);
   const jobs = useMemo(() => state.jobs, [state.jobs]);
+  const degrees = useMemo(
+    () => state.education.degrees,
+    [state.education.degrees],
+  );
+  const certifications = useMemo(
+    () => state.education.certifications,
+    [state.education.certifications],
+  );
 
   return (
     <ResumeBuilderContext.Provider
@@ -310,6 +458,8 @@ export const ResumeBuilderFormProvider = ({
         phone,
         about,
         jobs,
+        degrees,
+        certifications,
         aboutChanged,
         addJob,
         removeJob,
@@ -324,6 +474,14 @@ export const ResumeBuilderFormProvider = ({
         jobTitleChanged,
         experienceOrderChanged,
         experienceIncludeChanged,
+        addDegree,
+        removeDegree,
+        updateDegree,
+        degreeIncludeChanged,
+        addCertification,
+        removeCertification,
+        updateCertification,
+        certificationIncludeChanged,
       }}
     >
       {children}

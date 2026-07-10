@@ -1,6 +1,18 @@
 import { type ResumeBuilderActionType } from "../actions";
 import { initialState } from "../state";
 import {
+  addCertificationReducer,
+  includeExcludeCertificationReducer,
+  removeCertificationReducer,
+  updateCertificationReducer,
+} from "./certifications";
+import {
+  addDegreeReducer,
+  includeExcludeDegreeReducer,
+  removeDegreeReducer,
+  updateDegreeReducer,
+} from "./degree";
+import {
   addExperienceReducer,
   removeExperienceReducer,
   updateExperienceReducer,
@@ -40,6 +52,22 @@ export const resumeBuilderReducer = (
       return includeExcludeExperienceReducer(state, action);
     case "reorder-experience":
       return reOrderExperienceReducer(state, action);
+    case "add-degree":
+      return addDegreeReducer(state);
+    case "remove-degree":
+      return removeDegreeReducer(state, action);
+    case "update-degree":
+      return updateDegreeReducer(state, action);
+    case "include-exclude-degree":
+      return includeExcludeDegreeReducer(state, action);
+    case "add-certification":
+      return addCertificationReducer(state);
+    case "remove-certification":
+      return removeCertificationReducer(state, action);
+    case "update-certification":
+      return updateCertificationReducer(state, action);
+    case "include-exclude-certification":
+      return includeExcludeCertificationReducer(state, action);
     case "about-changed":
       return Object.assign({}, state, {
         about: action.payload.newAbout,

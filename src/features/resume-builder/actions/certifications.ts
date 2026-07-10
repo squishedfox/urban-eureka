@@ -2,8 +2,7 @@ export type CertificationActionName =
   | "add-certification"
   | "remove-certification"
   | "update-certification"
-  | "include-exclude-certification"
-  | "show-hide-certification-date";
+  | "include-exclude-certification";
 
 export interface CertificationActionType {
   type: CertificationActionName;
@@ -11,9 +10,6 @@ export interface CertificationActionType {
 
 export interface AddCertificationAction extends CertificationActionType {
   type: "add-certification";
-  payload: {
-    certId: string;
-  };
 }
 
 export interface RemoveCertificationAction extends CertificationActionType {
@@ -40,17 +36,8 @@ export interface CertificationIncludeExcludeAction extends CertificationActionTy
   };
 }
 
-export interface CertificationShowHideDateAction extends CertificationActionType {
-  type: "show-hide-certification-date";
-  payload: {
-    certId: string;
-    showDate: boolean;
-  };
-}
-
 export type DispatchCertificationActionType =
   | AddCertificationAction
   | RemoveCertificationAction
   | UpdateCertificationAction
-  | CertificationIncludeExcludeAction
-  | CertificationShowHideDateAction;
+  | CertificationIncludeExcludeAction;

@@ -1,9 +1,5 @@
 export type DegreeActionName =
-  | "add-degree"
-  | "remove-degree"
-  | "update-degree"
-  | "include-exclude-degree"
-  | "show-hide-degree-date";
+  "add-degree" | "remove-degree" | "update-degree" | "include-exclude-degree";
 
 export interface DegreeActionType {
   type: DegreeActionName;
@@ -11,9 +7,6 @@ export interface DegreeActionType {
 
 export interface AddDegreeAction extends DegreeActionType {
   type: "add-degree";
-  payload: {
-    degreeId: string;
-  };
 }
 
 export interface RemoveDegreeAction extends DegreeActionType {
@@ -27,7 +20,7 @@ export interface UpdateDegreeAction extends DegreeActionType {
   type: "update-degree";
   payload: {
     degreeId: string;
-    field: "title" | "institution" | "graduationYear" | "gpa" | "honors";
+    field: "title" | "institution" | "graduationYear";
     value: string;
   };
 }
@@ -40,17 +33,8 @@ export interface DegreeIncludeExcludeAction extends DegreeActionType {
   };
 }
 
-export interface DegreeShowHideDateAction extends DegreeActionType {
-  type: "show-hide-degree-date";
-  payload: {
-    degreeId: string;
-    showDate: boolean;
-  };
-}
-
 export type DispatchDegreeActionType =
   | AddDegreeAction
   | RemoveDegreeAction
   | UpdateDegreeAction
-  | DegreeIncludeExcludeAction
-  | DegreeShowHideDateAction;
+  | DegreeIncludeExcludeAction;
