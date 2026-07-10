@@ -7,6 +7,4 @@ export * from "./experience";
 export * from "./details";
 
 export type ResumeBuilderActionType =
-  | DispatchJobActionType
-  | DispatchExperienceActionType
-  | DispatchDetailsAction;
+  DispatchJobActionType | DispatchExperienceActionType | DispatchDetailsAction;

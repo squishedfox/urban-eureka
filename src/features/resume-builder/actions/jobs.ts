@@ -1,4 +1,3 @@
-import type { ResumeBuilderActionType } from "../actions";
 import type { DateRange } from "../types";
 
 export type JobActionName =
@@ -48,33 +47,3 @@ export type DispatchJobActionType =
   | JobDateChangedAction
   | JobNameChangedAction
   | JobTitleChangedAction;
-
-export const isAddJobAction = (
-  action: ResumeBuilderActionType,
-): action is AddJobAction => {
-  return action.type === "add-job";
-};
-
-export const isRemoveJobAction = (
-  action: ResumeBuilderActionType,
-): action is RemoveJobAction => {
-  return action.type === "remove-job";
-};
-
-export const isJobDateChangedAction = (
-  action: ResumeBuilderActionType,
-): action is JobDateChangedAction => {
-  return action.type === "date-changed-job";
-};
-
-export const isJobNameChangeAction = (
-  action: ResumeBuilderActionType,
-): action is JobNameChangedAction => {
-  return action.type === "name-changed-job";
-};
-
-export const isJobTitleChangeAction = (
-  action: ResumeBuilderActionType,
-): action is JobTitleChangedAction => {
-  return action.type === "title-changed-job";
-};

@@ -56,33 +56,3 @@ export type DispatchExperienceActionType =
   | UpdateExperienceAction
   | ReOrderExperienceAction
   | ExperienceIncludeExcludeAction;
-
-export const isAddExperienceAction = (action: {
-  type: string;
-}): action is AddExperienceAction => {
-  return action.type === "add-experience";
-};
-
-export const isRemoveExperienceAction = (action: {
-  type: string;
-}): action is RemoveExperienceAction => {
-  return action.type === "remove-experience";
-};
-
-export const isUpdateExperienceAction = (action: {
-  type: string;
-}): action is UpdateExperienceAction => {
-  return action.type === "update-experience";
-};
-
-export const isReOrderExperienceAction = (action: {
-  type: string;
-}): action is UpdateExperienceAction => {
-  return action.type === "reorder-experience";
-};
-
-export const isExperienceIncludeExcludeAction = (action: {
-  type: string;
-}): action is ExperienceIncludeExcludeAction => {
-  return action.type === "include-exclude-experience";
-};
