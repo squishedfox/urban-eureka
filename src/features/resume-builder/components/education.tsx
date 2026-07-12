@@ -12,7 +12,8 @@ const EducationList = ({ className }: EducationListProps) => {
   return (
     <ul role="list" className={className}>
       {Object.entries(degrees).map(([degId, degree]: [string, Degrees]) => (
-        <li key={degId} role="listitem"></li>
+        <li key={degId} role="listitem">{degree.titlekj:
+        }</li>
       ))}
     </ul>
   );
