@@ -11,10 +11,8 @@ export interface ResumeBuilderFormValue {
     startDate: string;
     experience: string[];
   }[];
-  education: {
-    degrees: Degrees[];
-    certifications: Certification[];
-  };
+  degrees: Degrees[];
+  certifications: Certification[];
 }
 
 export type DateRange = [string, string | undefined];

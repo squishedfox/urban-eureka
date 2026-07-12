@@ -20,7 +20,7 @@ const ResumeBuilderForm = ({ className, onChange }: ResumeBuilderFormProps) => {
         noValidate
         method="post"
         action="#"
-        className={clsx(classes.form, className)}
+        className={clsx(classes.forms.default, className)}
       >
         <fieldset
           className="p-4 border border-gray-800"

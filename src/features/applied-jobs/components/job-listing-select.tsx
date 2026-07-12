@@ -25,18 +25,18 @@ const JobListingSelect = ({ onChange }: JobListingSelectProps) => {
   );
 
   return (
-    <div className={classes.inputGroup}>
+    <div className={classes.forms.inputGroup.default}>
       <p>
         Select a job from the drop down to get started. This will help you
         refine your CSV to one specific requirement and yield better results
       </p>
-      <label className={classes.label} htmlFor={id}>
+      <label className={classes.forms.label.default} htmlFor={id}>
         Target Job
       </label>
       <select
         id={id}
         disabled={state !== "success"}
-        className={clsx(classes.input, "bg-white")}
+        className={clsx(classes.forms.input.default, "bg-white")}
         onChange={changeHandler}
       >
         <option value="" disabled hidden>

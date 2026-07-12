@@ -16,6 +16,8 @@ const ResumeBuilderView = () => {
     phone: "",
     about: "",
     jobHistory: [],
+    degrees: [],
+    certifications: [],
   });
 
   const [selectedListing, setSelectedListing] = useState<string>("");

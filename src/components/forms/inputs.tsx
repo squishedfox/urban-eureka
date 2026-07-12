@@ -50,7 +50,7 @@ export const Label = ({
     return (
       <div className="inline-flex space-x-1 items-center">
         <span>{icon}</span>
-        <label {...restProps} className={classes.label}>
+        <label {...restProps} className={classes.forms.label.default}>
           {children}
         </label>
       </div>
@@ -58,7 +58,7 @@ export const Label = ({
   }
 
   return (
-    <label {...restProps} className={classes.label}>
+    <label {...restProps} className={classes.forms.label.default}>
       {children}
     </label>
   );
@@ -66,7 +66,7 @@ export const Label = ({
 
 export const InputGroup = ({ label, input }: InputGroupProps) => {
   return (
-    <div className={classes.inputGroup}>
+    <div className={classes.forms.inputGroup.default}>
       <Label
         id={`${input.name}-input-label`}
         icon={label.icon}
@@ -74,14 +74,18 @@ export const InputGroup = ({ label, input }: InputGroupProps) => {
       >
         {label.text}
       </Label>
-      <input {...input} id={`${input.name}-input`} className={classes.input} />
+      <input
+        {...input}
+        id={`${input.name}-input`}
+        className={classes.forms.input.default}
+      />
     </div>
   );
 };
 
 export const TextAreaGroup = ({ label, textArea }: TextAreaGroupProps) => {
   return (
-    <div className={classes.inputGroup}>
+    <div className={classes.forms.inputGroup.default}>
       <Label
         id={`${textArea.name}-input-label`}
         icon={label.icon}
@@ -92,7 +96,7 @@ export const TextAreaGroup = ({ label, textArea }: TextAreaGroupProps) => {
       <textarea
         {...textArea}
         id={`${textArea.name}-input`}
-        className={classes.textarea}
+        className={classes.forms.textarea.default}
       />
     </div>
   );

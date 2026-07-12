@@ -14,7 +14,7 @@ const About = ({ className }: AboutProps) => {
         <label
           id="about-textarea-label"
           htmlFor="about-textarea"
-          className={classes.label}
+          className={classes.forms.label.default}
         >
           About
         </label>
@@ -24,7 +24,7 @@ const About = ({ className }: AboutProps) => {
           id="about-textarea"
           name="about-textarea"
           value={about}
-          className={classes.textarea}
+          className={classes.forms.textarea.default}
           onChange={(event) => aboutChanged(event.currentTarget.value)}
         />
       </div>

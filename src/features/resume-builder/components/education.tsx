@@ -2,10 +2,11 @@ import {
   BuildingIcon,
   CalendarIcon,
   PersonCircleExclamationIcon,
+  PlusIcon,
   SquarePlusIcon,
   TrashIcon,
 } from "@app/components";
-import { InputGroup } from "@app/components/forms";
+import { DateRangeInputGroup, InputGroup } from "@app/components/forms";
 import { classes } from "@app/tokens";
 import { Certification, Degrees } from "@core/types";
 
@@ -186,7 +187,7 @@ const EducationList = () => {
             title="Add degree item and edit"
             onClick={() => addDegree()}
           >
-            <SquarePlusIcon />
+            <PlusIcon />
           </button>
         </div>
         <DegreeFieldsets className="my-4 space-y-2" />
@@ -202,7 +203,7 @@ const EducationList = () => {
             title="Add certification item and edit"
             onClick={() => addCertification()}
           >
-            <SquarePlusIcon />
+            <PlusIcon />
           </button>
         </div>
         <CertificationFieldsets className="my-4 space-y-2" />

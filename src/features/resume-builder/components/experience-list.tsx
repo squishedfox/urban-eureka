@@ -71,7 +71,7 @@ const ExperienceListItem = ({
         type="text"
         title="job experience"
         aria-label="Job Experience"
-        className={clsx(classes.input, "grow")}
+        className={clsx(classes.forms.input.default, "grow")}
         name={`${experienceId}-experience-input`}
         value={text}
         onChange={(event) => updateText(event.currentTarget.value)}
