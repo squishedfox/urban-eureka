@@ -3,16 +3,26 @@
  * HTML elements
  */
 export const classes = Object.freeze({
-  input: "border border-gray-800 px-2 py-1 w-full",
-  inputGroup: "flex flex-col space-x-1 space-y-1",
-  checkbox: "text-lg",
-  textarea: "border border-gray-800 w-full min-h-32 px-2 py-1",
-  label: "text-sm",
-  form: "border border-gray-800 bg-white p-4 space-y-4",
   forms: {
+    inputGroup: {
+      default: "flex flex-col space-x-1 space-y-1",
+    },
+    checkbox: {
+      default: "text-lg",
+    },
+    label: {
+      default: "text-sm",
+    },
+    default: "border border-gray-800 bg-white p-4 space-y-4",
     fieldsets: {
-      legend: "font-bold border-b border-b-gray-800",
       default: "p-4 border border-gray-800 space-y-1",
+      legend: "font-bold border-b border-b-gray-800",
+    },
+    input: {
+      default: "border border-gray-800 px-2 py-1 w-full",
+    },
+    textarea: {
+      default: "border border-gray-800 w-full min-h-32 px-2 py-1",
     },
   },
   actions: "w-full flex flex-row-reverse pr-2",
