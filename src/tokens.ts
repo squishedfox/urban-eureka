@@ -9,6 +9,12 @@ export const classes = Object.freeze({
   textarea: "border border-gray-800 w-full min-h-32 px-2 py-1",
   label: "text-sm",
   form: "border border-gray-800 bg-white p-4 space-y-4",
+  forms: {
+    fieldsets: {
+      legend: "font-bold border-b border-b-gray-800",
+      default: "p-4 border border-gray-800 space-y-1",
+    },
+  },
   actions: "w-full flex flex-row-reverse pr-2",
   table: {
     classes: "table-auto",

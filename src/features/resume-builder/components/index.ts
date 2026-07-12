@@ -9,3 +9,4 @@ export {
   default as ExperienceList,
   type ExperienceListProps,
 } from "./experience-list";
+export { default as EducationList } from "./education";

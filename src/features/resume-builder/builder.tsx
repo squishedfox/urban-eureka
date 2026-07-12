@@ -1,13 +1,12 @@
 import { IDCardIcon } from "@app/components";
-import {
-  About,
-  Contact,
-  HistoryList,
-  ResumeBuilderFormProvider,
-  ResumeBuilderFormProviderProps,
-} from "@app/features";
 import { classes } from "@app/tokens";
 import clsx from "clsx";
+
+import { About, Contact, HistoryList, EducationList } from "./components";
+import {
+  ResumeBuilderFormProvider,
+  ResumeBuilderFormProviderProps,
+} from "./context";
 
 export interface ResumeBuilderFormProps {
   className?: string;
@@ -36,6 +35,7 @@ const ResumeBuilderForm = ({ className, onChange }: ResumeBuilderFormProps) => {
           <About className="min-h-32" />
         </fieldset>
         <HistoryList className="space-y-2" />
+        <EducationList />
       </form>
     </ResumeBuilderFormProvider>
   );
