@@ -8,7 +8,7 @@ import {
 import { ActionsLayout } from "@app/layouts";
 import { AppEventName } from "@core/events";
 import { Resume } from "@core/types";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const ResumeBuilderView = () => {
   const [resume, setResume] = useState<Resume>({
@@ -31,33 +31,36 @@ const ResumeBuilderView = () => {
     window.ipcRenderer.send(AppEventName.ShowPreviewWindow, resume);
   };
 
-  const resumeChangedHandler = ({
-    jobs,
-    certifications,
-    degrees,
-    fullName,
-    phone,
-    email,
-    about,
-  }: ResumeBuilderFormValue) => {
-    setResume({
-      jobs: jobs.map((job) => ({
-        title: job.title,
-        companyName: job.companyName,
-        startDate: job.startDate,
-        endDate: job.endDate,
-        experience: Object.values(job.experience)
-          .filter((job) => Boolean(job.included))
-          .map((exp) => exp.text),
-      })),
+  const resumeChangedHandler = useCallback(
+    ({
+      jobs,
       certifications,
+      degrees,
       fullName,
       phone,
       email,
       about,
-      degrees,
-    });
-  };
+    }: ResumeBuilderFormValue) => {
+      setResume({
+        jobs: jobs.map((job) => ({
+          title: job.title,
+          companyName: job.companyName,
+          startDate: job.startDate,
+          endDate: job.endDate,
+          experience: Object.values(job.experience)
+            .filter((job) => Boolean(job.included))
+            .map((exp) => exp.text),
+        })),
+        certifications,
+        fullName,
+        phone,
+        email,
+        about,
+        degrees,
+      });
+    },
+    [],
+  );
 
   return (
     <div className="h-screen w-screen overflow-hidden">
