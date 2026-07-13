@@ -32,7 +32,7 @@ const ResumeBuilderForm = ({ className, onChange }: ResumeBuilderFormProps) => {
               <IDCardIcon />
             </span>
           </div>
-          <About className="min-h-32" />
+          <About />
         </fieldset>
         <HistoryList className="space-y-2" />
         <EducationList />
