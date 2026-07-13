@@ -1,5 +1,5 @@
 import { AppEventName } from "@core/events";
-import { Resume, type JobListing } from "@core/types";
+import { type Resume, type JobListing } from "@core/types";
 import { ipcRenderer, contextBridge, type IpcRendererEvent } from "electron";
 
 interface CallbackFunc<T = unknown> {
