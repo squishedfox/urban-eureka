@@ -1,16 +1,11 @@
-import { Certification, Degrees } from "@core/types";
+import { Certification, Degrees, JobHistoryListItem } from "@core/types";
 
 export interface ResumeBuilderFormValue {
   fullName: string;
   phone: string;
   email: string;
   about: string;
-  jobHistory: {
-    companyName: string;
-    endDate?: string;
-    startDate: string;
-    experience: string[];
-  }[];
+  jobs: JobHistoryListItem[];
   degrees: Degrees[];
   certifications: Certification[];
 }

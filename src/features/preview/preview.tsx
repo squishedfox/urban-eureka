@@ -1,40 +1,62 @@
-import { Degrees, Certification, JobHistoryListItem } from "@core/types";
-import clsx from "clsx";
+import { useEventState } from "@app/hooks";
+import { AppEventName } from "@core/events";
+import { Resume } from "@core/types";
+import { useEffect, useState } from "react";
 
-export interface PreviewProps {
-  className?: string;
-  fullName: string;
-  email: string;
-  phone: string;
-  about: string;
-  jobs: JobHistoryListItem[];
-  degrees: Degrees[];
-  certifications: Certification[];
-}
+// ad-hoc hook
+const usePreview = () => {
+  const [eventState, setEventState] = useEventState();
+  const [resume, setResume] = useState<Resume | null>();
 
-const Preview = ({
-  about,
-  fullName,
-  email,
-  phone,
-  jobs,
-  className,
-  degrees,
-  certifications,
-}: PreviewProps) => {
+  useEffect(() => {
+    setEventState("fetching");
+    const subscribables = [
+      window.ipcRenderer.subscribe(
+        AppEventName.LoadPreview,
+        (resumeData: Resume) => {
+          setResume(resumeData);
+          setEventState("success");
+        },
+      ),
+    ];
+
+    return () => {
+      for (const { unsubscribe } of subscribables) {
+        unsubscribe();
+      }
+    };
+  }, [setEventState]);
+
+  return {
+    resume,
+    eventState,
+  };
+};
+
+const Preview = () => {
+  const { eventState, resume } = usePreview();
+
+  if (eventState === "fetching" || eventState === "pending") {
+    return <p>Loading...</p>;
+  }
+
+  if (!resume) {
+    throw new Error("Failed to load resume");
+  }
+
   return (
-    <div className={clsx(className, "space-y-2")}>
+    <div className="p-4 space-y-2">
       <section aria-label="contact information">
-        <h1 className="text-2xl">{fullName}</h1>
-        <p className="text-lg">{email}</p>
-        <p className="text-lg">{phone}</p>
+        <h1 className="text-2xl">{resume.fullName}</h1>
+        <p className="text-lg">{resume.email}</p>
+        <p className="text-lg">{resume.phone}</p>
       </section>
 
       <section>
         <h3>
           <strong>About Me</strong>
         </h3>
-        <p>{about}</p>
+        <p>{resume.about}</p>
       </section>
 
       <hr />
@@ -44,7 +66,7 @@ const Preview = ({
           <h3>
             <strong>Experience</strong>
           </h3>
-          {jobs.map(
+          {resume.jobs.map(
             ({ companyName, title, endDate, startDate, experience }, ix) => {
               return (
                 <li
@@ -65,9 +87,9 @@ const Preview = ({
                   </div>
                   <ul className="ml-6 list-disc">
                     {Object.values(experience)
-                      .filter((exp) => !!exp.text)
+                      .filter((exp) => !!exp)
                       .map((exp, j) => (
-                        <li key={j}>{exp.text}</li>
+                        <li key={j}>{exp}</li>
                       ))}
                   </ul>
                 </li>
@@ -83,13 +105,13 @@ const Preview = ({
         <h3 id="education-heading">
           <strong>Education</strong>
         </h3>
-        {degrees.length === 0 && certifications.length === 0 ? (
+        {resume.degrees.length === 0 && resume.certifications.length === 0 ? (
           <p className="text-gray-500 italic">No education listed</p>
         ) : (
           <div className="space-y-2">
-            {degrees.length > 0 && (
+            {resume.degrees.length > 0 && (
               <ul className="space-y-1">
-                {degrees.map((degree, ix) => (
+                {resume.degrees.map((degree, ix) => (
                   <li key={ix} aria-labelledby={`degree-${ix}-header`}>
                     <div className="flex content-between items-center gap-1">
                       <h4 id={`degree-${ix}-header`}>
@@ -104,15 +126,15 @@ const Preview = ({
               </ul>
             )}
 
-            {certifications.length > 0 && (
+            {resume.certifications.length > 0 && (
               <>
-                {degrees.length > 0 && (
+                {resume.degrees.length > 0 && (
                   <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mt-3">
                     Certifications
                   </h4>
                 )}
                 <ul className="space-y-1">
-                  {certifications.map((cert, ix) => (
+                  {resume.certifications.map((cert, ix) => (
                     <li key={ix} aria-labelledby={`cert-${ix}-header`}>
                       <div className="flex content-between items-center gap-1">
                         <h4 id={`cert-${ix}-header`}>

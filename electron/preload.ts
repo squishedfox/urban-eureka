@@ -1,5 +1,5 @@
 import { AppEventName } from "@core/events";
-import { type JobListing } from "@core/types";
+import { Resume, type JobListing } from "@core/types";
 import { ipcRenderer, contextBridge, type IpcRendererEvent } from "electron";
 
 interface CallbackFunc<T = unknown> {
@@ -51,5 +51,8 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
   },
   addJobListing(listing: JobListing): void {
     ipcRenderer.send(AppEventName.AddJobListing, listing);
+  },
+  showPreview(resume: Resume): void {
+    ipcRenderer.send(AppEventName.ShowPreviewWindow, resume);
   },
 });

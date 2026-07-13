@@ -94,3 +94,15 @@ export interface JobHistoryList {
    */
   items: JobHistoryListItem[];
 }
+
+export interface Resume {
+  fullName: string;
+  phone: string;
+  email: string;
+  about: string;
+  jobs: (Omit<JobHistoryListItem, "included" | "experience"> & {
+    experience: string[];
+  })[];
+  degrees: Omit<Degrees, "included">[];
+  certifications: Omit<Certification, "included">[];
+}

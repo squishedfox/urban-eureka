@@ -1,5 +1,5 @@
 import type { AppEventName } from "@core/events";
-import type { JobListing } from "@core/types";
+import type { JobListing, Resume } from "@core/types";
 
 interface CallbackFunc<T = unknown> {
   (args: T): void | Promise<void>;
@@ -31,6 +31,8 @@ declare global {
       getJobListings(): Promise<{ [id: string]: JobListing }>;
       removeJob(jobId: string): void;
       addJobListing(listing: JobListing): void;
+      showPreview(resume: Resume): void;
+      hidePreview(): void;
     };
   }
 }

@@ -7,6 +7,9 @@ export enum AppEventName {
   // Resumes
 
   SaveResume = "resume:save",
+  ShowPreviewWindow = "resume:preview",
+  LoadPreview = "preview:load",
+  PreviewData = "preview:data",
 
   //
   // jobs

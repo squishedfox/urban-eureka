@@ -25,7 +25,7 @@ export const classes = Object.freeze({
       default: "border border-gray-800 w-full min-h-32 px-2 py-1",
     },
   },
-  actions: "w-full flex flex-row-reverse pr-2",
+  actions: "w-full flex flex-row-reverse pr-2 bg-white",
   table: {
     classes: "table-auto",
     thead: "table-header-group border border-gray-800",

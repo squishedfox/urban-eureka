@@ -1,5 +1,6 @@
 import Ban from "@assets/ban.svg";
 import Briefcase from "@assets/briefcase.svg";
+import Eye from "@assets/eye.svg";
 import Building from "@assets/building.svg";
 import Calendar from "@assets/calendar.svg";
 import ChevronDown from "@assets/chevron-down.svg";
@@ -200,6 +201,9 @@ export const VimIcon = ({ size = "md" }: IconProps) => (
 );
 export const CopyIcon = ({ size = "md" }: IconProps) => (
   <img src={Copy} className={iconClassSizeMap[size]} alt="copy icon" />
+);
+export const EyeIcon = ({ size = "md" }: IconProps) => (
+  <img src={Eye} className={iconClassSizeMap[size]} alt="copy icon" />
 );
 export const PersonCircleExclamationIcon = ({ size = "md" }: IconProps) => (
   <img

@@ -411,27 +411,9 @@ export const ResumeBuilderFormProvider = ({
       email: state.email,
       phone: state.phone,
       about: state.about,
-      education: {
-        degrees: Object.values(state.education.degrees).map((degree) => degree),
-        certifications: Object.values(state.education.certifications).map(
-          (cert) => cert,
-        ),
-      },
-      jobHistory: Object.values(state.jobs).map((job) => ({
-        endDate: job.endDate,
-        experience: Object.entries(job.experience).reduce(
-          (acc, [, { text, included }]) => {
-            if (included) {
-              acc.push(text);
-            }
-            return acc;
-          },
-          new Array<string>(),
-        ),
-        startDate: job.startDate,
-        companyName: job.companyName,
-        title: job.title,
-      })),
+      degrees: Object.values(state.education.degrees),
+      certifications: Object.values(state.education.certifications),
+      jobs: Object.values(state.jobs),
     });
   }, [state, onChange]);
 

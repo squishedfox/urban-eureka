@@ -1,44 +1,63 @@
-import { ExportIcon, SaveIcon } from "@app/components/icons";
+import { ExportIcon, EyeIcon, SaveIcon } from "@app/components/icons";
 import {
   ResumeBuilderForm,
   type ResumeBuilderFormValue,
-  JobListing,
   JobListingSelect,
+  JobListing,
 } from "@app/features";
 import { ActionsLayout } from "@app/layouts";
 import { AppEventName } from "@core/events";
-import { useCallback, useState } from "react";
+import { Resume } from "@core/types";
+import { useState } from "react";
 
 const ResumeBuilderView = () => {
-  const [resume, setResume] = useState<ResumeBuilderFormValue>({
+  const [resume, setResume] = useState<Resume>({
     fullName: "",
     email: "",
     phone: "",
     about: "",
-    jobHistory: [],
+    jobs: [],
     degrees: [],
     certifications: [],
   });
 
   const [selectedListing, setSelectedListing] = useState<string>("");
 
-  const resumeChangedHandler = useCallback(
-    (newValue: ResumeBuilderFormValue) => {
-      setResume(newValue);
-    },
-    [],
-  );
+  const saveHandler = () => {
+    window.ipcRenderer.send(AppEventName.SaveResume, resume);
+  };
 
-  const saveHandler = useCallback(
-    () => window.ipcRenderer.send(AppEventName.SaveResume, resume),
-    [resume],
-  );
+  const showPreviewHandler = () => {
+    window.ipcRenderer.send(AppEventName.ShowPreviewWindow, resume);
+  };
 
-  //<Preview
-  //          {...resume}
-  //          jobs={resume.jobHistory}
-  //          className="p-4 bg-gray-200 overflow-y-scroll border-l border-l-gray-800"
-  //        />
+  const resumeChangedHandler = ({
+    jobs,
+    certifications,
+    degrees,
+    fullName,
+    phone,
+    email,
+    about,
+  }: ResumeBuilderFormValue) => {
+    setResume({
+      jobs: jobs.map((job) => ({
+        title: job.title,
+        companyName: job.companyName,
+        startDate: job.startDate,
+        endDate: job.endDate,
+        experience: Object.values(job.experience)
+          .filter((job) => Boolean(job.included))
+          .map((exp) => exp.text),
+      })),
+      certifications,
+      fullName,
+      phone,
+      email,
+      about,
+      degrees,
+    });
+  };
 
   return (
     <div className="h-screen w-screen overflow-hidden">
@@ -63,12 +82,15 @@ const ResumeBuilderView = () => {
         </div>
       </div>
 
-      <ActionsLayout className="h-16 border border-gray-800 fixed bottom-0 left-0 z-50 bg-white">
+      <ActionsLayout className="h-16 border border-gray-800 fixed bottom-0 left-0 z-50">
         <button type="button">
           <ExportIcon size="lg" />
         </button>
         <button onClick={saveHandler} type="button">
           <SaveIcon size="lg" />
+        </button>
+        <button type="button" onClick={showPreviewHandler}>
+          <EyeIcon size="lg" />
         </button>
       </ActionsLayout>
     </div>
