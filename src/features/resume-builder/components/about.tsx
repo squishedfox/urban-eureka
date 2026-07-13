@@ -1,6 +1,7 @@
 import { TextAreaGroup } from "@app/components/forms";
 
 import { useResumeBuilderForm } from "../context";
+import { CircleInfoIcon } from "@app/components";
 
 const About = () => {
   const { about, aboutChanged } = useResumeBuilderForm();
@@ -9,6 +10,7 @@ const About = () => {
     <TextAreaGroup
       label={{
         text: "About",
+        icon: <CircleInfoIcon />,
       }}
       textArea={{
         name: "about",

@@ -42,11 +42,9 @@ const JobList = ({ className }: JobListProps) => {
             </td>
             <td className={classes.table.cell}>{listing.applicationLink}</td>
             <td className={classes.table.cell}>
-              <ActionsLayout>
-                <button type="button" onClick={() => removeJobListing(id)}>
-                  <XmarkIcon />
-                </button>
-              </ActionsLayout>
+              <button type="button" onClick={() => removeJobListing(id)}>
+                <XmarkIcon />
+              </button>
             </td>
           </tr>
         ))}

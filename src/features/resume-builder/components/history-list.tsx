@@ -1,5 +1,4 @@
-import { PlusIcon } from "@app/components/icons";
-
+import { IconButton } from "@app/components";
 import { useResumeBuilderForm } from "../context";
 import JobHistoryItem from "./history-list-item";
 
@@ -15,17 +14,16 @@ const HistoryList = ({ className }: HistoryListProps) => {
       <div className="flex w-full items-center space-x-1 text-lg font-bold">
         <span>Experience</span>
         <hr className="flex-1" aria-hidden="true" />
-        <button onClick={() => addJob()} className="grow-0" type="button">
-          <PlusIcon />
-        </button>
+        <IconButton
+          iconName="square-plus"
+          onClick={() => addJob()}
+          type="button"
+          title="add job history"
+        />
       </div>
       <div className="space-y-4">
         {Object.keys(jobs).map((id) => (
-          <JobHistoryItem
-            className="grow space-y-2 border border-l-gray-800 p-4"
-            key={id}
-            jobId={id}
-          />
+          <JobHistoryItem key={id} jobId={id} />
         ))}
       </div>
     </div>

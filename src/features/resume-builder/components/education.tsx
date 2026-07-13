@@ -1,6 +1,7 @@
 import {
   BuildingIcon,
   CalendarIcon,
+  IconButton,
   PersonCircleExclamationIcon,
   PlusIcon,
   TrashIcon,
@@ -25,9 +26,12 @@ export const DegreeFieldsets = ({ className }: DegreeFieldsetsProps) => {
             Degree Item
           </legend>
           <div className="inline-flex w-full justify-end">
-            <button type="button" onClick={() => removeDegree(degId)}>
-              <TrashIcon size="sm" />
-            </button>
+            <IconButton
+              title={`Delete ${degree.title} from resume`}
+              onClick={() => removeDegree(degId)}
+              iconSize="sm"
+              iconName="trash"
+            />
           </div>
           <InputGroup
             label={{
@@ -95,9 +99,12 @@ export const CertificationFieldsets = ({
             </legend>
 
             <div className="inline-flex w-full justify-end">
-              <button type="button" onClick={() => removeCertification(certId)}>
-                <TrashIcon size="sm" />
-              </button>
+              <IconButton
+                title={`Delete ${cert.title} from resume`}
+                iconName="trash"
+                onClick={() => removeCertification(certId)}
+                iconSize="sm"
+              />
             </div>
             <InputGroup
               label={{
@@ -181,13 +188,11 @@ const EducationList = () => {
             <strong>Degree(s)</strong>
           </p>
           <hr className="flex-1" aria-hidden="true" />
-          <button
-            type="button"
+          <IconButton
+            iconName="plus"
             title="Add degree item and edit"
             onClick={() => addDegree()}
-          >
-            <PlusIcon />
-          </button>
+          />
         </div>
         <DegreeFieldsets className="my-4 space-y-2" />
       </div>
@@ -197,13 +202,11 @@ const EducationList = () => {
             <strong>Certification(s)</strong>
           </p>
           <hr className="flex-1" aria-hidden="true" />
-          <button
-            type="button"
+          <IconButton
+            iconName="plus"
             title="Add certification item and edit"
             onClick={() => addCertification()}
-          >
-            <PlusIcon />
-          </button>
+          />
         </div>
         <CertificationFieldsets className="my-4 space-y-2" />
       </div>

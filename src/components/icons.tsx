@@ -240,7 +240,9 @@ export type IconName =
   | "id-card"
   | "email"
   | "phone"
-  | "pdf";
+  | "pdf"
+  | "circle-info"
+  | "circle-user";
 
 export const Icon = ({
   size,
@@ -298,6 +300,10 @@ export const Icon = ({
       return <FontAwesomeIcon size={size} {...restProps} />;
     case "square-plus":
       return <SquarePlusIcon size={size} {...restProps} />;
+    case "circle-user":
+      return <CircleUserIcon size={size} {...restProps} />;
+    case "circle-info":
+      return <CircleUserIcon size={size} {...restProps} />;
     default:
       return null;
   }

@@ -1,10 +1,9 @@
 import {
-  BanIcon,
   BuildingIcon,
   CalendarIcon,
   CoinsIcon,
+  IconButton,
   PersonCircleExclamationIcon,
-  SaveIcon,
 } from "@app/components";
 import { InputGroup, TextAreaGroup } from "@app/components/forms";
 import { useAddAppliedJob } from "@app/features/applied-jobs/hooks";
@@ -58,7 +57,7 @@ const NewJobListing = () => {
   };
 
   return (
-    <form noValidate onSubmit={submitHandler} className={classes.form}>
+    <form noValidate onSubmit={submitHandler} className={classes.forms.default}>
       <fieldset className="space-y-2">
         <InputGroup
           label={{ text: "Company Name", icon: <BuildingIcon size="sm" /> }}
@@ -134,12 +133,13 @@ const NewJobListing = () => {
         />
       </fieldset>
       <ActionsLayout>
-        <button type="submit" title="save">
-          <SaveIcon size="lg" />
-        </button>
-        <button type="button" onClick={() => navigate(-1)} title="cancel">
-          <BanIcon size="lg" />
-        </button>
+        <IconButton title="save" iconSize="lg" iconName="save" type="submit" />
+        <IconButton
+          title="cancel"
+          onClick={() => navigate(-1)}
+          iconSize="lg"
+          iconName="cancel"
+        />
       </ActionsLayout>
     </form>
   );

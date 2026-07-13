@@ -1,3 +1,4 @@
+import { IconButton } from "@app/components";
 import { DateRangeInputGroup, InputGroup } from "@app/components/forms";
 import {
   BuildingIcon,
@@ -68,14 +69,11 @@ const JobHistoryItem = ({ jobId }: JobHistoryItemProps) => {
 
       <div className="flex grow items-center">
         <hr className="flex-1" aria-hidden="true" />
-        <button
-          type="button"
+        <IconButton
+          iconName="square-plus"
           title={`Add experience to "${job.companyName || "this job"}`}
           onClick={() => addExperience()}
-          className="grow-0"
-        >
-          <SquarePlusIcon size="md" />
-        </button>
+        />
       </div>
     </fieldset>
   );
