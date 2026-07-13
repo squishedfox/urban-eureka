@@ -11,28 +11,24 @@ const HistoryList = ({ className }: HistoryListProps) => {
   const { jobs, addJob } = useResumeBuilderForm();
 
   return (
-    <fieldset className={className}>
-      <legend className="flex w-full items-center space-x-1 text-lg font-bold">
+    <div className={className}>
+      <div className="flex w-full items-center space-x-1 text-lg font-bold">
         <span>Experience</span>
         <hr className="flex-1" aria-hidden="true" />
         <button onClick={() => addJob()} className="grow-0" type="button">
           <PlusIcon />
         </button>
-      </legend>
-      {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
-      <ul className="space-y-4" role="list">
+      </div>
+      <div className="space-y-4">
         {Object.keys(jobs).map((id) => (
-          // eslint-disable-next-line jsx-a11y/no-redundant-roles
-          <li key={id} role="listitem">
-            <JobHistoryItem
-              className="grow space-y-2 border border-l-gray-800 p-4"
-              key={id}
-              jobId={id}
-            />
-          </li>
+          <JobHistoryItem
+            className="grow space-y-2 border border-l-gray-800 p-4"
+            key={id}
+            jobId={id}
+          />
         ))}
-      </ul>
-    </fieldset>
+      </div>
+    </div>
   );
 };
 

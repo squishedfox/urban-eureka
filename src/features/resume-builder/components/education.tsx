@@ -3,10 +3,9 @@ import {
   CalendarIcon,
   PersonCircleExclamationIcon,
   PlusIcon,
-  SquarePlusIcon,
   TrashIcon,
 } from "@app/components";
-import { DateRangeInputGroup, InputGroup } from "@app/components/forms";
+import { InputGroup } from "@app/components/forms";
 import { classes } from "@app/tokens";
 import { Certification, Degrees } from "@core/types";
 
@@ -181,7 +180,7 @@ const EducationList = () => {
           <p>
             <strong>Degree(s)</strong>
           </p>
-          <hr className="flex-1" />
+          <hr className="flex-1" aria-hidden="true" />
           <button
             type="button"
             title="Add degree item and edit"
@@ -197,7 +196,7 @@ const EducationList = () => {
           <p>
             <strong>Certification(s)</strong>
           </p>
-          <hr className="flex-1" />
+          <hr className="flex-1" aria-hidden="true" />
           <button
             type="button"
             title="Add certification item and edit"

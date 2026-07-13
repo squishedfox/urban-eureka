@@ -5,19 +5,16 @@ import {
   SquarePlusIcon,
   TrashIcon,
 } from "@app/components/icons";
-import { HTMLProps } from "react";
+import { classes } from "@app/tokens";
 
 import { useJob } from "../context";
 import ExperienceList from "./experience-list";
 
-export interface JobHistoryItemProps extends Pick<
-  HTMLProps<HTMLElement>,
-  "className"
-> {
+export interface JobHistoryItemProps {
   jobId: string;
 }
 
-const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
+const JobHistoryItem = ({ jobId }: JobHistoryItemProps) => {
   const {
     job,
     dateChanged,
@@ -25,64 +22,50 @@ const JobHistoryItem = ({ jobId: id, className }: JobHistoryItemProps) => {
     companyNameChanged,
     addExperience,
     titleChanged,
-  } = useJob(id);
+  } = useJob(jobId);
 
   return (
-    <fieldset
-      className={className}
-      aria-label={
-        job.companyName
-          ? `Experience for ${job.companyName}`
-          : "New Experience entry"
-      }
-    >
-      <div className="inline-flex w-full">
-        <div className="flex-1 space-y-1">
-          <div className="max-w-1/3">
-            <InputGroup
-              label={{
-                text: "Company Name",
-                icon: <BuildingIcon size="sm" />,
-              }}
-              input={{
-                name: "companyName",
-                type: "text",
-                value: job.companyName,
-                onChange: (event) =>
-                  companyNameChanged(event.currentTarget.value),
-              }}
-            />
-          </div>
-          <DateRangeInputGroup
-            range={[job.startDate, job.endDate ?? ""]}
-            onChange={dateChanged}
-          />
-          <div className="max-w-1/2">
-            <InputGroup
-              label={{
-                text: "Title",
-                icon: <PersonCircleExclamationIcon size="sm" />,
-              }}
-              input={{
-                name: "jobTitle",
-                type: "text",
-                value: job.title,
-                onChange: (event) => titleChanged(event.currentTarget.value),
-              }}
-            />
-          </div>
-          <ExperienceList jobId={id} />
-        </div>
-        <div>
-          <button
-            type="button"
-            title={`delete "${job.companyName || "this job"}" and all related details`}
-            onClick={() => removeJob()}
-          >
-            <TrashIcon size="sm" />
-          </button>
-        </div>
+    <fieldset className={classes.forms.fieldsets.default}>
+      <legend className={classes.forms.fieldsets.legend}>Job Experience</legend>
+      <div className="flex items-start align-end justify-end">
+        <button
+          type="button"
+          title={`delete "${job.companyName || "this job"}" and all related details`}
+          onClick={() => removeJob()}
+        >
+          <TrashIcon size="sm" />
+        </button>
       </div>
+      <InputGroup
+        label={{
+          text: "Company Name",
+          icon: <BuildingIcon size="sm" />,
+        }}
+        input={{
+          name: "companyName",
+          type: "text",
+          value: job.companyName,
+          onChange: (event) => companyNameChanged(event.currentTarget.value),
+        }}
+      />
+      <DateRangeInputGroup
+        range={[job.startDate, job.endDate ?? ""]}
+        onChange={dateChanged}
+      />
+      <InputGroup
+        label={{
+          text: "Title",
+          icon: <PersonCircleExclamationIcon size="sm" />,
+        }}
+        input={{
+          name: "jobTitle",
+          type: "text",
+          value: job.title,
+          onChange: (event) => titleChanged(event.currentTarget.value),
+        }}
+      />
+      <ExperienceList jobId={jobId} />
+
       <div className="flex grow items-center">
         <hr className="flex-1" aria-hidden="true" />
         <button
