@@ -1,6 +1,5 @@
 import Ban from "@assets/ban.svg";
 import Briefcase from "@assets/briefcase.svg";
-import Eye from "@assets/eye.svg";
 import Building from "@assets/building.svg";
 import Calendar from "@assets/calendar.svg";
 import ChevronDown from "@assets/chevron-down.svg";
@@ -14,6 +13,7 @@ import Copy from "@assets/copy.svg";
 import Envelope from "@assets/envelope.svg";
 import Export from "@assets/export.svg";
 import Pdf from "@assets/export.svg";
+import Eye from "@assets/eye.svg";
 import FontAwesome from "@assets/font-awesome.svg";
 import Hammer from "@assets/hammer.svg";
 import Home from "@assets/home.svg";
@@ -205,6 +205,7 @@ export const CopyIcon = ({ size = "md" }: IconProps) => (
 export const EyeIcon = ({ size = "md" }: IconProps) => (
   <img src={Eye} className={iconClassSizeMap[size]} alt="copy icon" />
 );
+
 export const PersonCircleExclamationIcon = ({ size = "md" }: IconProps) => (
   <img
     src={PersonCircleExclamation}
@@ -212,3 +213,92 @@ export const PersonCircleExclamationIcon = ({ size = "md" }: IconProps) => (
     alt="person circle exclamation icon"
   />
 );
+
+export type IconName =
+  | "copy"
+  | "view"
+  | "vim"
+  | "github"
+  | "tailwindcss"
+  | "fontawesome"
+  | "trash"
+  | "save"
+  | "react"
+  | "cancel"
+  | "export"
+  | "plus"
+  | "pdf"
+  | "square-plus"
+  | "title"
+  | "company"
+  | "calendar"
+  | "hammer"
+  | "home"
+  | "breifcase"
+  | "coins"
+  | "lock"
+  | "id-card"
+  | "email"
+  | "phone"
+  | "pdf";
+
+export const Icon = ({
+  size,
+  name,
+  ...restProps
+}: IconProps & { name: IconName }) => {
+  switch (name) {
+    case "pdf":
+      return <PdfIcon size={size} {...restProps} />;
+    case "export":
+      return <ExportIcon size={size} {...restProps} />;
+    case "vim":
+      return <VimIcon size={size} {...restProps} />;
+    case "copy":
+      return <CopyIcon size={size} {...restProps} />;
+    case "view":
+      return <EyeIcon size={size} {...restProps} />;
+    case "save":
+      return <SaveIcon size={size} {...restProps} />;
+    case "plus":
+      return <PlusIcon size={size} {...restProps} />;
+    case "home":
+      return <HomeIcon size={size} {...restProps} />;
+    case "lock":
+      return <LockIcon size={size} {...restProps} />;
+    case "title":
+      return <PersonCircleExclamationIcon size={size} {...restProps} />;
+    case "trash":
+      return <TrashIcon size={size} {...restProps} />;
+    case "react":
+      return <ReactIcon size={size} {...restProps} />;
+    case "coins":
+      return <CoinsIcon size={size} {...restProps} />;
+    case "email":
+      return <EnvelopeIcon size={size} {...restProps} />;
+    case "phone":
+      return <PhoneIcon size={size} {...restProps} />;
+    case "github":
+      return <GithubIcon size={size} {...restProps} />;
+    case "cancel":
+      return <BanIcon size={size} {...restProps} />;
+    case "hammer":
+      return <HammerIcon size={size} {...restProps} />;
+    case "company":
+      return <BuildingIcon size={size} {...restProps} />;
+    case "id-card":
+      return <IDCardIcon size={size} {...restProps} />;
+    case "calendar":
+      return <CalendarIcon size={size} {...restProps} />;
+    case "breifcase":
+      return <BriefcaseIcon size={size} {...restProps} />;
+    case "tailwindcss":
+      return <TailwindcssIcon size={size} {...restProps} />;
+    case "fontawesome":
+      return <FontAwesomeIcon size={size} {...restProps} />;
+    case "square-plus":
+      return <SquarePlusIcon size={size} {...restProps} />;
+    default:
+      return null;
+  }
+};
