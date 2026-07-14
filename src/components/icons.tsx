@@ -303,7 +303,7 @@ export const Icon = ({
     case "circle-user":
       return <CircleUserIcon size={size} {...restProps} />;
     case "circle-info":
-      return <CircleUserIcon size={size} {...restProps} />;
+      return <CircleInfoIcon size={size} {...restProps} />;
     default:
       return null;
   }
