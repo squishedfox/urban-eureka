@@ -1,5 +1,7 @@
 import { CircleUserIcon, EnvelopeIcon, PhoneIcon } from "@app/components";
 import { InputGroup } from "@app/components/forms";
+import { watch } from "original-fs";
+import { ChangeEvent, useCallback } from "react";
 
 import { useResumeBuilderForm } from "../context";
 
@@ -16,6 +18,24 @@ const Contact = ({ className }: ContactProps) => {
     emailChanged,
   } = useResumeBuilderForm();
 
+  const fullNameChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      fullNameChanged(event.currentTarget.value),
+    [fullNameChanged],
+  );
+
+  const emailChangedHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      emailChanged(event.currentTarget.value),
+    [emailChanged],
+  );
+
+  const phoneChangedHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      phoneChanged(event.currentTarget.value),
+    [phoneChanged],
+  );
+
   return (
     <div className={className}>
       <InputGroup
@@ -24,7 +44,7 @@ const Contact = ({ className }: ContactProps) => {
           name: "fullName",
           type: "text",
           value: fullName,
-          onChange: (event) => fullNameChanged(event.currentTarget.value),
+          onChange: fullNameChangeHandler,
         }}
       />
       <InputGroup
@@ -33,7 +53,7 @@ const Contact = ({ className }: ContactProps) => {
           name: "email",
           type: "email",
           value: email,
-          onChange: (event) => emailChanged(event.currentTarget.value),
+          onChange: emailChangedHandler,
         }}
       />
       <InputGroup
@@ -42,7 +62,7 @@ const Contact = ({ className }: ContactProps) => {
           name: "phone",
           type: "phone",
           value: phone,
-          onChange: (event) => phoneChanged(event.currentTarget.value),
+          onChange: phoneChangedHandler,
         }}
       />
     </div>

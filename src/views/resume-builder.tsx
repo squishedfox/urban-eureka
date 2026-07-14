@@ -1,3 +1,4 @@
+import { IconButton } from "@app/components";
 import { ExportIcon, EyeIcon, SaveIcon } from "@app/components/icons";
 import {
   ResumeBuilderForm,
@@ -23,13 +24,13 @@ const ResumeBuilderView = () => {
 
   const [selectedListing, setSelectedListing] = useState<string>("");
 
-  const saveHandler = () => {
+  const saveHandler = useCallback(() => {
     window.ipcRenderer.send(AppEventName.SaveResume, resume);
-  };
+  }, [resume]);
 
-  const showPreviewHandler = () => {
+  const showPreviewHandler = useCallback(() => {
     window.ipcRenderer.send(AppEventName.ShowPreviewWindow, resume);
-  };
+  }, [resume]);
 
   const resumeChangedHandler = useCallback(
     ({
@@ -86,15 +87,19 @@ const ResumeBuilderView = () => {
       </div>
 
       <ActionsLayout className="h-16 border border-gray-800 fixed bottom-0 left-0 z-50">
-        <button type="button">
-          <ExportIcon size="lg" />
-        </button>
-        <button onClick={saveHandler} type="button">
-          <SaveIcon size="lg" />
-        </button>
-        <button type="button" onClick={showPreviewHandler}>
-          <EyeIcon size="lg" />
-        </button>
+        <IconButton title="Export Resume" iconName="export" iconSize="lg" />
+        <IconButton
+          title="Save"
+          iconName="save"
+          iconSize="lg"
+          onClick={saveHandler}
+        />
+        <IconButton
+          title="show preview"
+          iconName="view"
+          iconSize="lg"
+          onClick={showPreviewHandler}
+        />
       </ActionsLayout>
     </div>
   );

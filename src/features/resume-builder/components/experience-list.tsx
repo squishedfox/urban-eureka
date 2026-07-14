@@ -1,4 +1,4 @@
-import { ChevronIcon, XmarkIcon } from "@app/components";
+import { ChevronIcon, IconButton, XmarkIcon } from "@app/components";
 import { classes } from "@app/tokens";
 import clsx from "clsx";
 
@@ -76,9 +76,11 @@ const ExperienceListItem = ({
         value={text}
         onChange={(event) => updateText(event.currentTarget.value)}
       />
-      <button type="button" title="delete experience" onClick={() => remove()}>
-        <XmarkIcon />
-      </button>
+      <IconButton
+        iconName="x-mark"
+        title="delete experience"
+        onClick={remove}
+      />
     </div>
   );
 };

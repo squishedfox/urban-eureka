@@ -1,10 +1,18 @@
+import { CircleInfoIcon } from "@app/components";
 import { TextAreaGroup } from "@app/components/forms";
+import { ChangeEvent, useCallback } from "react";
 
 import { useResumeBuilderForm } from "../context";
-import { CircleInfoIcon } from "@app/components";
 
 const About = () => {
   const { about, aboutChanged } = useResumeBuilderForm();
+
+  const changeHandler = useCallback(
+    ({ currentTarget }: ChangeEvent<HTMLTextAreaElement>) => {
+      aboutChanged(currentTarget.value);
+    },
+    [aboutChanged],
+  );
 
   return (
     <TextAreaGroup
@@ -15,7 +23,7 @@ const About = () => {
       textArea={{
         name: "about",
         value: about,
-        onChange: (event) => aboutChanged(event.currentTarget.value),
+        onChange: changeHandler,
       }}
     />
   );

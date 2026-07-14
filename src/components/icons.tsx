@@ -242,7 +242,8 @@ export type IconName =
   | "phone"
   | "pdf"
   | "circle-info"
-  | "circle-user";
+  | "circle-user"
+  | "x-mark";
 
 export const Icon = ({
   size,
@@ -304,6 +305,8 @@ export const Icon = ({
       return <CircleUserIcon size={size} {...restProps} />;
     case "circle-info":
       return <CircleInfoIcon size={size} {...restProps} />;
+    case "x-mark":
+      return <XmarkIcon size={size} {...restProps} />;
     default:
       return null;
   }

@@ -3,8 +3,6 @@ import {
   CalendarIcon,
   IconButton,
   PersonCircleExclamationIcon,
-  PlusIcon,
-  TrashIcon,
 } from "@app/components";
 import { InputGroup } from "@app/components/forms";
 import { classes } from "@app/tokens";
@@ -18,6 +16,7 @@ export interface DegreeFieldsetsProps {
 
 export const DegreeFieldsets = ({ className }: DegreeFieldsetsProps) => {
   const { degrees, updateDegree, removeDegree } = useResumeBuilderForm();
+
   return (
     <div className={className}>
       {Object.entries(degrees).map(([degId, degree]: [string, Degrees]) => (

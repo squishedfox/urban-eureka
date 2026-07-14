@@ -1,6 +1,6 @@
 import { classes } from "@app/tokens";
 import clsx from "clsx";
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 import { type HTMLProps, type PropsWithChildren } from "react";
 
 import { CalendarIcon } from "../icons";

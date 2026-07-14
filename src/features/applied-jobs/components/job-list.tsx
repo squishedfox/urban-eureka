@@ -1,9 +1,8 @@
-import { XmarkIcon } from "@app/components";
+import { IconButton, XmarkIcon } from "@app/components";
 import {
   useGetJobListings,
   useRemoveJobListing,
 } from "@app/features/applied-jobs/hooks";
-import { ActionsLayout } from "@app/layouts";
 import { classes } from "@app/tokens";
 import clsx from "clsx";
 
@@ -42,9 +41,11 @@ const JobList = ({ className }: JobListProps) => {
             </td>
             <td className={classes.table.cell}>{listing.applicationLink}</td>
             <td className={classes.table.cell}>
-              <button type="button" onClick={() => removeJobListing(id)}>
-                <XmarkIcon />
-              </button>
+              <IconButton
+                iconName="x-mark"
+                onClick={() => removeJobListing(id)}
+                title={`Delete ${listing.companyName} listing`}
+              />
             </td>
           </tr>
         ))}

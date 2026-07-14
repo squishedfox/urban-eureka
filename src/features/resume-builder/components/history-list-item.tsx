@@ -3,7 +3,6 @@ import { DateRangeInputGroup, InputGroup } from "@app/components/forms";
 import {
   BuildingIcon,
   PersonCircleExclamationIcon,
-  SquarePlusIcon,
   TrashIcon,
 } from "@app/components/icons";
 import { classes } from "@app/tokens";
@@ -29,13 +28,13 @@ const JobHistoryItem = ({ jobId }: JobHistoryItemProps) => {
     <fieldset className={classes.forms.fieldsets.default}>
       <legend className={classes.forms.fieldsets.legend}>Job Experience</legend>
       <div className="flex items-start align-end justify-end">
-        <button
+        <IconButton
           type="button"
           title={`delete "${job.companyName || "this job"}" and all related details`}
           onClick={() => removeJob()}
-        >
-          <TrashIcon size="sm" />
-        </button>
+          iconName="trash"
+          iconSize="sm"
+        />
       </div>
       <InputGroup
         label={{
