@@ -1,27 +1,35 @@
 import { classes } from "@app/tokens";
 import clsx from "clsx";
-import { memo, ReactNode } from "react";
+import { ChangeEvent, memo, ReactNode, useCallback } from "react";
 import { type HTMLProps, type PropsWithChildren } from "react";
 
-import { CalendarIcon } from "../icons";
+import { CalendarIcon, Icon, IconName, IconProps } from "../icons";
 
 export interface InputGroupProps {
   /**
    * Should be the label (display text). All translations should be done before
    */
-  label: { icon?: ReactNode; text: string };
+  label: {
+    icon?: {
+      name: IconName;
+      size?: IconProps["size"];
+    };
+    text: string;
+  };
 
   input: Pick<
     HTMLProps<HTMLInputElement>,
-    "name" | "onChange" | "onBlur" | "onFocus" | "type" | "value" | "required"
-  >;
+    "name" | "onBlur" | "onFocus" | "type" | "value" | "required"
+  > & {
+    onChange(newValue: string): Promise<void> | void;
+  };
 }
 
 export interface TextAreaGroupProps {
   /**
    * Should be the label (display text). All translations should be done before
    */
-  label: { icon?: ReactNode; text: string };
+  label: { icon?: { name: IconName; size?: IconProps["size"] }; text: string };
   /**
    * Icon to display with the label
    */
@@ -29,8 +37,10 @@ export interface TextAreaGroupProps {
 
   textArea: Pick<
     HTMLProps<HTMLTextAreaElement>,
-    "name" | "onChange" | "onBlur" | "onFocus" | "type" | "value" | "required"
-  >;
+    "name" | "onBlur" | "onFocus" | "type" | "value" | "required"
+  > & {
+    onChange(newValue: string): Promise<void> | void;
+  };
 }
 
 export interface LabelProps extends HTMLProps<HTMLLabelElement> {
@@ -38,65 +48,99 @@ export interface LabelProps extends HTMLProps<HTMLLabelElement> {
    * Icon that will be displayed with the label.
    * The icon will always be displayed to the left of the label in forms.
    */
-  icon?: ReactNode;
+  icon?: {
+    name: IconName;
+    size: IconProps["size"];
+  };
 }
 
-export const Label = ({
-  icon,
-  children,
-  ...restProps
-}: PropsWithChildren<LabelProps>) => {
-  if (icon) {
+// eslint-disable-next-line react/display-name
+export const Label = memo(
+  ({ icon, children, ...restProps }: PropsWithChildren<LabelProps>) => {
+    if (icon) {
+      return (
+        <div className="inline-flex space-x-1 items-center">
+          <span>{<Icon name={icon.name} size={icon.size} />}</span>
+          <label {...restProps} className={classes.forms.label.default}>
+            {children}
+          </label>
+        </div>
+      );
+    }
+
     return (
-      <div className="inline-flex space-x-1 items-center">
-        <span>{icon}</span>
-        <label {...restProps} className={classes.forms.label.default}>
-          {children}
-        </label>
-      </div>
+      <label {...restProps} className={classes.forms.label.default}>
+        {children}
+      </label>
     );
-  }
+  },
+);
 
-  return (
-    <label {...restProps} className={classes.forms.label.default}>
-      {children}
-    </label>
+// eslint-disable-next-line react/display-name
+export const InputGroup = memo(({ label, input }: InputGroupProps) => {
+  const { onChange, ...restInputProps } = input;
+
+  const changeHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      onChange(event.currentTarget.value),
+    [onChange],
   );
-};
 
-export const InputGroup = ({ label, input }: InputGroupProps) => {
   return (
     <div className={classes.forms.inputGroup.default}>
       <Label
         id={`${input.name}-input-label`}
-        icon={label.icon}
+        icon={
+          label.icon
+            ? {
+                name: label.icon.name,
+                size: label.icon.size,
+              }
+            : undefined
+        }
         htmlFor={`${input.name}-input`}
       >
         {label.text}
       </Label>
       <input
-        {...input}
+        {...restInputProps}
         id={`${input.name}-input`}
         className={classes.forms.input.default}
+        onChange={changeHandler}
       />
     </div>
   );
-};
+});
 
 export const TextAreaGroup = ({ label, textArea }: TextAreaGroupProps) => {
+  const { onChange, ...restTextAreaProps } = textArea;
+
+  const changeHandler = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>) =>
+      onChange(event.currentTarget.value),
+    [onChange],
+  );
   return (
     <div className={classes.forms.inputGroup.default}>
       <Label
         id={`${textArea.name}-input-label`}
-        icon={label.icon}
+        icon={
+          label.icon
+            ? {
+                name: label.icon.name,
+                size: label.icon.size,
+              }
+            : undefined
+        }
         htmlFor={`${textArea.name}-input`}
       >
         {label.text}
       </Label>
       <textarea
-        {...textArea}
+        {...restTextAreaProps}
         id={`${textArea.name}-input`}
         className={classes.forms.textarea.default}
+        onChange={changeHandler}
       />
     </div>
   );
@@ -108,33 +152,51 @@ export interface DateRangeInputGroupProps {
   onChange(range: [string, string]): void;
 }
 
-export const DateRangeInputGroup = ({
-  className,
-  range,
-  onChange,
-}: DateRangeInputGroupProps) => (
-  <div className={clsx("grid grid-cols-2 gap-x-4", className)}>
-    <InputGroup
-      label={{
-        text: "Start Date",
-        icon: <CalendarIcon size="sm" />,
-      }}
-      input={{
-        type: "date",
-        value: range[0],
-        onChange: (event) => onChange([event.currentTarget.value, range[1]]),
-      }}
-    />
-    <InputGroup
-      label={{
-        text: "End Date",
-        icon: <CalendarIcon size="sm" />,
-      }}
-      input={{
-        type: "date",
-        value: range[1],
-        onChange: (event) => onChange([range[0], event.currentTarget.value]),
-      }}
-    />
-  </div>
+// eslint-disable-next-line react/display-name
+export const DateRangeInputGroup = memo(
+  ({ className, range, onChange }: DateRangeInputGroupProps) => {
+    const [startDate, endDate] = range;
+    const startDateChanged = useCallback(
+      (newDate: string) => onChange([newDate, endDate]),
+      [onChange, endDate],
+    );
+
+    const endDateChanged = useCallback(
+      (newDate: string) => onChange([startDate, newDate]),
+      [onChange, startDate],
+    );
+
+    return (
+      <div className={clsx("grid grid-cols-2 gap-x-4", className)}>
+        <InputGroup
+          label={{
+            text: "Start Date",
+            icon: {
+              name: "calendar",
+              size: "sm",
+            },
+          }}
+          input={{
+            type: "date",
+            value: range[0],
+            onChange: startDateChanged,
+          }}
+        />
+        <InputGroup
+          label={{
+            text: "End Date",
+            icon: {
+              name: "calendar",
+              size: "sm",
+            },
+          }}
+          input={{
+            type: "date",
+            value: range[1],
+            onChange: endDateChanged,
+          }}
+        />
+      </div>
+    );
+  },
 );
