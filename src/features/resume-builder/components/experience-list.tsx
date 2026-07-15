@@ -1,4 +1,4 @@
-import { ChevronIcon, IconButton, XmarkIcon } from "@app/components";
+import { ChevronIcon, IconButton } from "@app/components";
 import { classes } from "@app/tokens";
 import clsx from "clsx";
 

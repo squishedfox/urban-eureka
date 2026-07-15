@@ -3,7 +3,6 @@ import { DateRangeInputGroup, InputGroup } from "@app/components/forms";
 import {
   BuildingIcon,
   PersonCircleExclamationIcon,
-  TrashIcon,
 } from "@app/components/icons";
 import { classes } from "@app/tokens";
 
@@ -31,7 +30,7 @@ const JobHistoryItem = ({ jobId }: JobHistoryItemProps) => {
         <IconButton
           type="button"
           title={`delete "${job.companyName || "this job"}" and all related details`}
-          onClick={() => removeJob()}
+          onClick={removeJob}
           iconName="trash"
           iconSize="sm"
         />
@@ -39,13 +38,16 @@ const JobHistoryItem = ({ jobId }: JobHistoryItemProps) => {
       <InputGroup
         label={{
           text: "Company Name",
-          icon: <BuildingIcon size="sm" />,
+          icon: {
+            name: "company",
+            size: "sm",
+          },
         }}
         input={{
           name: "companyName",
           type: "text",
           value: job.companyName,
-          onChange: (event) => companyNameChanged(event.currentTarget.value),
+          onChange: companyNameChanged,
         }}
       />
       <DateRangeInputGroup
@@ -55,13 +57,16 @@ const JobHistoryItem = ({ jobId }: JobHistoryItemProps) => {
       <InputGroup
         label={{
           text: "Title",
-          icon: <PersonCircleExclamationIcon size="sm" />,
+          icon: {
+            name: "title",
+            size: "sm",
+          },
         }}
         input={{
           name: "jobTitle",
           type: "text",
           value: job.title,
-          onChange: (event) => titleChanged(event.currentTarget.value),
+          onChange: titleChanged,
         }}
       />
       <ExperienceList jobId={jobId} />
@@ -71,7 +76,7 @@ const JobHistoryItem = ({ jobId }: JobHistoryItemProps) => {
         <IconButton
           iconName="square-plus"
           title={`Add experience to "${job.companyName || "this job"}`}
-          onClick={() => addExperience()}
+          onClick={addExperience}
         />
       </div>
     </fieldset>

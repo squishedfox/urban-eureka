@@ -1,4 +1,4 @@
-import { type MouseEvent } from "react";
+import { memo, type MouseEvent } from "react";
 
 import { Icon, IconName, IconProps } from "./icons";
 
@@ -9,14 +9,17 @@ export interface IconButtonProps {
   type?: HTMLButtonElement["type"];
   onClick?: ((event: MouseEvent<HTMLButtonElement>) => void) | undefined;
 }
-export const IconButton = ({
-  iconName,
-  iconSize = "md",
-  title,
-  type = "button",
-  onClick = undefined,
-}: IconButtonProps) => (
-  <button type={type} onClick={onClick} title={title}>
-    <Icon name={iconName} size={iconSize} />
-  </button>
+// eslint-disable-next-line react/display-name
+export const IconButton = memo(
+  ({
+    iconName,
+    iconSize = "md",
+    title,
+    type = "button",
+    onClick = undefined,
+  }: IconButtonProps) => (
+    <button type={type} onClick={onClick} title={title}>
+      <Icon name={iconName} size={iconSize} />
+    </button>
+  ),
 );

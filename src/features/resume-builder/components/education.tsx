@@ -7,6 +7,7 @@ import {
 import { InputGroup } from "@app/components/forms";
 import { classes } from "@app/tokens";
 import { Certification, Degrees } from "@core/types";
+import { simpleFaker } from "@faker-js/faker";
 
 import { useResumeBuilderForm } from "../context";
 
@@ -34,43 +35,48 @@ export const DegreeFieldsets = ({ className }: DegreeFieldsetsProps) => {
           </div>
           <InputGroup
             label={{
-              icon: <PersonCircleExclamationIcon size="sm" />,
+              icon: {
+                name: "title",
+                size: "sm",
+              },
               text: "Title",
             }}
             input={{
               name: "title",
               value: degree.title,
-              onChange: (event) =>
-                updateDegree(degId, "title", event.currentTarget.value),
+              onChange: (newTitle: string) =>
+                updateDegree(degId, "title", newTitle),
             }}
           />
           <InputGroup
             label={{
-              icon: <BuildingIcon size="sm" />,
+              icon: {
+                name: "company",
+                size: "sm",
+              },
               text: "Institution",
             }}
             input={{
               name: "institution",
               value: degree.institution,
-              onChange: (event) =>
-                updateDegree(degId, "institution", event.currentTarget.value),
+              onChange: (newInstitution) =>
+                updateDegree(degId, "institution", newInstitution),
             }}
           />
           <InputGroup
             label={{
-              icon: <CalendarIcon size="sm" />,
+              icon: {
+                name: "calendar",
+                size: "sm",
+              },
               text: "Graduation Year",
             }}
             input={{
               type: "date",
               name: "graduationYear",
               value: degree.graduationYear,
-              onChange: (event) =>
-                updateDegree(
-                  degId,
-                  "graduationYear",
-                  event.currentTarget.value,
-                ),
+              onChange: (graduationYear) =>
+                updateDegree(degId, "graduationYear", graduationYear),
             }}
           />
         </fieldset>
@@ -107,65 +113,61 @@ export const CertificationFieldsets = ({
             </div>
             <InputGroup
               label={{
-                icon: <PersonCircleExclamationIcon size="sm" />,
+                icon: {
+                  name: "title",
+                  size: "sm",
+                },
                 text: "Title",
               }}
               input={{
                 value: cert.title,
-                onChange: (event) =>
-                  updateCertification(
-                    certId,
-                    "title",
-                    event.currentTarget.value,
-                  ),
+                onChange: (newTitle: string) =>
+                  updateCertification(certId, "title", newTitle),
               }}
             />
             <InputGroup
               label={{
-                icon: <BuildingIcon size="sm" />,
+                icon: {
+                  name: "company",
+                  size: "sm",
+                },
                 text: "Issuer",
               }}
               input={{
                 value: cert.issuer,
-                onChange: (event) =>
-                  updateCertification(
-                    certId,
-                    "issuer",
-                    event.currentTarget.value,
-                  ),
+                onChange: (newIssuer) =>
+                  updateCertification(certId, "issuer", newIssuer),
               }}
             />
             <div className="grid grid-cols-2 gap-x-4">
               <InputGroup
                 label={{
-                  icon: <CalendarIcon size="sm" />,
+                  icon: {
+                    name: "calendar",
+                    size: "sm",
+                  },
                   text: "Date Issued",
                 }}
                 input={{
                   type: "date",
                   value: cert.dateIssued,
-                  onChange: (event) =>
-                    updateCertification(
-                      certId,
-                      "dateIssued",
-                      event.currentTarget.value,
-                    ),
+                  onChange: (dateIssue) =>
+                    updateCertification(certId, "dateIssued", dateIssue),
                 }}
               />
               <InputGroup
                 label={{
-                  icon: <CalendarIcon size="sm" />,
+                  icon: {
+                    name: "calendar",
+                    size: "sm",
+                  },
                   text: "Date Expires",
                 }}
                 input={{
                   type: "date",
                   value: cert.dateExpires,
-                  onChange: (event) =>
-                    updateCertification(
-                      certId,
-                      "dateExpires",
-                      event.currentTarget.value,
-                    ),
+                  onChange: (expDate) =>
+                    updateCertification(certId, "dateExpires", expDate),
                 }}
               />
             </div>
@@ -190,7 +192,7 @@ const EducationList = () => {
           <IconButton
             iconName="plus"
             title="Add degree item and edit"
-            onClick={() => addDegree()}
+            onClick={addDegree}
           />
         </div>
         <DegreeFieldsets className="my-4 space-y-2" />
@@ -204,7 +206,7 @@ const EducationList = () => {
           <IconButton
             iconName="plus"
             title="Add certification item and edit"
-            onClick={() => addCertification()}
+            onClick={addCertification}
           />
         </div>
         <CertificationFieldsets className="my-4 space-y-2" />

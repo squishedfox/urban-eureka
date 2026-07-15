@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { ChangeEvent, memo, ReactNode, useCallback } from "react";
 import { type HTMLProps, type PropsWithChildren } from "react";
 
-import { CalendarIcon, Icon, IconName, IconProps } from "../icons";
+import { Icon, IconName, IconProps } from "../icons";
 
 export interface InputGroupProps {
   /**
@@ -81,8 +81,7 @@ export const InputGroup = memo(({ label, input }: InputGroupProps) => {
   const { onChange, ...restInputProps } = input;
 
   const changeHandler = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) =>
-      onChange(event.currentTarget.value),
+    (event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value),
     [onChange],
   );
 
@@ -112,12 +111,12 @@ export const InputGroup = memo(({ label, input }: InputGroupProps) => {
   );
 });
 
-export const TextAreaGroup = ({ label, textArea }: TextAreaGroupProps) => {
+// eslint-disable-next-line react/display-name
+export const TextAreaGroup = memo(({ label, textArea }: TextAreaGroupProps) => {
   const { onChange, ...restTextAreaProps } = textArea;
 
   const changeHandler = useCallback(
-    (event: ChangeEvent<HTMLTextAreaElement>) =>
-      onChange(event.currentTarget.value),
+    (event: ChangeEvent<HTMLTextAreaElement>) => onChange(event.target.value),
     [onChange],
   );
   return (
@@ -144,7 +143,7 @@ export const TextAreaGroup = ({ label, textArea }: TextAreaGroupProps) => {
       />
     </div>
   );
-};
+});
 
 export interface DateRangeInputGroupProps {
   className?: string;
