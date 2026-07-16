@@ -3,7 +3,7 @@ import { ErrorBoundary } from "@app/components";
 import { classes } from "@app/tokens";
 import { JobListing } from "@core/types";
 import clsx from "clsx";
-import { ChangeEvent, useCallback, useId } from "react";
+import { ChangeEvent, useCallback, useId, useState } from "react";
 
 import { useGetJobListings } from "../hooks";
 
@@ -12,6 +12,7 @@ export interface JobListingSelectProps {
 }
 // eslint-disable-next-line react-refresh/only-export-components
 const JobListingSelect = ({ onChange }: JobListingSelectProps) => {
+  const [selectedJob, setSelectedJob] = useState("");
   const { state, jobs = {} } = useGetJobListings();
   const id = useId();
 
@@ -19,6 +20,7 @@ const JobListingSelect = ({ onChange }: JobListingSelectProps) => {
     (event: ChangeEvent<HTMLSelectElement>) => {
       const jobListingId = event.currentTarget.value;
       const jobListing = jobs[jobListingId];
+      setSelectedJob(jobListingId);
       onChange([jobListingId, jobListing]);
     },
     [jobs, onChange],
@@ -32,22 +34,24 @@ const JobListingSelect = ({ onChange }: JobListingSelectProps) => {
       </p>
       <label className={classes.forms.label.default} htmlFor={id}>
         Target Job
-      </label>
-      <select
-        id={id}
-        disabled={state !== "success"}
-        className={clsx(classes.forms.input.default, "bg-white")}
-        onChange={changeHandler}
-      >
-        <option value="" disabled hidden>
-          Select a target job...
-        </option>
-        {Object.keys(jobs).map((jobId) => (
-          <option key={jobId} value={jobId}>
-            {jobs[jobId].companyName}
+        <select
+          value={selectedJob}
+          defaultValue=""
+          id={id}
+          disabled={state !== "success"}
+          className={clsx(classes.forms.input.default, "bg-white")}
+          onChange={changeHandler}
+        >
+          <option value="" disabled hidden>
+            Select a target job...
           </option>
-        ))}
-      </select>
+          {Object.keys(jobs).map((jobId) => (
+            <option key={jobId} value={jobId}>
+              {jobs[jobId].companyName}
+            </option>
+          ))}
+        </select>
+      </label>
     </div>
   );
 };
