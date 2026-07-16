@@ -9,46 +9,52 @@ export const useGetJobListings = () => {
   const [jobs, setJobs] = useState<{ [id: string]: JobListing }>({});
   const [eventState, setEventState] = useEventState();
 
-  const addJobSuccess = useCallback((res: { id: string }) => {
-    setEventState("fetching");
-    setError(null);
-    setJobs((prev) => ({
-      ...prev,
-      [res.id]: {
-        companyLink: "",
-        companyName: "",
-        salary: 0,
-        applicationLink: "",
-        dateApplied: "",
-        description: "",
-        notes: "",
-        title: "",
-      },
-    }));
-    setEventState("success");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const addJobSuccess = useCallback(
+    (res: { id: string }) => {
+      setEventState("fetching");
+      setError(null);
+      setJobs((prev) => ({
+        ...prev,
+        [res.id]: {
+          companyLink: "",
+          companyName: "",
+          salary: 0,
+          applicationLink: "",
+          dateApplied: "",
+          description: "",
+          notes: "",
+          title: "",
+          requirements: "",
+          qualifications: "",
+        },
+      }));
+      setEventState("success");
+    },
+    [setEventState],
+  );
 
-  const removeJobSuccess = useCallback((res: { id: string }) => {
-    setEventState("fetching");
-    setError(null);
-    setJobs((prev) =>
-      Object.entries(prev).reduce((acc, [id, value]) => {
-        if (id === res.id) {
+  const removeJobSuccess = useCallback(
+    (res: { id: string }) => {
+      setEventState("fetching");
+      setError(null);
+      setJobs((prev) =>
+        Object.entries(prev).reduce((acc, [id, value]) => {
+          if (id === res.id) {
+            return acc;
+          }
+          Object.defineProperty(acc, id, {
+            value: value,
+            configurable: true,
+            writable: true,
+            enumerable: true,
+          });
           return acc;
-        }
-        Object.defineProperty(acc, id, {
-          value: value,
-          configurable: true,
-          writable: true,
-          enumerable: true,
-        });
-        return acc;
-      }, {}),
-    );
-    setEventState("success");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+        }, {}),
+      );
+      setEventState("success");
+    },
+    [setEventState],
+  );
 
   const addJobFailed = useCallback((res: { error: Error }) => {
     console.error(res.error);

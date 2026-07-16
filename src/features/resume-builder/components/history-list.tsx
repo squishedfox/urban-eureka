@@ -16,8 +16,8 @@ const HistoryList = ({ className }: HistoryListProps) => {
         <span>Experience</span>
         <hr className="flex-1" aria-hidden="true" />
         <IconButton
-          iconName="square-plus"
-          onClick={() => addJob()}
+          iconName="plus"
+          onClick={addJob}
           type="button"
           title="add job history"
         />

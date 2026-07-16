@@ -36,7 +36,6 @@ const JobListingSelect = ({ onChange }: JobListingSelectProps) => {
         Target Job
         <select
           value={selectedJob}
-          defaultValue=""
           id={id}
           disabled={state !== "success"}
           className={clsx(classes.forms.input.default, "bg-white")}

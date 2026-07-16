@@ -1,4 +1,5 @@
 import { ChevronIcon, IconButton } from "@app/components";
+import { InputGroup } from "@app/components/forms";
 import { classes } from "@app/tokens";
 import clsx from "clsx";
 
@@ -67,14 +68,15 @@ const ExperienceListItem = ({
           <ChevronIcon size="sm" direction="down" />
         </button>
       </div>
-      <input
-        type="text"
-        title="job experience"
-        aria-label="Job Experience"
-        className={clsx(classes.forms.input.default, "grow")}
-        name={`${experienceId}-experience-input`}
-        value={text}
-        onChange={(event) => updateText(event.currentTarget.value)}
+      <InputGroup
+        label={{
+          text: "Job Experience",
+        }}
+        input={{
+          name: `${experienceId}-experience-input`,
+          value: text,
+          onChange: updateText,
+        }}
       />
       <IconButton
         iconName="x-mark"

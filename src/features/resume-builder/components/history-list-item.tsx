@@ -1,9 +1,5 @@
 import { IconButton } from "@app/components";
 import { DateRangeInputGroup, InputGroup } from "@app/components/forms";
-import {
-  BuildingIcon,
-  PersonCircleExclamationIcon,
-} from "@app/components/icons";
 import { classes } from "@app/tokens";
 
 import { useJob } from "../context";

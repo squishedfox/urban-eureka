@@ -5,7 +5,7 @@
 export const classes = Object.freeze({
   forms: {
     inputGroup: {
-      default: "flex flex-col space-x-1 space-y-1",
+      default: "flex flex-col space-x-1 space-y-1 w-full",
     },
     checkbox: {
       default: "text-lg",

@@ -1,6 +1,4 @@
-import { CircleUserIcon, EnvelopeIcon, PhoneIcon } from "@app/components";
 import { InputGroup } from "@app/components/forms";
-import { ChangeEvent, useCallback } from "react";
 
 import { useResumeBuilderForm } from "../context";
 

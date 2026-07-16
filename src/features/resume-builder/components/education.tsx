@@ -1,13 +1,7 @@
-import {
-  BuildingIcon,
-  CalendarIcon,
-  IconButton,
-  PersonCircleExclamationIcon,
-} from "@app/components";
+import { IconButton } from "@app/components";
 import { InputGroup } from "@app/components/forms";
 import { classes } from "@app/tokens";
 import { Certification, Degrees } from "@core/types";
-import { simpleFaker } from "@faker-js/faker";
 
 import { useResumeBuilderForm } from "../context";
 
