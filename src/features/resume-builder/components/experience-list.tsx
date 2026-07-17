@@ -1,6 +1,5 @@
 import { ChevronIcon, IconButton } from "@app/components";
 import { InputGroup } from "@app/components/forms";
-import { classes } from "@app/tokens";
 import clsx from "clsx";
 
 import { useExperience, useJob } from "../context";
@@ -31,7 +30,7 @@ const ExperienceListItem = ({
   });
 
   return (
-    <div className={clsx("flex space-x-1", className)}>
+    <div className={clsx("flex space-x-2", className)}>
       <div className="flex items-center px-1">
         <label
           title={`Click to ${included ? "Exclude" : "include"} from current resume`}
@@ -49,8 +48,7 @@ const ExperienceListItem = ({
           onChange={(event) => includeExclude(event.target.checked)}
         />
       </div>
-      <span className="border-r border-r-gray-800"></span>
-      <div className="flex flex-col">
+      <div className="flex justify-center flex-col">
         <button
           type="button"
           disabled={ordinal === 0}
@@ -78,11 +76,13 @@ const ExperienceListItem = ({
           onChange: updateText,
         }}
       />
-      <IconButton
-        iconName="x-mark"
-        title="delete experience"
-        onClick={remove}
-      />
+      <div className="flex items-end">
+        <IconButton
+          iconName="x-mark"
+          title="delete experience"
+          onClick={remove}
+        />
+      </div>
     </div>
   );
 };
