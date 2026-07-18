@@ -1,26 +1,24 @@
-import {
-  BuildingIcon,
-  CalendarIcon,
-  CoinsIcon,
-  IconButton,
-  PersonCircleExclamationIcon,
-} from "@app/components";
+import { IconButton } from "@app/components";
 import { InputGroup, TextAreaGroup } from "@app/components/forms";
 import { useAddAppliedJob } from "@app/features/applied-jobs/hooks";
 import { ActionsLayout } from "@app/layouts";
 import { classes } from "@app/tokens";
 import { type JobListing } from "@core/types";
-import { type ChangeEvent, type FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+type NewJobListingFormValue = Omit<JobListing, "salary"> & {
+  salary: string;
+};
 
 const NewJobListing = () => {
   const navigate = useNavigate();
-  const [formValue, setFormValue] = useState<JobListing>({
+  const [formValue, setFormValue] = useState<NewJobListingFormValue>({
     companyLink: "",
     companyName: "",
     applicationLink: "",
     dateApplied: "",
-    salary: 0,
+    salary: "",
     description: "",
     title: "",
     notes: "",
@@ -32,26 +30,26 @@ const NewJobListing = () => {
 
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    addJobListing(formValue);
+    addJobListing({
+      title: formValue.title,
+      notes: formValue.notes,
+      companyLink: formValue.companyLink,
+      description: formValue.description,
+      companyName: formValue.companyName,
+      applicationLink: formValue.applicationLink,
+      dateApplied: formValue.dateApplied,
+      salary: Number(formValue.salary),
+      qualifications: formValue.qualifications,
+      requirements: formValue.requirements,
+    });
     navigate("/jobs");
   };
 
-  const inputChangedHandler = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const value: string | number =
-      target.name === "salary" ? target.valueAsNumber : target.value;
+  const valueChangedHandler = (field: keyof typeof formValue, text: string) => {
+    const value: string | number = field === "salary" ? Number(text) : text;
     setFormValue((prev) =>
       Object.assign({}, prev, {
-        [target.name]: value,
-      }),
-    );
-  };
-
-  const textAreaChangedHandler = ({
-    target,
-  }: ChangeEvent<HTMLTextAreaElement>) => {
-    setFormValue((prev) =>
-      Object.assign({}, prev, {
-        [target.name]: target.value,
+        [field]: value,
       }),
     );
   };
@@ -60,20 +58,32 @@ const NewJobListing = () => {
     <form noValidate onSubmit={submitHandler} className={classes.forms.default}>
       <fieldset className="space-y-2">
         <InputGroup
-          label={{ text: "Company Name", icon: <BuildingIcon size="sm" /> }}
+          label={{
+            text: "Company Name",
+            icon: {
+              name: "company",
+              size: "sm",
+            },
+          }}
           input={{
             value: formValue.companyName,
-            onChange: inputChangedHandler,
+            onChange: (value) => valueChangedHandler("companyName", value),
             type: "text",
             name: "companyName",
             required: true,
           }}
         />
         <InputGroup
-          label={{ text: "Date Applied", icon: <CalendarIcon size="sm" /> }}
+          label={{
+            text: "Date Applied",
+            icon: {
+              name: "calendar",
+              size: "sm",
+            },
+          }}
           input={{
             value: formValue.dateApplied,
-            onChange: inputChangedHandler,
+            onChange: (value) => valueChangedHandler("dateApplied", value),
             type: "date",
             name: "dateApplied",
           }}
@@ -81,21 +91,24 @@ const NewJobListing = () => {
         <InputGroup
           label={{
             text: "Title",
-            icon: <PersonCircleExclamationIcon size="sm" />,
+            icon: {
+              name: "title",
+              size: "sm",
+            },
           }}
           input={{
             value: formValue.title,
-            onChange: inputChangedHandler,
+            onChange: (value) => valueChangedHandler("title", value),
             type: "text",
             name: "title",
             required: true,
           }}
         />
         <InputGroup
-          label={{ text: "Salary", icon: <CoinsIcon size="sm" /> }}
+          label={{ text: "Salary", icon: { name: "coins", size: "sm" } }}
           input={{
             value: formValue.salary,
-            onChange: inputChangedHandler,
+            onChange: (value) => valueChangedHandler("salary", value),
             type: "number",
             name: "salary",
             required: true,
@@ -105,7 +118,7 @@ const NewJobListing = () => {
           label={{ text: "Description" }}
           textArea={{
             value: formValue.description,
-            onChange: textAreaChangedHandler,
+            onChange: (value) => valueChangedHandler("description", value),
             type: "text",
             name: "description",
             required: true,
@@ -115,7 +128,7 @@ const NewJobListing = () => {
           label={{ text: "Requirements" }}
           textArea={{
             value: formValue.requirements,
-            onChange: textAreaChangedHandler,
+            onChange: (value) => valueChangedHandler("requirements", value),
             type: "text",
             name: "requirements",
             required: true,
@@ -125,7 +138,7 @@ const NewJobListing = () => {
           label={{ text: "Qualifications" }}
           textArea={{
             value: formValue.qualifications,
-            onChange: textAreaChangedHandler,
+            onChange: (value) => valueChangedHandler("qualifications", value),
             type: "text",
             name: "qualifications",
             required: true,
