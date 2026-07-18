@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-redundant-roles */
 import {
   FontAwesomeIcon,
   GithubIcon,
@@ -6,7 +5,6 @@ import {
   ReactIcon,
   VimIcon,
   CopyIcon,
-  IconButton,
 } from "@app/components";
 import { CenterLayout } from "@app/layouts";
 import { classes } from "@app/tokens";
@@ -55,8 +53,8 @@ const About = ({ className }: AboutProps) => {
           </p>
         </div>
         <div>
-          <ul role="list">
-            <li className={clsx(classes.container.inline)} role="listitem">
+          <ul>
+            <li className={clsx(classes.container.inline)}>
               <FontAwesomeIcon />
               <p>Font Awesome</p>
               <button
@@ -70,7 +68,7 @@ const About = ({ className }: AboutProps) => {
                 <CopyIcon />
               </button>
             </li>
-            <li className={clsx(classes.container.inline)} role="listitem">
+            <li className={clsx(classes.container.inline)}>
               <ReactIcon />
               <p>React</p>
               <button
@@ -84,7 +82,7 @@ const About = ({ className }: AboutProps) => {
                 <CopyIcon />
               </button>
             </li>
-            <li className={clsx(classes.container.inline)} role="listitem">
+            <li className={clsx(classes.container.inline)}>
               <p>ElectronJS</p>
               <button
                 type="button"
@@ -97,7 +95,7 @@ const About = ({ className }: AboutProps) => {
                 <CopyIcon />
               </button>
             </li>
-            <li className={clsx(classes.container.inline)} role="listitem">
+            <li className={clsx(classes.container.inline)}>
               <GithubIcon />
               <p>Github</p>
               <button
@@ -111,7 +109,7 @@ const About = ({ className }: AboutProps) => {
                 <CopyIcon />
               </button>
             </li>
-            <li className={clsx(classes.container.inline)} role="listitem">
+            <li className={clsx(classes.container.inline)}>
               <VimIcon />
               <p>NeoVim</p>
               <button
