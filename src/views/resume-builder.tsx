@@ -1,5 +1,4 @@
 import { IconButton } from "@app/components";
-import { ExportIcon, EyeIcon, SaveIcon } from "@app/components/icons";
 import {
   ResumeBuilderForm,
   type ResumeBuilderFormValue,

@@ -8,7 +8,8 @@
     "dev": "VITE_DEV_SERVER_URL=http://localhost:5173 electron-vite dev --mode=dev --watch",
     "build": "electron-vite build --mode=dev",
     "preview": "electron-vite preview",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "fmt": "prettier ."
   },
   "dependencies": {
     "@faker-js/faker": "^10.5.0",

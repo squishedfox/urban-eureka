@@ -37,6 +37,14 @@ const About = ({ className }: AboutProps) => {
   return (
     <CenterLayout>
       <div className={clsx(classes.container.nested, "bg-white", className)}>
+        <p>
+          This application is built as a personal project to better understand
+          vanialla react js. It can be used as a way to get passed the ATS
+          (Application Tracker Systems) put in place to block you from actually
+          being able to talk to a human being.{" "}
+        </p>
+      </div>
+      <div className={clsx(classes.container.nested, "bg-white", className)}>
         <h1 className={clsx(classes.headings.h1, classes.container.inline)}>
           <HammerIcon size="lg" />
           <span>Built With</span>

@@ -1,4 +1,4 @@
-import { IconButton, XmarkIcon } from "@app/components";
+import { IconButton } from "@app/components";
 import {
   useGetJobListings,
   useRemoveJobListing,
