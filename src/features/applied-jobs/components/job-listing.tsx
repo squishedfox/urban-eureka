@@ -7,6 +7,7 @@ import {
 } from "@app/components";
 import { classes } from "@app/tokens";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 import { useGetJobListings } from "../hooks";
 
@@ -17,9 +18,10 @@ export interface JobListingProps {
 
 const JobListing = ({ jobListingId, className }: JobListingProps) => {
   const { state, jobs = {}, error } = useGetJobListings();
+  const { t } = useTranslation();
 
   if (["pending", "fetching"].includes(state)) {
-    return <p>Loading...</p>;
+    return <p>{t("loading")}...</p>;
   }
   if (state === "error") {
     return <pre>{JSON.stringify(error)}</pre>;
@@ -40,38 +42,39 @@ const JobListing = ({ jobListingId, className }: JobListingProps) => {
   return (
     <div className={clsx("space-y-1", className)}>
       <p className="inline-flex items-center w-full gap-x-1">
-        <BuildingIcon size="sm" /> <strong>Company Name:</strong> {companyName}
+        <BuildingIcon size="sm" /> <strong>{t("companyName")}:</strong>{" "}
+        {companyName}
       </p>
       <p className="inline-flex items-center w-full gap-x-1">
-        <strong>Company Link:</strong> {companyLink ?? "<empty>"}
+        <strong>{t("companyLink")}:</strong> {companyLink ?? "<empty>"}
       </p>
       <p className="inline-flex items-center w-full gap-x-1">
-        <strong>Application Link: </strong>
+        <strong>{t("applicationLink")}: </strong>
         {applicationLink ?? "none"}
       </p>
       <p className="inline-flex items-center w-full gap-x-1">
-        <CalendarIcon size="sm" /> <strong>Date Applied:</strong>{" "}
+        <CalendarIcon size="sm" /> <strong>{t("dateApplied")}:</strong>{" "}
         {dateApplied ?? "<empty>"}
       </p>
       <p className="inline-flex items-center w-full gap-x-1">
-        <PersonCircleExclamationIcon size="sm" /> <strong>Title:</strong>{" "}
+        <PersonCircleExclamationIcon size="sm" /> <strong>{t("title")}:</strong>{" "}
         {title ?? "<empty>"}
       </p>
       <p className="inline-flex items-center w-full gap-x-1">
         <CoinsIcon size="sm" />
-        <strong>Salary:</strong>{" "}
+        <strong>{t("salary")}:</strong>{" "}
         {salary ? Intl.NumberFormat().format(salary) : "<empty>"}
       </p>
       <p className="inline-flex items-center gap-x-1">
-        <strong>Description</strong>
+        <strong>{t("description")}</strong>
       </p>
       <p className={classes.container.nested}>{description ?? "<empty>"}</p>
       <p className="inline-flex items-center gap-x-1">
-        <strong>Requirements</strong>
+        <strong>{t("requirements")}</strong>
       </p>
       <p className={classes.container.nested}>{requirements ?? "<empty>"}</p>
       <p className="inline-flex items-center w-full gap-x-1">
-        <strong>Qualifications</strong>
+        <strong>{t("qualifications")}</strong>
       </p>
       <p className={classes.container.nested}>{qualifications ?? "<empty>"}</p>
     </div>

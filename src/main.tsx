@@ -1,5 +1,8 @@
+import i18next from "i18next";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { initReactI18next } from "react-i18next";
+import "i18n";
 import { HashRouter, Route, Routes } from "react-router-dom";
 
 import { Layout } from "./routes";
@@ -12,6 +15,13 @@ import {
 } from "./views";
 
 import "./index.css";
+
+i18next.use(initReactI18next).init({
+  debug: true,
+  lng: "en-US",
+  fallbackLng: "en-US",
+  react: {},
+});
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

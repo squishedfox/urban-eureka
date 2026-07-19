@@ -14,9 +14,12 @@
   "dependencies": {
     "@faker-js/faker": "^10.5.0",
     "clsx": "^2.1.1",
+    "i18n": "^0.15.3",
+    "i18next": "^26.3.6",
     "react": "^18.2.1",
     "react-dom": "^18.2.0",
     "react-fast-compare": "^3.2.2",
+    "react-i18next": "^17.0.10",
     "react-router-dom": "^7.18.0",
     "ulid": "^3.0.2"
   },

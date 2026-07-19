@@ -5,9 +5,20 @@ import {
   HammerIcon,
   HomeIcon,
 } from "@app/components/icons";
+import { Suspense } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
 
+import {
+  LanguageSelector,
+  SupportedLanguages,
+} from "./components/translations";
+
 export const Layout = () => {
+  const { i18n } = useTranslation();
+  const onLanguageChanged = (lang: SupportedLanguages) =>
+    i18n.changeLanguage(lang);
+
   return (
     <>
       <header className="h-16">
@@ -42,18 +53,15 @@ export const Layout = () => {
           </Link>
         </nav>
         <div>
-          <select defaultValue="en-US">
-            <option value="en-US">United States English</option>
-            <option value="es-MX">Mexican Spanish</option>
-            <option value="fr-FR">French</option>
-            <option value="fr-CA">French Canadian</option>
-          </select>
+          <LanguageSelector onChange={onLanguageChanged} />
         </div>
       </header>
 
       <main className="min-h-[calc(100vh-64px)]">
         <ErrorBoundary>
-          <Outlet />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Outlet />
+          </Suspense>
         </ErrorBoundary>
       </main>
     </>

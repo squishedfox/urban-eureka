@@ -5,6 +5,7 @@ import {
 } from "@app/features/applied-jobs/hooks";
 import { classes } from "@app/tokens";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 export interface JobListProps {
   className?: string;
@@ -13,6 +14,7 @@ export interface JobListProps {
 const JobList = ({ className }: JobListProps) => {
   const { state, jobs = {} } = useGetJobListings();
   const { removeJobListing } = useRemoveJobListing();
+  const { t } = useTranslation();
 
   if (state === "pending" || state === "fetching") {
     return <p>Loading</p>;
@@ -22,12 +24,12 @@ const JobList = ({ className }: JobListProps) => {
     <table className={clsx(classes.table.classes, className)}>
       <thead className={classes.table.thead}>
         <tr className={classes.table.headerRow}>
-          <td className={classes.table.cellHeader}>Company Name</td>
-          <td className={classes.table.cellHeader}>Title</td>
-          <td className={classes.table.cellHeader}>Date Applied</td>
-          <td className={classes.table.cellHeader}>Salary</td>
-          <td className={classes.table.cellHeader}>Link</td>
-          <td className={classes.table.cellHeader}>Actions</td>
+          <td className={classes.table.cellHeader}>{t("companyName")}</td>
+          <td className={classes.table.cellHeader}>{t("title")}</td>
+          <td className={classes.table.cellHeader}>{t("dateApplied")}</td>
+          <td className={classes.table.cellHeader}>{t("salary")}</td>
+          <td className={classes.table.cellHeader}>{t("link")}</td>
+          <td className={classes.table.cellHeader}>{t("actions")}</td>
         </tr>
       </thead>
       <tbody>

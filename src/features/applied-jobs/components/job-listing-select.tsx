@@ -4,6 +4,7 @@ import { classes } from "@app/tokens";
 import { JobListing } from "@core/types";
 import clsx from "clsx";
 import { ChangeEvent, useCallback, useId, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useGetJobListings } from "../hooks";
 
@@ -15,6 +16,7 @@ const JobListingSelect = ({ onChange }: JobListingSelectProps) => {
   const [selectedJob, setSelectedJob] = useState("");
   const { state, jobs = {} } = useGetJobListings();
   const id = useId();
+  const { t } = useTranslation();
 
   const changeHandler = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
@@ -42,7 +44,7 @@ const JobListingSelect = ({ onChange }: JobListingSelectProps) => {
           onChange={changeHandler}
         >
           <option value="" disabled hidden>
-            Select a target job...
+            {t("selectJob")}...
           </option>
           {Object.keys(jobs).map((jobId) => (
             <option key={jobId} value={jobId}>

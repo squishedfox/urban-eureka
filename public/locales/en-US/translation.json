@@ -1,0 +1,15 @@
+{
+  "description": "Description",
+  "companyName": "Company Name",
+  "companyLink": "Company Link",
+  "title": "Title",
+  "dateApplied": "Date Applied",
+  "salary": "Salary",
+  "link": "Link",
+  "actions": "Actions",
+  "loading": "Loading",
+  "applicationLink": "Application Link",
+  "requirements": "Requirements",
+  "qualifications": "Qualifications",
+  "selectJob": "Select a target job"
+}
