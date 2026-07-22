@@ -25,6 +25,11 @@ export const classes = Object.freeze({
       default: "border border-gray-800 w-full min-h-32 px-2 py-1",
     },
   },
+  nav: {
+    default:
+      "flex space-x-1 px-4 border-b-gray-800 border-b h-full w-full items-center",
+    link: "px-4 border-r border-r-gray-800 flex flex-col items-center",
+  },
   actions: "w-full flex flex-row-reverse pr-2 bg-white",
   table: {
     classes: "table-auto",

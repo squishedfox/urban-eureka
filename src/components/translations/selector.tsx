@@ -26,11 +26,7 @@ const LanguageSelector = ({ onChange }: LanguageSelectorProps) => {
   };
 
   return (
-    <select
-      defaultValue={"en-US"}
-      value={selectedValue}
-      onChange={selectChangedHanlder}
-    >
+    <select value={selectedValue} onChange={selectChangedHanlder}>
       {options.map(([text, lang]) => (
         <option key={lang} value={lang}>
           {text}
